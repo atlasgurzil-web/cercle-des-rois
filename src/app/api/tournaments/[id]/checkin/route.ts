@@ -1,0 +1,44 @@
+import { NextResponse } from 'next/server';
+import { togglePlayerCheckIn, togglePlayerPaid, removeRegistration, getTournamentBySlug, saveTournament } from '@/lib/storage';
+
+export async function POST(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const body = await request.json();
+    const { action, registrationId, podium, standings } = body;
+
+    const tournament = getTournamentBySlug(params.id);
+    if (!tournament) {
+      return NextResponse.json({ error: 'Tournoi introuvable' }, { status: 404 });
+    }
+
+    if (action === 'checkin') {
+      const ok = togglePlayerCheckIn(tournament.id, registrationId);
+      return NextResponse.json({ success: ok });
+    }
+
+    if (action === 'paid') {
+      const ok = togglePlayerPaid(tournament.id, registrationId);
+      return NextResponse.json({ success: ok });
+    }
+
+    if (action === 'remove') {
+      const ok = removeRegistration(tournament.id, registrationId);
+      return NextResponse.json({ success: ok });
+    }
+
+    if (action === 'archive') {
+      tournament.isArchived = true;
+      if (podium) tournament.podium = podium;
+      if (standings) tournament.standings = standings;
+      saveTournament(tournament);
+      return NextResponse.json({ success: true, tournament });
+    }
+
+    return NextResponse.json({ error: 'Action inconnue' }, { status: 400 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
+  }
+}
