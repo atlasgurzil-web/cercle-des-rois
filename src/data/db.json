@@ -282,6 +282,23 @@
           "isCheckedIn": false,
           "isPaid": false,
           "notes": ""
+        },
+        {
+          "id": "reg-1790495960520-tvbu",
+          "nom": "JDJF",
+          "prenom": "Udjfjf",
+          "fideId": "",
+          "dateNaissance": "",
+          "telephone": "",
+          "email": "",
+          "club": "Hamra Annaba",
+          "eloFide": 0,
+          "status": "confirmed",
+          "dossardNumber": 17,
+          "registeredAt": "2026-09-27T07:59:20.521Z",
+          "isCheckedIn": false,
+          "isPaid": false,
+          "notes": ""
         }
       ]
     },
@@ -2569,6 +2586,22 @@
       "telephone": "",
       "email": "",
       "club": "Indépendant",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": null,
+      "tournoisParticipes": []
+    },
+    {
+      "id": "cdr-player-55",
+      "nom": "JDJF",
+      "prenom": "Udjfjf",
+      "nomComplet": "JDJF Udjfjf",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
       "fideId": "",
       "elo": 0,
       "nbTournois": 1,
