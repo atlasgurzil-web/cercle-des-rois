@@ -13,10 +13,11 @@ import {
   Award, 
   Download, 
   Lock, 
-  Unlock,
-  Filter,
-  CheckCircle2,
-  Sparkles
+  Unlock, 
+  Filter, 
+  CheckCircle2, 
+  Sparkles,
+  ExternalLink
 } from 'lucide-react';
 import playersSeed from '@/data/players.json';
 import { DirectoryPlayer } from '@/types';
@@ -36,10 +37,12 @@ export default function AnnuairePage() {
 
   // Filter players
   const filteredPlayers = players.filter(p => {
+    const query = search.toLowerCase().trim();
     const matchesSearch = 
-      p.nomComplet.toLowerCase().includes(search.toLowerCase()) ||
-      (p.fideId && p.fideId.includes(search)) ||
-      (p.telephone && p.telephone.includes(search));
+      p.nomComplet.toLowerCase().includes(query) ||
+      (p.fideId && p.fideId.includes(query)) ||
+      (p.telephone && p.telephone.includes(query)) ||
+      (p.club && p.club.toLowerCase().includes(query));
 
     const matchesClub = selectedClub === 'ALL' || (p.club || 'Indépendant') === selectedClub;
 
@@ -58,21 +61,23 @@ export default function AnnuairePage() {
   };
 
   const handleExportCSV = () => {
-    const headers = ['Nom', 'Prenom', 'Club', 'FIDE_ID', 'Elo', 'Nb_Tournois_CDR', 'Meilleur_Rang', 'Telephone', 'Email', 'Date_Naissance'];
-    const rows = filteredPlayers.map(p => [
+    const headers = ['N', 'Nom', 'Prenom', 'Club', 'FIDE_ID', 'Elo', 'Nb_Tournois_CDR', 'Meilleur_Rang', 'Telephone', 'Email', 'Date_Naissance'];
+    const rows = filteredPlayers.map((p, idx) => [
+      idx + 1,
       `"${p.nom}"`,
       `"${p.prenom}"`,
       `"${p.club || 'Indépendant'}"`,
       `"${p.fideId || ''}"`,
       p.elo || 0,
       p.nbTournois || 0,
-      p.bestRank || '',
+      p.bestRank ? `#${p.bestRank}` : '',
       `"${adminUnlocked ? p.telephone || '' : 'PROTEGE'}"`,
       `"${adminUnlocked ? p.email || '' : 'PROTEGE'}"`,
       `"${adminUnlocked ? p.dateNaissance || '' : 'PROTEGE'}"`
     ]);
 
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(';'), ...rows.map(r => r.join(';'))].join('\n');
+    // UTF-8 BOM (\uFEFF) ensures Excel displays accents properly
+    const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(';'), ...rows.map(r => r.join(';'))].join('\n');
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement('a');
     link.setAttribute('href', encodedUri);
@@ -83,24 +88,24 @@ export default function AnnuairePage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-8">
       
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-wider">
+      <div className="text-center max-w-3xl mx-auto space-y-3">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--color-paper-2)] border border-[var(--color-rule-2)] text-[var(--color-accent)] text-xs font-semibold uppercase tracking-wider">
           <Users className="w-3.5 h-3.5" />
-          <span>Communauté & Répertoire</span>
+          <span>Communauté d'Annaba</span>
         </div>
-        <h1 className="font-serif text-3xl sm:text-5xl font-bold text-white">
-          L'Annuaire des <span className="text-gold-400">Joueurs</span>
+        <h1 className="font-serif text-3xl sm:text-5xl font-bold text-white tracking-tight">
+          L'Annuaire des <span className="text-[var(--color-accent)]">Joueurs</span>
         </h1>
         <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-          Le répertoire unifié des {players.length} passionnés d'échecs d'Annaba et fidèles du Cercle des Rois.
+          Tableau officiel des {players.length} passionnés d'échecs d'Annaba répertoriés au Cercle des Rois.
         </p>
       </div>
 
       {/* CONTROLS BAR: SEARCH, CLUB FILTER, EXPORT & ADMIN PRIVACY TOGGLE */}
-      <div className="p-6 rounded-2xl card-royal border border-gold-500/30 space-y-4">
+      <div className="p-4 sm:p-5 rounded-2xl card-royal border border-[var(--color-rule)] space-y-4">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           
           {/* Search Input */}
@@ -108,10 +113,10 @@ export default function AnnuairePage() {
             <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Rechercher par nom ou ID FIDE..."
+              placeholder="Rechercher par nom, club ou ID FIDE..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-noir-900 border border-slate-700 text-sm text-white placeholder-slate-500 focus:border-gold-500 transition-colors"
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-noir-900 border border-slate-700 text-sm text-white placeholder-slate-500 focus:border-gold-500 transition-colors"
             />
           </div>
 
@@ -121,7 +126,7 @@ export default function AnnuairePage() {
             <select
               value={selectedClub}
               onChange={(e) => setSelectedClub(e.target.value)}
-              className="px-3.5 py-2.5 rounded-xl bg-noir-900 border border-slate-700 text-xs sm:text-sm text-white focus:border-gold-500 transition-colors"
+              className="px-3.5 py-2 rounded-xl bg-noir-900 border border-slate-700 text-xs sm:text-sm text-white focus:border-gold-500 transition-colors"
             >
               {clubs.map(c => (
                 <option key={c} value={c}>
@@ -131,8 +136,17 @@ export default function AnnuairePage() {
             </select>
           </div>
 
-          {/* Admin Lock / Export Button */}
-          <div className="flex items-center gap-2">
+          {/* Action buttons: Export CSV + Admin Unlock */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <button
+              onClick={handleExportCSV}
+              className="btn btn--accent text-xs sm:text-sm py-2 px-4 shadow-[0_0_16px_var(--color-glow-2)]"
+              title="Télécharger la liste complète au format CSV tableur"
+            >
+              <Download className="w-4 h-4" />
+              <span>Exporter l'Annuaire (CSV)</span>
+            </button>
+
             <button
               onClick={() => {
                 if (adminUnlocked) {
@@ -141,159 +155,196 @@ export default function AnnuairePage() {
                   setShowPinModal(true);
                 }
               }}
-              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider transition-colors ${
+              className={`btn text-xs sm:text-sm py-2 px-3.5 ${
                 adminUnlocked
-                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                  : 'bg-noir-850 text-gold-400 border border-gold-500/30 hover:border-gold-400'
+                  ? 'btn--accent !bg-emerald-500/20 !text-emerald-300 !border-emerald-500/40'
+                  : 'btn--ghost'
               }`}
             >
-              {adminUnlocked ? <Unlock className="w-3.5 h-3.5" /> : <Lock className="w-3.5 h-3.5" />}
-              <span>{adminUnlocked ? 'Mode Organisateur Actif' : 'Déverrouiller Téléphones (PIN)'}</span>
-            </button>
-
-            <button
-              onClick={handleExportCSV}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider bg-gold-500 text-noir-950 hover:bg-gold-400 transition-colors shadow-gold-glow"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Exporter CSV</span>
+              {adminUnlocked ? <Unlock className="w-3.5 h-3.5 text-emerald-400" /> : <Lock className="w-3.5 h-3.5 text-[var(--color-accent)]" />}
+              <span>{adminUnlocked ? 'Mode Organisateur' : 'Coordonnées (PIN)'}</span>
             </button>
           </div>
 
         </div>
 
-        {/* Privacy Note */}
-        {!adminUnlocked && (
-          <div className="text-[11px] text-slate-300 flex items-center gap-1.5 pt-1 border-t border-slate-800">
-            <ShieldCheck className="w-3.5 h-3.5 text-gold-500 flex-shrink-0" />
-            <span>
-              Respect de la vie privée : Les numéros de téléphone et emails sont réservés aux organisateurs via code secret.
+        {/* Privacy Note & Total Count */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-300 pt-2 border-t border-slate-800 gap-2">
+          <span>
+            Affichage de <strong className="text-white font-mono">{filteredPlayers.length}</strong> joueur{filteredPlayers.length > 1 ? 's' : ''} sur {players.length}
+          </span>
+          {!adminUnlocked && (
+            <span className="text-[11px] text-slate-400 flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-gold-500" />
+              Téléphones et emails confidentiels · Déverrouillage sécurisé par code secret
             </span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
-      {/* PLAYERS GRID / DIRECTORY CARDS */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between text-xs text-slate-300 px-1">
-          <span>Affichage de <strong className="text-white">{filteredPlayers.length}</strong> joueur{filteredPlayers.length > 1 ? 's' : ''}</span>
-          <span className="text-slate-400">Triés par fidélité aux tournois CDR</span>
-        </div>
+      {/* COMPACT & STRUCTURED PLAYERS LIST TABLE */}
+      <div className="rounded-2xl card-royal border border-[var(--color-rule)] overflow-hidden shadow-2xl">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-[var(--color-rule)] bg-[oklch(15%_0.014_265)] text-slate-300 uppercase text-[11px] font-semibold tracking-wider">
+                <th className="py-3 px-3 sm:px-4 w-12 text-center text-slate-400">#</th>
+                <th className="py-3 px-4">Joueur</th>
+                <th className="py-3 px-4">Club</th>
+                <th className="py-3 px-4 text-center">Elo FIDE</th>
+                <th className="py-3 px-4 text-center">ID FIDE</th>
+                <th className="py-3 px-4 text-center">Tournois CDR</th>
+                <th className="py-3 px-4 text-center">Meilleur Rang</th>
+                <th className="py-3 px-4 text-right">Coordonnées</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--color-rule)]/60 text-slate-200">
+              {filteredPlayers.length === 0 ? (
+                <tr>
+                  <td colSpan={8} className="py-12 text-center text-slate-400 text-sm">
+                    Aucun joueur ne correspond à votre recherche.
+                  </td>
+                </tr>
+              ) : (
+                filteredPlayers.map((player, idx) => {
+                  const isChampion = player.bestRank === 1;
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredPlayers.map((player) => {
-            const isChampion = player.bestRank === 1;
+                  return (
+                    <tr 
+                      key={player.id} 
+                      className={`transition-colors hover:bg-[oklch(20%_0.018_263_/_0.5)] ${
+                        isChampion ? 'bg-[oklch(76%_0.17_50_/_0.04)]' : ''
+                      }`}
+                    >
+                      {/* Index # */}
+                      <td className="py-3 px-3 sm:px-4 text-center font-mono text-xs text-slate-400">
+                        {idx + 1}
+                      </td>
 
-            return (
-              <div 
-                key={player.id} 
-                className={`p-5 rounded-2xl card-royal border flex flex-col justify-between space-y-4 transition-colors ${
-                  isChampion ? 'border-gold-500/60 bg-noir-900/90' : 'border-slate-800 hover:border-gold-500/40'
-                }`}
-              >
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <h3 className="font-serif text-base font-bold text-white">
-                          {player.nomComplet}
-                        </h3>
-                        {isChampion && <Crown className="w-4 h-4 text-gold-400 flex-shrink-0" />}
-                      </div>
-                      <p className="text-xs text-slate-300 mt-0.5">
-                        {player.club || 'Indépendant'}
-                      </p>
-                    </div>
+                      {/* Name with Champion Crown */}
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-white font-sans text-sm">
+                            {player.nomComplet}
+                          </span>
+                          {isChampion && (
+                            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                              <Crown className="w-3 h-3 text-amber-400" />
+                              <span>Champion</span>
+                            </span>
+                          )}
+                        </div>
+                      </td>
 
-                    {player.elo > 0 ? (
-                      <span className="font-mono text-xs font-bold text-gold-400 bg-noir-850 px-2 py-1 rounded border border-gold-500/30">
-                        {player.elo} Elo
-                      </span>
-                    ) : (
-                      <span className="text-[10px] text-slate-400 bg-noir-900 px-2 py-0.5 rounded border border-slate-800">
-                        NC
-                      </span>
-                    )}
-                  </div>
+                      {/* Club */}
+                      <td className="py-3 px-4 text-xs font-sans">
+                        <span className={`px-2 py-0.5 rounded-md text-[11px] font-medium border ${
+                          player.club === 'Hamra Annaba' 
+                            ? 'bg-rose-500/10 text-rose-300 border-rose-500/30'
+                            : player.club === 'AUCA'
+                            ? 'bg-blue-500/10 text-blue-300 border-blue-500/30'
+                            : player.club === 'Chess Club Annaba'
+                            ? 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30'
+                            : 'bg-slate-800/60 text-slate-300 border-slate-700'
+                        }`}>
+                          {player.club || 'Indépendant'}
+                        </span>
+                      </td>
 
-                  {/* CDR Tournament Stats */}
-                  <div className="grid grid-cols-2 gap-2 text-xs pt-1">
-                    <div className="p-2 rounded-lg bg-noir-900 border border-slate-800">
-                      <div className="text-[10px] text-slate-400 uppercase tracking-wider">Tournois CDR</div>
-                      <div className="font-bold text-white flex items-center gap-1 mt-0.5">
-                        <Award className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
-                        <span>{player.nbTournois} disputé{player.nbTournois > 1 ? 's' : ''}</span>
-                      </div>
-                    </div>
+                      {/* Elo */}
+                      <td className="py-3 px-4 text-center font-mono text-xs">
+                        {player.elo > 0 ? (
+                          <span className="text-[var(--color-accent)] font-bold">
+                            {player.elo}
+                          </span>
+                        ) : (
+                          <span className="text-slate-500 text-[11px]">NC</span>
+                        )}
+                      </td>
 
-                    <div className="p-2 rounded-lg bg-noir-900 border border-slate-800">
-                      <div className="text-[10px] text-slate-400 uppercase tracking-wider">Meilleur Rang</div>
-                      <div className="font-bold text-white mt-0.5">
+                      {/* FIDE ID */}
+                      <td className="py-3 px-4 text-center font-mono text-xs text-slate-300">
+                        {player.fideId ? (
+                          <a 
+                            href={`https://ratings.fide.com/profile/${player.fideId}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:text-[var(--color-accent)] hover:underline inline-flex items-center gap-1"
+                            title="Voir la fiche FIDE officielle"
+                          >
+                            <span>{player.fideId}</span>
+                            <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+                          </a>
+                        ) : (
+                          <span className="text-slate-500">-</span>
+                        )}
+                      </td>
+
+                      {/* Tournois CDR */}
+                      <td className="py-3 px-4 text-center font-mono font-bold text-white text-xs">
+                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-slate-800 border border-slate-700">
+                          {player.nbTournois}
+                        </span>
+                      </td>
+
+                      {/* Meilleur Rang */}
+                      <td className="py-3 px-4 text-center font-mono text-xs">
                         {player.bestRank ? (
-                          <span className={player.bestRank === 1 ? 'text-gold-400 font-bold' : ''}>
+                          <span className={`font-semibold ${
+                            player.bestRank === 1 
+                              ? 'text-amber-400 font-bold' 
+                              : player.bestRank <= 3 
+                              ? 'text-slate-200' 
+                              : 'text-slate-400'
+                          }`}>
                             #{player.bestRank}
                           </span>
                         ) : (
                           <span className="text-slate-500">-</span>
                         )}
-                      </div>
-                    </div>
-                  </div>
+                      </td>
 
-                  {/* FIDE ID badge */}
-                  {player.fideId && (
-                    <div className="text-[11px] text-slate-300 flex items-center gap-1.5">
-                      <span className="text-slate-400">ID FIDE :</span>
-                      <span className="font-mono font-semibold text-gold-400">{player.fideId}</span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Confidential / Admin Contact Bar */}
-                {adminUnlocked ? (
-                  <div className="pt-3 border-t border-slate-800 space-y-1.5 text-xs animate-in fade-in">
-                    {player.telephone ? (
-                      <div className="flex items-center justify-between text-emerald-400">
-                        <a href={`tel:${player.telephone}`} className="flex items-center gap-1.5 hover:underline">
-                          <Phone className="w-3.5 h-3.5 flex-shrink-0" />
-                          <span>{player.telephone}</span>
-                        </a>
-                        <a 
-                          href={`https://wa.me/213${player.telephone.replace(/^0/, '')}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold hover:bg-emerald-500/30 transition-colors"
-                        >
-                          WhatsApp
-                        </a>
-                      </div>
-                    ) : (
-                      <span className="text-slate-400 text-[11px]">Pas de téléphone</span>
-                    )}
-
-                    {player.email && (
-                      <a href={`mailto:${player.email}`} className="flex items-center gap-1.5 text-slate-300 hover:text-white truncate block transition-colors">
-                        <Mail className="w-3 h-3 text-slate-400 flex-shrink-0" />
-                        <span className="truncate">{player.email}</span>
-                      </a>
-                    )}
-
-                    {player.dateNaissance && (
-                      <div className="text-[10px] text-slate-400">
-                        Né(e) le : {player.dateNaissance}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-                    <span>Membre vérifié CDR</span>
-                    <Lock className="w-3 h-3 text-slate-400" />
-                  </div>
-                )}
-
-              </div>
-            );
-          })}
+                      {/* Contact / Private details */}
+                      <td className="py-3 px-4 text-right">
+                        {adminUnlocked ? (
+                          <div className="flex items-center justify-end gap-2 text-xs">
+                            {player.telephone ? (
+                              <a
+                                href={`https://wa.me/213${player.telephone.replace(/^0/, '')}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 transition-colors font-mono"
+                                title="Contacter sur WhatsApp"
+                              >
+                                <Phone className="w-3 h-3" />
+                                <span>{player.telephone}</span>
+                              </a>
+                            ) : (
+                              <span className="text-slate-500 text-[11px]">-</span>
+                            )}
+                            {player.email && (
+                              <a
+                                href={`mailto:${player.email}`}
+                                className="p-1 text-slate-400 hover:text-white transition-colors"
+                                title={player.email}
+                              >
+                                <Mail className="w-3.5 h-3.5" />
+                              </a>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 font-sans">
+                            <Lock className="w-3 h-3 text-slate-500" />
+                            <span>Protégé</span>
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
 

@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
           <span className="footer__mark" aria-hidden="true" />
           <div className="footer__col">
             <span className="text-[var(--color-ink)] font-semibold">Le Cercle des Rois</span>
-            <span>Café Dardara · Annaba, Algérie</span>
+            <span>Annaba, Algérie · Lieux selon édition</span>
             <span>Chaque 1er jeudi du mois · après Isha</span>
           </div>
           <div className="footer__col">

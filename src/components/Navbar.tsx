@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ShieldCheck, Menu, X } from 'lucide-react';
 
@@ -26,11 +27,16 @@ export const Navbar: React.FC = () => {
     <header className="fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none px-4" role="banner">
       <div className="pointer-events-auto flex items-center justify-between gap-3 sm:gap-6 md:gap-8 px-4 py-2 bg-[oklch(17%_0.016_265_/_0.80)] backdrop-blur-xl border border-[var(--color-rule)] rounded-full max-w-[calc(100vw-2rem)] shadow-[0_12px_32px_-16px_oklch(0%_0_0_/_0.55)]">
         
-        {/* Wordmark & Pulsing Golden Mark */}
-        <Link href="/" className="inline-flex items-center gap-2.5 group pl-1" aria-label="Le Cercle des Rois">
-          <span className="relative w-3 h-3 rounded-full bg-[var(--color-accent)] shadow-[0_0_14px_var(--color-glow)] flex-shrink-0">
-            <span className="absolute -inset-[3px] border border-[var(--color-accent)] opacity-40 rounded-full animate-ping" />
-          </span>
+        {/* Wordmark & Official Royal Logo */}
+        <Link href="/" className="inline-flex items-center gap-2 group pl-1" aria-label="Le Cercle des Rois">
+          <div className="relative w-6 h-6 rounded-full overflow-hidden border border-[var(--color-accent)] bg-[oklch(17%_0.016_265)] shadow-[0_0_12px_var(--color-glow)] flex-shrink-0">
+            <Image
+              src="/logo.png"
+              alt="Logo CDR"
+              fill
+              className="object-contain p-0.5"
+            />
+          </div>
           <span className="font-serif text-lg sm:text-xl font-normal text-[var(--color-ink)] tracking-[-0.02em] whitespace-nowrap">
             Cercle des Rois
           </span>

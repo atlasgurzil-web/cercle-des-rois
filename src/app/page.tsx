@@ -7,6 +7,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   Trophy, 
   Calendar, 
@@ -43,18 +44,36 @@ export default function HomePage() {
 
         <div className="hero__inner">
           <div className="hero__copy">
-            <p className="eyebrow">
-              <span className="ord">00</span>
-              <span className="dot-mid">·</span>
-              Échiquier d'Annaba
-            </p>
+            {/* Proud Royal Crest with Official Logo */}
+            <div className="flex items-center gap-3.5 mb-5">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[oklch(17%_0.016_265)] border border-[var(--color-rule-2)] p-1.5 shadow-[0_0_24px_var(--color-glow-2)] flex-shrink-0 overflow-hidden">
+                <Image
+                  src="/logo.png"
+                  alt="Logo officiel Le Cercle des Rois - Annaba"
+                  fill
+                  className="object-contain p-1"
+                  priority
+                />
+              </div>
+              <div>
+                <p className="eyebrow !mb-0.5">
+                  <span className="ord">00</span>
+                  <span className="dot-mid">·</span>
+                  Échiquier d'Annaba
+                </p>
+                <span className="font-mono text-[11px] tracking-wider uppercase text-[var(--color-accent)] font-semibold block">
+                  Cercle Indépendant
+                </span>
+              </div>
+            </div>
+
             <h1 className="hero__title" id="hero-title">
               Le Cercle des&nbsp;<em>Rois</em>.
             </h1>
             <p className="hero__lede">
               La plateforme indépendante des passionnés d'échecs d'Annaba.
               Préservée par les anciens du Hamra et de l'AUCA : des tournois amicaux
-              le premier jeudi de chaque mois au Café Dardara, après la prière d'Isha.
+              le premier jeudi de chaque mois (au Café Dardara et dans différents lieux d'Annaba selon les éditions), après la prière d'Isha.
             </p>
             <div className="hero__cta">
               {activeTournament ? (
@@ -75,7 +94,7 @@ export default function HomePage() {
             <dl className="hero__spec" aria-label="Spécifications du tournoi">
               <div className="hero__spec-pair">
                 <dt>Lieu</dt>
-                <dd>Café Dardara, Annaba</dd>
+                <dd>{activeTournament?.location || "Café Dardara & selon l'édition, Annaba"}</dd>
               </div>
               <div className="hero__spec-pair">
                 <dt>Horaire</dt>
@@ -86,8 +105,8 @@ export default function HomePage() {
                 <dd>Blitz 5 min + 3 sec · Système suisse 7 rondes</dd>
               </div>
               <div className="hero__spec-pair">
-                <dt>Jauge</dt>
-                <dd>32 participants · Frais d'entrée : Gratuit</dd>
+                <dt>Formule</dt>
+                <dd>Système suisse en 7 rondes · Inscription libre</dd>
               </div>
             </dl>
           </div>
@@ -112,13 +131,13 @@ export default function HomePage() {
                 <span>Édition #IV · Inscriptions</span>
               </li>
               <li className="callout callout--right" style={{ '--y': '36%' } as React.CSSProperties}>
-                <span>Jauge · 32 Joueurs</span>
+                <span>Système Suisse</span>
               </li>
               <li className="callout callout--left" style={{ '--y': '58%' } as React.CSSProperties}>
-                <span>Cadence · 5'+3" Suisse</span>
+                <span>Cadence · 5'+3" Blitz</span>
               </li>
               <li className="callout callout--right" style={{ '--y': '78%' } as React.CSSProperties}>
-                <span>Café Dardara · Annaba</span>
+                <span>Annaba · Lieux selon édition</span>
               </li>
             </ul>
           </figure>
@@ -160,15 +179,15 @@ export default function HomePage() {
             </dd>
           </div>
           <div className="stat">
-            <dt className="stat__label">Capacité par tournoi</dt>
+            <dt className="stat__label">Format compétitif</dt>
             <dd className="stat__value">
-              <span className="stat__num">32</span>
-              <span className="stat__unit">échiquiers</span>
+              <span className="stat__num">7</span>
+              <span className="stat__unit">rondes</span>
             </dd>
           </div>
         </dl>
         <p className="stats__note">
-          Données historiques vérifiées issues des fichiers Chess-Results (CDR I, CDR II, CDR III) 
+          Données historiques vérifiées issues des fichiers officiels Chess-Results (CDR I, CDR II, CDR III) 
           et de l'annuaire des anciens joueurs d'Annaba.
         </p>
       </section>
@@ -204,7 +223,7 @@ export default function HomePage() {
             <h3 className="card__title text-white font-medium text-lg mt-1 mb-2">Le rendez-vous d'Isha</h3>
             <p className="card__body text-sm text-[var(--color-ink-2)] leading-relaxed">
               Pas d'arbitres rigides, pas d'enjeu financier. Le premier jeudi du mois, 
-              on pose les pendules au Café Dardara pour le plaisir pur de la compétition fraternelle.
+              on pose les pendules au Café Dardara ou dans les différents lieux choisis d'Annaba pour le plaisir pur de la compétition fraternelle.
             </p>
           </article>
           <article className="card-lumen">

@@ -469,3 +469,26 @@ function syncPlayerToDirectory(db: DatabaseSchema, reg: PlayerRegistration) {
     });
   }
 }
+
+export function savePlayer(player: DirectoryPlayer): DirectoryPlayer {
+  const db = readDatabase();
+  const index = db.players.findIndex(p => p.id === player.id);
+  if (index >= 0) {
+    db.players[index] = player;
+  } else {
+    db.players.unshift(player);
+  }
+  writeDatabase(db);
+  return player;
+}
+
+export function deletePlayer(id: string): boolean {
+  const db = readDatabase();
+  const initialLen = db.players.length;
+  db.players = db.players.filter(p => p.id !== id);
+  if (db.players.length !== initialLen) {
+    writeDatabase(db);
+    return true;
+  }
+  return false;
+}

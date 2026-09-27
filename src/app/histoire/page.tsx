@@ -50,7 +50,7 @@ export default function HistoirePage() {
             </span>
             <span className="flex items-center gap-1.5 text-slate-300">
               <MapPin className="w-3.5 h-3.5 text-gold-500" />
-              Café Dardara, Annaba
+              Annaba (Café Dardara & selon l'édition)
             </span>
           </div>
         </div>
