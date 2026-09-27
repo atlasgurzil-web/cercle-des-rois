@@ -313,12 +313,12 @@ export function deleteTournament(id: string): boolean {
 export function registerPlayerToTournament(
   tournamentId: string,
   playerData: {
-    nom: string;
-    prenom: string;
+    nom?: string;
+    prenom?: string;
     fideId?: string;
-    dateNaissance: string;
-    telephone: string;
-    email: string;
+    dateNaissance?: string;
+    telephone?: string;
+    email?: string;
     club?: string;
     eloFide?: number;
     notes?: string;
@@ -332,15 +332,15 @@ export function registerPlayerToTournament(
 
   tournament.registeredPlayers = tournament.registeredPlayers || [];
 
-  // Check if already registered by phone or email or FIDE ID
-  const cleanPhone = playerData.telephone.replace(/\s+/g, '');
+  // Check if already registered ONLY if valid non-empty phone, email, or FIDE ID is provided
+  const cleanPhone = (playerData.telephone || '').replace(/\s+/g, '');
   const cleanEmail = (playerData.email || '').toLowerCase().trim();
   const cleanFide = (playerData.fideId || '').trim();
 
   const isDuplicate = tournament.registeredPlayers.some(p => {
-    if (cleanPhone && p.telephone.replace(/\s+/g, '') === cleanPhone) return true;
-    if (cleanEmail && p.email.toLowerCase().trim() === cleanEmail) return true;
-    if (cleanFide && p.fideId && p.fideId === cleanFide) return true;
+    if (cleanPhone && cleanPhone.length > 5 && p.telephone && p.telephone.replace(/\s+/g, '') === cleanPhone) return true;
+    if (cleanEmail && cleanEmail.length > 3 && p.email && p.email.toLowerCase().trim() === cleanEmail) return true;
+    if (cleanFide && cleanFide.length > 2 && p.fideId && p.fideId === cleanFide) return true;
     return false;
   });
 
@@ -351,14 +351,17 @@ export function registerPlayerToTournament(
   const confirmedCount = tournament.registeredPlayers.filter(p => p.status === 'confirmed').length;
   const isWaitlist = confirmedCount >= tournament.maxParticipants;
 
+  const rawNom = (playerData.nom || playerData.prenom || `Joueur #${(tournament.registeredPlayers.length || 0) + 1}`).trim();
+  const rawPrenom = (playerData.prenom || '').trim();
+
   const newReg: PlayerRegistration = {
     id: `reg-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
-    nom: playerData.nom.toUpperCase().trim(),
-    prenom: playerData.prenom.trim().charAt(0).toUpperCase() + playerData.prenom.trim().slice(1),
+    nom: rawNom.toUpperCase(),
+    prenom: rawPrenom ? (rawPrenom.charAt(0).toUpperCase() + rawPrenom.slice(1)) : '',
     fideId: playerData.fideId?.trim() || '',
     dateNaissance: playerData.dateNaissance || '',
-    telephone: playerData.telephone.trim(),
-    email: playerData.email.trim(),
+    telephone: playerData.telephone?.trim() || '',
+    email: playerData.email?.trim() || '',
     club: playerData.club?.trim() || 'Indépendant',
     eloFide: playerData.eloFide || 0,
     status: isWaitlist ? 'waitlist' : 'confirmed',

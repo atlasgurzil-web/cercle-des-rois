@@ -186,21 +186,6 @@
           "registeredAt": "2026-09-26T08:30:00Z",
           "isCheckedIn": false,
           "isPaid": true
-        },
-        {
-          "id": "reg-12",
-          "nom": "TOUMARI",
-          "prenom": "Hatem",
-          "fideId": "7981970",
-          "dateNaissance": "2001-03-06",
-          "telephone": "0697101458",
-          "email": "hatemtm36@gmail.com",
-          "club": "Hamra Annaba",
-          "eloFide": 1672,
-          "status": "confirmed",
-          "registeredAt": "2026-09-26T12:00:00Z",
-          "isCheckedIn": false,
-          "isPaid": true
         }
       ]
     },
@@ -2475,6 +2460,38 @@
       "fideId": "7981600",
       "elo": 0,
       "nbTournois": 0,
+      "bestRank": null,
+      "tournoisParticipes": []
+    },
+    {
+      "id": "cdr-player-54",
+      "nom": "BOUZID",
+      "prenom": "Sofiane",
+      "nomComplet": "BOUZID Sofiane",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Indépendant",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": null,
+      "tournoisParticipes": []
+    },
+    {
+      "id": "cdr-player-55",
+      "nom": "JOUEUR",
+      "prenom": "",
+      "nomComplet": "JOUEUR ",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Indépendant",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
       "bestRank": null,
       "tournoisParticipes": []
     }

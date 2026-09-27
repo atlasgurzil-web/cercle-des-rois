@@ -26,7 +26,7 @@ Une plateforme officielle et sur-mesure pour « Le Cercle des Rois » permettant
 
 - **US-1** : En tant que visiteur, je veux lire l'histoire et les valeurs du Cercle des Rois, afin de comprendre l'héritage d'Annaba (Hamra Annaba, AUCA) et l'esprit amical des tournois.
 - **US-2** : En tant que joueur, je veux consulter la fiche complète du prochain tournoi (date, horaire après Isha, lieu, cadence, formule, frais éventuels sur place), afin de planifier ma participation.
-- **US-3** : En tant que joueur, je veux m'inscrire via un formulaire simple sur mobile (nom, prénom, téléphone, date de naissance, ID FIDE optionnel, email optionnel, club), afin de réserver ma place sans mot de passe.
+- **US-3** : En tant que joueur, je veux m'inscrire via un formulaire ultra-souple sans aucun champ obligatoire (ni téléphone, ni compte, ni mot de passe), afin de réserver ma place immédiatement et sans aucune friction.
 - **US-4** : En tant que joueur, je veux savoir immédiatement si mon inscription est confirmée ou si je suis placé sur liste d'attente en cas de jauge atteinte, afin de savoir si ma place assise est garantie.
 - **US-5** : En tant que joueur, je veux voir la liste publique des participants (nom, prénom, club, ID FIDE/Elo), afin de connaître les forces en présence tout en ayant l'assurance que mon téléphone et mon email restent strictement confidentiels.
 - **US-6** : En tant que joueur ou organisateur, je veux partager la fiche du tournoi en 1 clic sur WhatsApp avec un message pré-rempli, afin d'inviter rapidement mes contacts et groupes d'échecs.

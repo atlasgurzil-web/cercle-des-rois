@@ -9,22 +9,18 @@ export async function POST(
     const body = await request.json();
     const { nom, prenom, fideId, dateNaissance, telephone, email, club, notes } = body;
 
-    if (!nom || !prenom || !telephone) {
-      return NextResponse.json(
-        { error: 'Le nom, le prénom et le numéro de téléphone sont obligatoires.' },
-        { status: 400 }
-      );
-    }
+    const safeNom = (nom || prenom || 'Joueur').trim();
+    const safePrenom = (prenom || '').trim();
 
     const result = registerPlayerToTournament(params.id, {
-      nom,
-      prenom,
-      fideId,
+      nom: safeNom,
+      prenom: safePrenom,
+      fideId: fideId || '',
       dateNaissance: dateNaissance || '',
-      telephone,
+      telephone: telephone || '',
       email: email || '',
       club: club || 'Indépendant',
-      notes
+      notes: notes || ''
     });
 
     if (!result.success) {

@@ -104,17 +104,19 @@ export default function TournamentDetailPage() {
     setFormError('');
     setRegistrationSuccess(null);
 
-    if (!formData.nom.trim() || !formData.prenom.trim() || !formData.telephone.trim()) {
-      setFormError('Veuillez renseigner au minimum votre nom, prénom et numéro de téléphone.');
-      return;
-    }
+    // Aucun champ n'est obligatoire pour s'inscrire
+    const payload = {
+      ...formData,
+      nom: (formData.nom || formData.prenom || 'Joueur').trim(),
+      prenom: formData.prenom.trim()
+    };
 
     try {
       setSubmitting(true);
       const res = await fetch(`/api/tournaments/${tournament?.id || slug}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
@@ -311,7 +313,7 @@ export default function TournamentDetailPage() {
               Inscription Rapide
             </h2>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Remplissez les informations ci-dessous pour rejoindre la liste des participants. Vos données privées (téléphone, email) sont protégées et réservées à l'organisation.
+              Inscription libre et immédiate : aucun champ n'est obligatoire. Vous pouvez simplement renseigner votre nom, un prénom ou votre pseudo pour rejoindre la liste.
             </p>
           </div>
 
@@ -342,12 +344,11 @@ export default function TournamentDetailPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300">
-                  Nom <span className="text-gold-400">*</span>
+                  Nom / Pseudo <span className="text-slate-500 font-normal">(Optionnel)</span>
                 </label>
                 <input
                   type="text"
-                  required
-                  placeholder="ex: BENLAID"
+                  placeholder="ex: BENLAID (ou pseudo)"
                   value={formData.nom}
                   onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
                   className="w-full px-3.5 py-2.5 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white placeholder-slate-500 focus:border-gold-500 transition-colors uppercase"
@@ -356,11 +357,10 @@ export default function TournamentDetailPage() {
 
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300">
-                  Prénom <span className="text-gold-400">*</span>
+                  Prénom <span className="text-slate-500 font-normal">(Optionnel)</span>
                 </label>
                 <input
                   type="text"
-                  required
                   placeholder="ex: Lakhdar"
                   value={formData.prenom}
                   onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
@@ -372,11 +372,10 @@ export default function TournamentDetailPage() {
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300">
-                  Numéro de Téléphone <span className="text-gold-400">*</span>
+                  Numéro de Téléphone <span className="text-slate-500 font-normal">(Optionnel)</span>
                 </label>
                 <input
                   type="tel"
-                  required
                   placeholder="ex: 0551056785"
                   value={formData.telephone}
                   onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
