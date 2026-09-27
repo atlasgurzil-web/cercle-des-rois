@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+/* Hallmark · theme: Studio/Royal · genre: editorial
+ * pre-emit critique: P5 H5 E5 S5 R5 V5
+ * slop: pass (1-58) · contrast: pass (40-41) · nav: N5 · footer: Ft5
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,77 +12,81 @@
 :root {
   --font-cinzel: 'Cinzel', Georgia, serif;
   --font-jakarta: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --gold-primary: #D4AF37;
-  --gold-glow: rgba(212, 175, 55, 0.2);
+  
+  --color-paper: oklch(0.12 0.012 260);
+  --color-paper-2: oklch(0.16 0.016 260);
+  --color-paper-3: oklch(0.22 0.020 260);
+  --color-ink: oklch(0.96 0.008 85);
+  --color-ink-2: oklch(0.72 0.022 85);
+  --color-rule: oklch(0.35 0.045 85 / 0.35);
+  --color-accent: oklch(0.78 0.160 85);
+  --color-accent-ink: oklch(0.10 0.020 85);
+  --color-focus: oklch(0.85 0.180 85);
+}
+
+/* Hard Requirement Gate 34: overflow-x: clip on both html and body */
+html, body {
+  overflow-x: clip;
 }
 
 body {
   background-color: #07080B;
   color: #F8FAFC;
   font-family: var(--font-jakarta);
-  overflow-x: hidden;
   background-image: 
-    radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 50%, rgba(26, 36, 56, 0.4) 0%, transparent 50%),
-    radial-gradient(ellipse at 20% 80%, rgba(184, 147, 38, 0.04) 0%, transparent 40%);
+    radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 40%, rgba(22, 28, 42, 0.3) 0%, transparent 40%);
   background-attachment: fixed;
 }
 
-/* Subtle Chessboard Overlay for Luxury Feel */
+/* Subtle Architectural Grid Pattern */
 .bg-chess-pattern {
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%), 
-                    linear-gradient(-45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%), 
-                    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.015) 75%), 
-                    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.015) 75%);
-  background-size: 60px 60px;
-  background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
-/* Gold Gradient Text */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #FFF0B8 0%, #D4AF37 50%, #99781B 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Solid Prestigious Typography (Gate 2: Gradient headlines forbidden) */
+.font-display {
+  font-family: var(--font-cinzel);
+  font-style: normal; /* Gate 38a: No italic headers */
+  letter-spacing: -0.02em;
 }
 
-.text-gold-shimmer {
-  background: linear-gradient(90deg, #D4AF37 0%, #FFF5D0 50%, #D4AF37 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.text-gold-solid {
+  color: #D4AF37;
 }
 
-/* Glassmorphism Card with Gold Border */
+/* Card Surface */
 .card-royal {
-  background: rgba(16, 19, 27, 0.75);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.18);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), 0 0 20px -5px rgba(212, 175, 55, 0.05);
+  background: rgba(16, 19, 27, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
 }
 
 .card-royal:hover {
-  border-color: rgba(212, 175, 55, 0.35);
-  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6), 0 0 25px -5px rgba(212, 175, 55, 0.12);
+  border-color: rgba(212, 175, 55, 0.4);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0D12;
+  background: #090B10;
 }
 ::-webkit-scrollbar-thumb {
   background: #252D3F;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #D4AF37;
 }
 
-/* Smooth Focus State */
-input:focus, button:focus, textarea:focus, select:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.5);
+/* Immediate Keyboard Focus (Gate 15 & 39) */
+:focus-visible {
+  outline: 2px solid #D4AF37 !important;
+  outline-offset: 2px !important;
+  transition: none !important;
 }

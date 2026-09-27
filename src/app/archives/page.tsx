@@ -43,9 +43,9 @@ export default function ArchivesPage() {
           <span>Palmarès & Histoire Compétitive</span>
         </div>
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-white">
-          Les Archives du <span className="text-gold-gradient">Cercle des Rois</span>
+          Les Archives du <span className="text-gold-400">Cercle des Rois</span>
         </h1>
-        <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+        <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
           Explorez les classements complets, podiums et feuilles de résultats officielles de toutes les éditions disputées à Annaba.
         </p>
       </div>
@@ -61,15 +61,15 @@ export default function ArchivesPage() {
                 setSelectedTournamentId(t.id);
                 setSearchQuery('');
               }}
-              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-200 ${
+              className={`flex items-center gap-2.5 px-5 py-3 rounded-xl text-sm font-semibold transition-colors duration-150 ${
                 isSelected
-                  ? 'bg-gold-500 text-noir-950 shadow-gold-glow scale-105'
+                  ? 'bg-gold-500 text-noir-950 font-bold'
                   : 'bg-noir-850 text-slate-300 border border-slate-800 hover:border-gold-500/40 hover:text-white'
               }`}
             >
-              <Crown className={`w-4 h-4 ${isSelected ? 'text-noir-950' : 'text-gold-400'}`} />
+              <Crown className={`w-4 h-4 flex-shrink-0 ${isSelected ? 'text-noir-950' : 'text-gold-400'}`} />
               <span>{t.title}</span>
-              <span className={`text-[11px] px-2 py-0.5 rounded-full ${isSelected ? 'bg-noir-950/20 text-noir-950' : 'bg-noir-900 text-slate-400'}`}>
+              <span className={`text-[11px] px-2 py-0.5 rounded-full ${isSelected ? 'bg-noir-950/20 text-noir-950 font-mono' : 'bg-noir-900 text-slate-300 font-mono'}`}>
                 {t.dateFormatted}
               </span>
             </button>
@@ -158,7 +158,7 @@ export default function ArchivesPage() {
                 
                 {/* 2nd Place */}
                 {currentTournament.podium.second && (
-                  <div className="order-2 md:order-1 p-6 rounded-2xl bg-noir-850/80 border border-slate-700/80 flex flex-col justify-between space-y-4 hover:border-slate-500 transition-colors">
+                  <div className="order-2 md:order-1 p-6 rounded-2xl bg-noir-850/80 border border-slate-700 flex flex-col justify-between space-y-4 hover:border-slate-500 transition-colors">
                     <div className="space-y-2">
                       <div className="w-10 h-10 rounded-full bg-slate-300/10 border border-slate-300/30 flex items-center justify-center text-slate-200 font-bold text-lg">
                         🥈 2ᵉ
@@ -166,12 +166,12 @@ export default function ArchivesPage() {
                       <h4 className="font-serif text-lg font-bold text-white">
                         {currentTournament.podium.second.name}
                       </h4>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-slate-300">
                         {currentTournament.podium.second.club || 'Indépendant'}
                       </p>
                     </div>
                     <div className="flex items-center justify-between text-xs pt-3 border-t border-slate-800">
-                      <span className="text-slate-400">Elo : {currentTournament.podium.second.elo || 'NC'}</span>
+                      <span className="text-slate-300">Elo : {currentTournament.podium.second.elo || 'NC'}</span>
                       <span className="font-mono font-bold text-white text-sm">{currentTournament.podium.second.points} pts</span>
                     </div>
                   </div>
@@ -179,7 +179,7 @@ export default function ArchivesPage() {
 
                 {/* 1st Place - Gold Champion */}
                 {currentTournament.podium.first && (
-                  <div className="order-1 md:order-2 p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-gold-500/20 via-noir-900 to-noir-950 border-2 border-gold-500 shadow-gold-glow flex flex-col justify-between space-y-4 scale-100 md:-translate-y-2">
+                  <div className="order-1 md:order-2 p-6 sm:p-8 rounded-2xl bg-noir-900 border-2 border-gold-500 shadow-gold-glow flex flex-col justify-between space-y-4 md:-translate-y-2">
                     <div className="space-y-2 text-center sm:text-left">
                       <div className="w-12 h-12 rounded-full bg-gold-500/20 border border-gold-400 flex items-center justify-center text-gold-300 font-bold text-xl mx-auto sm:mx-0">
                         🥇 1ᵉʳ
@@ -188,7 +188,7 @@ export default function ArchivesPage() {
                       <h4 className="font-serif text-xl sm:text-2xl font-bold text-white">
                         {currentTournament.podium.first.name}
                       </h4>
-                      <p className="text-xs text-gold-200/80">
+                      <p className="text-xs text-gold-300">
                         {currentTournament.podium.first.club || 'Indépendant'}
                       </p>
                     </div>
@@ -209,12 +209,12 @@ export default function ArchivesPage() {
                       <h4 className="font-serif text-lg font-bold text-white">
                         {currentTournament.podium.third.name}
                       </h4>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-slate-300">
                         {currentTournament.podium.third.club || 'Indépendant'}
                       </p>
                     </div>
                     <div className="flex items-center justify-between text-xs pt-3 border-t border-slate-800">
-                      <span className="text-slate-400">Elo : {currentTournament.podium.third.elo || 'NC'}</span>
+                      <span className="text-slate-300">Elo : {currentTournament.podium.third.elo || 'NC'}</span>
                       <span className="font-mono font-bold text-white text-sm">{currentTournament.podium.third.points} pts</span>
                     </div>
                   </div>
@@ -229,10 +229,10 @@ export default function ArchivesPage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h3 className="font-serif text-xl font-bold text-white flex items-center gap-2">
-                  <Medal className="w-5 h-5 text-gold-400" />
+                  <Medal className="w-5 h-5 text-gold-400 flex-shrink-0" />
                   <span>Classement Général Complet</span>
                 </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-300 mt-0.5">
                   {standings.length} participants enregistrés pour cette édition
                 </p>
               </div>
@@ -253,7 +253,7 @@ export default function ArchivesPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs sm:text-sm">
                 <thead>
-                  <tr className="border-b border-slate-800 text-slate-400 uppercase text-[11px] font-semibold tracking-wider">
+                  <tr className="border-b border-slate-800 text-slate-300 uppercase text-[11px] font-semibold tracking-wider">
                     <th className="py-3 px-3">Rg</th>
                     <th className="py-3 px-3">Nom & Prénom</th>
                     <th className="py-3 px-3">Club / Ville</th>
@@ -286,23 +286,23 @@ export default function ArchivesPage() {
                         <td className="py-3 px-3 font-sans text-slate-300 text-xs">
                           {p.club || 'Indépendant'}
                         </td>
-                        <td className="py-3 px-3 text-slate-400">
+                        <td className="py-3 px-3 text-slate-300">
                           {p.elo > 0 ? (
-                            <span className="text-gold-400/90 font-semibold">{p.elo}</span>
+                            <span className="text-gold-400 font-semibold">{p.elo}</span>
                           ) : (
-                            <span className="text-slate-600">NC</span>
+                            <span className="text-slate-500">NC</span>
                           )}
                         </td>
                         <td className="py-3 px-3 text-center font-bold text-gold-400 text-sm">
                           {p.points}
                         </td>
-                        <td className="py-3 px-3 text-right text-slate-400">
+                        <td className="py-3 px-3 text-right text-slate-300">
                           {p.dep1 || 0}
                         </td>
-                        <td className="py-3 px-3 text-right text-slate-400">
+                        <td className="py-3 px-3 text-right text-slate-300">
                           {p.dep2 || 0}
                         </td>
-                        <td className="py-3 px-3 text-right text-slate-400">
+                        <td className="py-3 px-3 text-right text-slate-300">
                           {p.dep3 || 0}
                         </td>
                       </tr>
@@ -312,7 +312,7 @@ export default function ArchivesPage() {
               </table>
             </div>
 
-            <div className="pt-2 text-[11px] text-slate-500">
+            <div className="pt-2 text-[11px] text-slate-400">
               * Départages officiels selon les normes FIDE : Départage 1 = Rencontre directe (DE), Départage 2 = Buchholz Cut 1, Départage 3 = Sonneborn-Berger.
             </div>
 

@@ -261,13 +261,13 @@ export default function AdminPage() {
 
             <button
               type="submit"
-              className="w-full py-3.5 rounded-xl font-bold bg-gold-500 text-noir-950 hover:bg-gold-400 shadow-gold-glow transition-all"
+              className="w-full py-3.5 rounded-xl font-bold bg-gold-500 text-noir-950 hover:bg-gold-400 shadow-gold-glow transition-colors"
             >
               Déverrouiller le Panneau
             </button>
           </form>
 
-          <div className="text-[11px] text-slate-500">
+          <div className="text-[11px] text-slate-400">
             Réservé aux membres du comité d'organisation d'Annaba
           </div>
         </div>
@@ -287,11 +287,11 @@ export default function AdminPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-xs font-bold text-gold-400 uppercase tracking-widest">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <ShieldCheck className="w-4 h-4 text-emerald-400 flex-shrink-0" />
             <span>Administration Active • Annaba</span>
           </div>
           <h1 className="font-serif text-3xl font-bold text-white">
-            Tableau de Bord du <span className="text-gold-gradient">Cercle des Rois</span>
+            Tableau de Bord du <span className="text-gold-400">Cercle des Rois</span>
           </h1>
         </div>
 
@@ -318,49 +318,49 @@ export default function AdminPage() {
       <div className="flex flex-wrap gap-2 border-b border-slate-800 pb-2">
         <button
           onClick={() => setActiveTab('active-tournament')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-150 ${
             activeTab === 'active-tournament'
-              ? 'bg-gold-500 text-noir-950 font-bold shadow-gold-glow'
-              : 'bg-noir-850 text-slate-300 border border-slate-800 hover:text-white'
+              ? 'bg-gold-500 text-noir-950 font-bold'
+              : 'bg-noir-850 text-slate-300 border border-slate-800 hover:text-white hover:border-slate-700'
           }`}
         >
-          <Calendar className="w-4 h-4" />
+          <Calendar className="w-4 h-4 flex-shrink-0" />
           <span>Tournoi Actif ({confirmed.length})</span>
         </button>
 
         <button
           onClick={() => setActiveTab('create-tournament')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-150 ${
             activeTab === 'create-tournament'
-              ? 'bg-gold-500 text-noir-950 font-bold shadow-gold-glow'
-              : 'bg-noir-850 text-slate-300 border border-slate-800 hover:text-white'
+              ? 'bg-gold-500 text-noir-950 font-bold'
+              : 'bg-noir-850 text-slate-300 border border-slate-800 hover:text-white hover:border-slate-700'
           }`}
         >
-          <PlusCircle className="w-4 h-4" />
+          <PlusCircle className="w-4 h-4 flex-shrink-0" />
           <span>Créer un Nouveau Tournoi</span>
         </button>
 
         <button
           onClick={() => setActiveTab('archive-tournament')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-150 ${
             activeTab === 'archive-tournament'
-              ? 'bg-gold-500 text-noir-950 font-bold shadow-gold-glow'
-              : 'bg-noir-850 text-slate-300 border border-slate-800 hover:text-white'
+              ? 'bg-gold-500 text-noir-950 font-bold'
+              : 'bg-noir-850 text-slate-300 border border-slate-800 hover:text-white hover:border-slate-700'
           }`}
         >
-          <Archive className="w-4 h-4" />
+          <Archive className="w-4 h-4 flex-shrink-0" />
           <span>Clôturer & Archiver</span>
         </button>
 
         <button
           onClick={() => setActiveTab('directory')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all ${
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors duration-150 ${
             activeTab === 'directory'
-              ? 'bg-gold-500 text-noir-950 font-bold shadow-gold-glow'
-              : 'bg-noir-850 text-slate-300 border border-slate-800 hover:text-white'
+              ? 'bg-gold-500 text-noir-950 font-bold'
+              : 'bg-noir-850 text-slate-300 border border-slate-800 hover:text-white hover:border-slate-700'
           }`}
         >
-          <Users className="w-4 h-4" />
+          <Users className="w-4 h-4 flex-shrink-0" />
           <span>Annuaire ({players.length} Joueurs)</span>
         </button>
       </div>
@@ -398,7 +398,7 @@ export default function AdminPage() {
 
                   <button
                     onClick={handleExportPapi}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-gold-500 text-noir-950 hover:bg-gold-400 shadow-gold-glow transition-all"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-gold-500 text-noir-950 hover:bg-gold-400 shadow-gold-glow transition-colors"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>Exporter pour Papi / Swiss (CSV)</span>
@@ -409,7 +409,7 @@ export default function AdminPage() {
               {/* Key Check-in Counters */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div className="p-4 rounded-xl bg-noir-850 border border-slate-800">
-                  <div className="text-[11px] text-slate-400 uppercase font-semibold">Inscrits Confirmés</div>
+                  <div className="text-[11px] text-slate-300 uppercase font-semibold">Inscrits Confirmés</div>
                   <div className="text-2xl font-bold text-white font-mono mt-1">
                     {confirmed.length} / {activeTourney.maxParticipants}
                   </div>
@@ -441,7 +441,7 @@ export default function AdminPage() {
               <div className="p-6 rounded-2xl card-royal border border-gold-500/20 space-y-4">
                 <h3 className="font-serif text-lg font-bold text-white flex items-center justify-between">
                   <span>Liste des Inscriptions & Pointage sur Place</span>
-                  <span className="text-xs text-slate-400 font-normal">
+                  <span className="text-xs text-slate-300 font-normal">
                     Cliquez sur "Pointage" à l'arrivée du joueur au Café Dardara
                   </span>
                 </h3>
@@ -454,7 +454,7 @@ export default function AdminPage() {
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-xs sm:text-sm">
                       <thead>
-                        <tr className="border-b border-slate-800 text-slate-400 uppercase text-[11px] font-semibold">
+                        <tr className="border-b border-slate-800 text-slate-300 uppercase text-[11px] font-semibold">
                           <th className="py-2.5 px-3">N°</th>
                           <th className="py-2.5 px-3">Joueur</th>
                           <th className="py-2.5 px-3">Téléphone (WhatsApp)</th>
@@ -467,12 +467,12 @@ export default function AdminPage() {
                       <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
                         {activeTourney.registeredPlayers?.map((p, idx) => (
                           <tr key={p.id} className="hover:bg-noir-800/50 transition-colors">
-                            <td className="py-3 px-3 text-slate-400">
+                            <td className="py-3 px-3 text-slate-300">
                               #{idx + 1}
                             </td>
                             <td className="py-3 px-3 font-sans font-semibold text-white">
                               <div>{p.nom} {p.prenom}</div>
-                              {p.dateNaissance && <div className="text-[10px] text-slate-500 font-mono">Né(e) le {p.dateNaissance}</div>}
+                              {p.dateNaissance && <div className="text-[10px] text-slate-400 font-mono">Né(e) le {p.dateNaissance}</div>}
                             </td>
                             <td className="py-3 px-3">
                               <a
@@ -481,7 +481,7 @@ export default function AdminPage() {
                                 rel="noopener noreferrer"
                                 className="text-emerald-400 hover:underline flex items-center gap-1"
                               >
-                                <Phone className="w-3 h-3" />
+                                <Phone className="w-3 h-3 flex-shrink-0" />
                                 <span>{p.telephone}</span>
                               </a>
                             </td>
@@ -494,10 +494,10 @@ export default function AdminPage() {
                             <td className="py-3 px-3 text-center">
                               <button
                                 onClick={() => handleAction('checkin', p.id)}
-                                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                                className={`px-3 py-1 rounded-lg text-xs font-bold transition-colors ${
                                   p.isCheckedIn
                                     ? 'bg-emerald-500 text-noir-950 shadow-sm'
-                                    : 'bg-noir-850 text-slate-400 border border-slate-700 hover:border-emerald-500/60'
+                                    : 'bg-noir-850 text-slate-300 border border-slate-700 hover:border-emerald-500/60'
                                 }`}
                               >
                                 {p.isCheckedIn ? '✓ Présent' : 'Non pointé'}
@@ -506,10 +506,10 @@ export default function AdminPage() {
                             <td className="py-3 px-3 text-right">
                               <button
                                 onClick={() => handleAction('remove', p.id)}
-                                className="p-1.5 rounded-lg text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
+                                className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
                                 title="Supprimer"
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 className="w-4 h-4 flex-shrink-0" />
                               </button>
                             </td>
                           </tr>
@@ -630,7 +630,7 @@ export default function AdminPage() {
 
             <button
               type="submit"
-              className="w-full py-4 rounded-xl font-bold bg-gold-500 text-noir-950 hover:bg-gold-400 shadow-gold-glow transition-all"
+              className="w-full py-4 rounded-xl font-bold bg-gold-500 text-noir-950 hover:bg-gold-400 shadow-gold-glow transition-colors"
             >
               Publier le Tournoi & Activer les Inscriptions
             </button>
@@ -760,7 +760,7 @@ export default function AdminPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs sm:text-sm">
               <thead>
-                <tr className="border-b border-slate-800 text-slate-400 uppercase text-[11px] font-semibold">
+                <tr className="border-b border-slate-800 text-slate-300 uppercase text-[11px] font-semibold">
                   <th className="py-2.5 px-3">Nom & Prénom</th>
                   <th className="py-2.5 px-3">Téléphone</th>
                   <th className="py-2.5 px-3">Email</th>
@@ -772,7 +772,7 @@ export default function AdminPage() {
               </thead>
               <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
                 {players.filter(p => p.nomComplet.toLowerCase().includes(dirSearch.toLowerCase()) || (p.telephone && p.telephone.includes(dirSearch))).map(p => (
-                  <tr key={p.id} className="hover:bg-noir-800/50">
+                  <tr key={p.id} className="hover:bg-noir-800/50 transition-colors">
                     <td className="py-2.5 px-3 font-sans font-bold text-white">
                       {p.nomComplet}
                     </td>
@@ -784,14 +784,14 @@ export default function AdminPage() {
                           rel="noopener noreferrer"
                           className="text-emerald-400 hover:underline flex items-center gap-1"
                         >
-                          <Phone className="w-3 h-3" />
+                          <Phone className="w-3 h-3 flex-shrink-0" />
                           <span>{p.telephone}</span>
                         </a>
                       ) : (
-                        <span className="text-slate-600">-</span>
+                        <span className="text-slate-500">-</span>
                       )}
                     </td>
-                    <td className="py-2.5 px-3 text-slate-400 font-sans truncate max-w-[160px]">
+                    <td className="py-2.5 px-3 text-slate-300 font-sans truncate max-w-[160px]">
                       {p.email || '-'}
                     </td>
                     <td className="py-2.5 px-3 font-sans text-slate-300">
@@ -809,7 +809,7 @@ export default function AdminPage() {
                           href={`https://wa.me/213${p.telephone.replace(/^0/, '')}?text=${encodeURIComponent(`Salam ${p.prenom}, rendez-vous au prochain tournoi du Cercle des Rois !`)}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[11px] px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-semibold hover:bg-emerald-500/30"
+                          className="text-[11px] px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-semibold hover:bg-emerald-500/30 transition-colors"
                         >
                           Message
                         </a>

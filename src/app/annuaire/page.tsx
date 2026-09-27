@@ -92,9 +92,9 @@ export default function AnnuairePage() {
           <span>Communauté & Répertoire</span>
         </div>
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-white">
-          L'Annuaire des <span className="text-gold-gradient">Joueurs</span>
+          L'Annuaire des <span className="text-gold-400">Joueurs</span>
         </h1>
-        <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+        <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
           Le répertoire unifié des {players.length} passionnés d'échecs d'Annaba et fidèles du Cercle des Rois.
         </p>
       </div>
@@ -164,8 +164,8 @@ export default function AnnuairePage() {
 
         {/* Privacy Note */}
         {!adminUnlocked && (
-          <div className="text-[11px] text-slate-400 flex items-center gap-1.5 pt-1 border-t border-slate-800">
-            <ShieldCheck className="w-3.5 h-3.5 text-gold-500" />
+          <div className="text-[11px] text-slate-300 flex items-center gap-1.5 pt-1 border-t border-slate-800">
+            <ShieldCheck className="w-3.5 h-3.5 text-gold-500 flex-shrink-0" />
             <span>
               Respect de la vie privée : Les numéros de téléphone et emails sont réservés aux organisateurs via code secret.
             </span>
@@ -175,21 +175,20 @@ export default function AnnuairePage() {
 
       {/* PLAYERS GRID / DIRECTORY CARDS */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between text-xs text-slate-400 px-1">
-          <span>Affichage de <strong>{filteredPlayers.length}</strong> joueur{filteredPlayers.length > 1 ? 's' : ''}</span>
-          <span>Triés par fidélité aux tournois CDR</span>
+        <div className="flex items-center justify-between text-xs text-slate-300 px-1">
+          <span>Affichage de <strong className="text-white">{filteredPlayers.length}</strong> joueur{filteredPlayers.length > 1 ? 's' : ''}</span>
+          <span className="text-slate-400">Triés par fidélité aux tournois CDR</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredPlayers.map((player) => {
-            const hasMultipleTournaments = player.nbTournois >= 2;
             const isChampion = player.bestRank === 1;
 
             return (
               <div 
                 key={player.id} 
-                className={`p-5 rounded-2xl card-royal border flex flex-col justify-between space-y-4 transition-all hover:scale-[1.01] ${
-                  isChampion ? 'border-gold-500/50 bg-gradient-to-br from-gold-500/10 via-noir-900 to-noir-950' : 'border-slate-800 hover:border-gold-500/30'
+                className={`p-5 rounded-2xl card-royal border flex flex-col justify-between space-y-4 transition-colors ${
+                  isChampion ? 'border-gold-500/60 bg-noir-900/90' : 'border-slate-800 hover:border-gold-500/40'
                 }`}
               >
                 <div className="space-y-3">
@@ -201,7 +200,7 @@ export default function AnnuairePage() {
                         </h3>
                         {isChampion && <Crown className="w-4 h-4 text-gold-400 flex-shrink-0" />}
                       </div>
-                      <p className="text-xs text-slate-400 mt-0.5">
+                      <p className="text-xs text-slate-300 mt-0.5">
                         {player.club || 'Indépendant'}
                       </p>
                     </div>
@@ -211,7 +210,7 @@ export default function AnnuairePage() {
                         {player.elo} Elo
                       </span>
                     ) : (
-                      <span className="text-[10px] text-slate-500 bg-noir-900 px-2 py-0.5 rounded">
+                      <span className="text-[10px] text-slate-400 bg-noir-900 px-2 py-0.5 rounded border border-slate-800">
                         NC
                       </span>
                     )}
@@ -222,7 +221,7 @@ export default function AnnuairePage() {
                     <div className="p-2 rounded-lg bg-noir-900 border border-slate-800">
                       <div className="text-[10px] text-slate-400 uppercase tracking-wider">Tournois CDR</div>
                       <div className="font-bold text-white flex items-center gap-1 mt-0.5">
-                        <Award className="w-3.5 h-3.5 text-gold-400" />
+                        <Award className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
                         <span>{player.nbTournois} disputé{player.nbTournois > 1 ? 's' : ''}</span>
                       </div>
                     </div>
@@ -235,7 +234,7 @@ export default function AnnuairePage() {
                             #{player.bestRank}
                           </span>
                         ) : (
-                          <span className="text-slate-600">-</span>
+                          <span className="text-slate-500">-</span>
                         )}
                       </div>
                     </div>
@@ -243,52 +242,52 @@ export default function AnnuairePage() {
 
                   {/* FIDE ID badge */}
                   {player.fideId && (
-                    <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
-                      <span className="text-slate-500">ID FIDE :</span>
-                      <span className="font-mono font-semibold text-slate-300">{player.fideId}</span>
+                    <div className="text-[11px] text-slate-300 flex items-center gap-1.5">
+                      <span className="text-slate-400">ID FIDE :</span>
+                      <span className="font-mono font-semibold text-gold-400">{player.fideId}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Confidential / Admin Contact Bar */}
                 {adminUnlocked ? (
-                  <div className="pt-3 border-t border-slate-800/80 space-y-1.5 text-xs animate-in fade-in">
+                  <div className="pt-3 border-t border-slate-800 space-y-1.5 text-xs animate-in fade-in">
                     {player.telephone ? (
                       <div className="flex items-center justify-between text-emerald-400">
                         <a href={`tel:${player.telephone}`} className="flex items-center gap-1.5 hover:underline">
-                          <Phone className="w-3.5 h-3.5" />
+                          <Phone className="w-3.5 h-3.5 flex-shrink-0" />
                           <span>{player.telephone}</span>
                         </a>
                         <a 
                           href={`https://wa.me/213${player.telephone.replace(/^0/, '')}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold hover:bg-emerald-500/30"
+                          className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold hover:bg-emerald-500/30 transition-colors"
                         >
                           WhatsApp
                         </a>
                       </div>
                     ) : (
-                      <span className="text-slate-600 text-[11px]">Pas de téléphone</span>
+                      <span className="text-slate-400 text-[11px]">Pas de téléphone</span>
                     )}
 
                     {player.email && (
-                      <a href={`mailto:${player.email}`} className="flex items-center gap-1.5 text-slate-400 hover:text-white truncate block">
-                        <Mail className="w-3 h-3 text-slate-500 flex-shrink-0" />
+                      <a href={`mailto:${player.email}`} className="flex items-center gap-1.5 text-slate-300 hover:text-white truncate block transition-colors">
+                        <Mail className="w-3 h-3 text-slate-400 flex-shrink-0" />
                         <span className="truncate">{player.email}</span>
                       </a>
                     )}
 
                     {player.dateNaissance && (
-                      <div className="text-[10px] text-slate-500">
+                      <div className="text-[10px] text-slate-400">
                         Né(e) le : {player.dateNaissance}
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500">
+                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
                     <span>Membre vérifié CDR</span>
-                    <Lock className="w-3 h-3 text-slate-600" />
+                    <Lock className="w-3 h-3 text-slate-400" />
                   </div>
                 )}
 

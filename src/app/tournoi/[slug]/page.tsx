@@ -206,31 +206,31 @@ export default function TournamentDetailPage() {
           </div>
 
           {/* Social Share & QR Code Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <a
               href={`https://wa.me/?text=${shareText}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-600/30 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-600/30 transition-colors"
             >
-              <Share2 className="w-3.5 h-3.5" />
-              <span>WhatsApp</span>
+              <Share2 className="w-3.5 h-3.5 flex-shrink-0" />
+              <span>Partager WhatsApp</span>
             </a>
 
             <button
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-noir-800 text-slate-200 border border-slate-700 hover:border-gold-500/50 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap bg-noir-800 text-slate-200 border border-slate-700 hover:border-gold-500/50 hover:text-white transition-colors"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" /> : <Copy className="w-3.5 h-3.5 flex-shrink-0" />}
               <span>{copied ? 'Lien Copié !' : 'Copier le Lien'}</span>
             </button>
 
             <button
               onClick={() => setShowQrModal(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold bg-noir-800 text-gold-400 border border-gold-500/30 hover:bg-gold-500/10 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap bg-noir-800 text-gold-400 border border-gold-500/30 hover:bg-gold-500/10 hover:border-gold-500 transition-colors"
             >
-              <QrCode className="w-3.5 h-3.5" />
-              <span>QR Code</span>
+              <QrCode className="w-3.5 h-3.5 flex-shrink-0" />
+              <span>QR Code Inscription</span>
             </button>
           </div>
         </div>
@@ -248,7 +248,7 @@ export default function TournamentDetailPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
           <div className="p-4 rounded-xl bg-noir-850/80 border border-slate-800 space-y-1">
             <div className="flex items-center gap-2 text-xs text-gold-400 font-semibold">
-              <Calendar className="w-4 h-4" />
+              <Calendar className="w-4 h-4 flex-shrink-0" />
               <span>Date</span>
             </div>
             <div className="text-sm sm:text-base font-bold text-white">{tournament.dateFormatted}</div>
@@ -256,7 +256,7 @@ export default function TournamentDetailPage() {
 
           <div className="p-4 rounded-xl bg-noir-850/80 border border-slate-800 space-y-1">
             <div className="flex items-center gap-2 text-xs text-gold-400 font-semibold">
-              <Clock className="w-4 h-4" />
+              <Clock className="w-4 h-4 flex-shrink-0" />
               <span>Horaire</span>
             </div>
             <div className="text-sm sm:text-base font-bold text-white">{tournament.time}</div>
@@ -264,7 +264,7 @@ export default function TournamentDetailPage() {
 
           <div className="p-4 rounded-xl bg-noir-850/80 border border-slate-800 space-y-1">
             <div className="flex items-center gap-2 text-xs text-gold-400 font-semibold">
-              <MapPin className="w-4 h-4" />
+              <MapPin className="w-4 h-4 flex-shrink-0" />
               <span>Lieu</span>
             </div>
             <div className="text-sm sm:text-base font-bold text-white truncate">{tournament.location}</div>
@@ -272,7 +272,7 @@ export default function TournamentDetailPage() {
 
           <div className="p-4 rounded-xl bg-noir-850/80 border border-slate-800 space-y-1">
             <div className="flex items-center gap-2 text-xs text-gold-400 font-semibold">
-              <Flame className="w-4 h-4" />
+              <Flame className="w-4 h-4 flex-shrink-0" />
               <span>Cadence</span>
             </div>
             <div className="text-sm sm:text-base font-bold text-white">{tournament.cadence}</div>
@@ -289,7 +289,7 @@ export default function TournamentDetailPage() {
           </div>
           <div className="w-full h-3 bg-noir-950 rounded-full overflow-hidden border border-slate-800">
             <div 
-              className="h-full bg-gradient-to-r from-gold-600 via-gold-400 to-amber-300 rounded-full transition-all duration-500"
+              className="h-full bg-gold-500 rounded-full transition-[width] duration-500"
               style={{ width: `${fillPct}%` }}
             />
           </div>
@@ -460,13 +460,13 @@ export default function TournamentDetailPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-4 rounded-xl text-base font-bold bg-gradient-to-r from-gold-500 to-gold-400 text-noir-950 hover:from-gold-400 hover:to-gold-300 shadow-gold-glow-lg transition-all duration-200 disabled:opacity-50"
+              className="w-full py-3.5 px-6 rounded-xl text-base font-bold bg-gold-500 text-noir-950 hover:bg-gold-400 active:bg-gold-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {submitting ? 'Validation en cours...' : spotsLeft > 0 ? 'Valider mon Inscription' : 'Rejoindre la Liste d\'Attente'}
             </button>
 
-            <div className="text-[11px] text-slate-400 text-center flex items-center justify-center gap-1.5 pt-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-gold-500" />
+            <div className="text-[11px] text-slate-300 text-center flex items-center justify-center gap-1.5 pt-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-gold-500 flex-shrink-0" />
               <span>Frais : {tournament.feeDescription || 'Gratuit'} • Règlements sur place</span>
             </div>
           </form>
@@ -477,15 +477,15 @@ export default function TournamentDetailPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
             <div>
               <h2 className="font-serif text-2xl font-bold text-white flex items-center gap-2">
-                <Users className="w-5 h-5 text-gold-400" />
+                <Users className="w-5 h-5 text-gold-400 flex-shrink-0" />
                 <span>Liste Officielle des Inscrits</span>
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-300 mt-0.5">
                 {confirmedPlayers.length} joueur{confirmedPlayers.length > 1 ? 's' : ''} validé{confirmedPlayers.length > 1 ? 's' : ''} • {waitlistPlayers.length} en attente
               </p>
             </div>
 
-            <div className="text-xs text-slate-400 bg-noir-900 px-3 py-1.5 rounded-lg border border-slate-800 flex items-center gap-2">
+            <div className="text-xs text-slate-300 bg-noir-900 px-3 py-1.5 rounded-lg border border-slate-800 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
               <span>Pointage le jour J sur place</span>
             </div>
@@ -499,7 +499,7 @@ export default function TournamentDetailPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead>
-                  <tr className="border-b border-slate-800 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <tr className="border-b border-slate-800 text-xs font-semibold uppercase tracking-wider text-slate-300">
                     <th className="py-2.5 px-3">N°</th>
                     <th className="py-2.5 px-3">Nom & Prénom</th>
                     <th className="py-2.5 px-3">Club</th>
@@ -510,7 +510,7 @@ export default function TournamentDetailPage() {
                 <tbody className="divide-y divide-slate-800/60">
                   {confirmedPlayers.map((player, idx) => (
                     <tr key={player.id} className="hover:bg-noir-850/60 transition-colors">
-                      <td className="py-3 px-3 font-mono text-xs text-gold-400/80">
+                      <td className="py-3 px-3 font-mono text-xs text-gold-400">
                         #{idx + 1}
                       </td>
                       <td className="py-3 px-3 font-semibold text-white">
@@ -519,16 +519,16 @@ export default function TournamentDetailPage() {
                       <td className="py-3 px-3 text-xs text-slate-300">
                         {player.club || 'Indépendant'}
                       </td>
-                      <td className="py-3 px-3 font-mono text-xs text-slate-400">
+                      <td className="py-3 px-3 font-mono text-xs text-slate-300">
                         {player.fideId ? (
                           <span className="text-gold-400 font-semibold">{player.fideId}</span>
                         ) : (
-                          <span className="text-slate-600">NC</span>
+                          <span className="text-slate-500">NC</span>
                         )}
                       </td>
                       <td className="py-3 px-3 text-right">
                         <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                          <CheckCircle2 className="w-3 h-3" />
+                          <CheckCircle2 className="w-3 h-3 flex-shrink-0" />
                           <span>Validé</span>
                         </span>
                       </td>

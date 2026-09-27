@@ -4,6 +4,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://cercledesrois.dz'),
   title: "Le Cercle des Rois | Tournois d'échecs indépendants — Annaba",
   description: "Plateforme officielle du Cercle des Rois à Annaba. Inscription en ligne aux tournois, archives des éditions passées, palmarès et annuaire de la communauté échiquéenne.",
   keywords: ["échecs", "Annaba", "Le Cercle des Rois", "tournoi d'échecs", "Hamra Annaba", "AUCA", "blitz", "échecs Algérie"],
