@@ -2,20 +2,19 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Trophy, Users, BookOpen, Calendar, ShieldCheck, Menu, X, Crown } from 'lucide-react';
+import { ShieldCheck, Menu, X } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { href: '/', label: 'Accueil', icon: Crown },
-    { href: '/tournois', label: 'Tournois', icon: Calendar },
-    { href: '/archives', label: 'Palmarès', icon: Trophy },
-    { href: '/annuaire', label: 'Annuaire', icon: Users },
-    { href: '/histoire', label: 'Histoire', icon: BookOpen },
+    { href: '/', label: 'Accueil' },
+    { href: '/tournois', label: 'Tournois' },
+    { href: '/archives', label: 'Palmarès' },
+    { href: '/annuaire', label: 'Annuaire' },
+    { href: '/histoire', label: 'Histoire' },
   ];
 
   const isActive = (path: string) => {
@@ -24,106 +23,93 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-md bg-noir-950/90 border-b border-gold-500/25">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          
-          {/* Logo & Brand Name */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-11 h-11 rounded-full overflow-hidden border border-gold-500/50 shadow-sm">
-              <Image
-                src="/logo.png"
-                alt="Logo Le Cercle des Rois"
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-serif text-base sm:text-lg font-bold tracking-wider text-white group-hover:text-gold-400 transition-colors">
-                LE CERCLE DES ROIS
-              </span>
-              <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-slate-400">
-                <span>Annaba</span>
-                <span className="text-gold-500">•</span>
-                <span>Tournois Indépendants</span>
-              </div>
-            </div>
-          </Link>
+    <header className="fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none px-4" role="banner">
+      <div className="pointer-events-auto flex items-center justify-between gap-3 sm:gap-6 md:gap-8 px-4 py-2 bg-[oklch(17%_0.016_265_/_0.80)] backdrop-blur-xl border border-[var(--color-rule)] rounded-full max-w-[calc(100vw-2rem)] shadow-[0_12px_32px_-16px_oklch(0%_0_0_/_0.55)]">
+        
+        {/* Wordmark & Pulsing Golden Mark */}
+        <Link href="/" className="inline-flex items-center gap-2.5 group pl-1" aria-label="Le Cercle des Rois">
+          <span className="relative w-3 h-3 rounded-full bg-[var(--color-accent)] shadow-[0_0_14px_var(--color-glow)] flex-shrink-0">
+            <span className="absolute -inset-[3px] border border-[var(--color-accent)] opacity-40 rounded-full animate-ping" />
+          </span>
+          <span className="font-serif text-lg sm:text-xl font-normal text-[var(--color-ink)] tracking-[-0.02em] whitespace-nowrap">
+            Cercle des Rois
+          </span>
+        </Link>
 
-          {/* Desktop Navigation Links — Floating Pill Archetype (N5) */}
-          <nav className="hidden lg:flex items-center gap-1 px-3 py-1.5 rounded-full bg-noir-900 border border-slate-800">
-            {navLinks.map((link) => {
-              const active = isActive(link.href);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-colors ${
-                    active
-                      ? 'text-noir-950 bg-gold-500 font-bold'
-                      : 'text-slate-300 hover:text-white hover:bg-noir-800'
-                  }`}
-                >
-                  <span>{link.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Admin CTA Button & Mobile Toggle */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="/admin"
-              className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-noir-900 text-gold-400 border border-gold-500/30 hover:border-gold-400 hover:bg-gold-500/10 transition-colors"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-gold-400" />
-              <span>Organisateur</span>
-            </Link>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-slate-300 hover:text-gold-400 hover:bg-noir-800 focus:outline-none"
-              aria-label="Menu"
-            >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Mobile Menu Dropdown */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-noir-900 border-b border-gold-500/20 px-4 pt-3 pb-6 space-y-2">
+        {/* Primary Desktop Nav Links */}
+        <nav className="hidden md:flex items-center gap-5 lg:gap-7 text-xs sm:text-sm font-medium tracking-normal" aria-label="Navigation principale">
           {navLinks.map((link) => {
-            const Icon = link.icon;
             const active = isActive(link.href);
             return (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                className={`transition-colors duration-150 whitespace-nowrap ${
                   active
-                    ? 'text-gold-400 bg-gold-500/15 border border-gold-500/30'
-                    : 'text-slate-300 hover:bg-noir-800 hover:text-gold-300'
+                    ? 'text-[var(--color-accent)] font-semibold'
+                    : 'text-[var(--color-ink-2)] hover:text-[var(--color-ink)]'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${active ? 'text-gold-400' : 'text-slate-400'}`} />
-                <span>{link.label}</span>
+                {link.label}
               </Link>
             );
           })}
-          <div className="pt-2 border-t border-slate-800">
+        </nav>
+
+        {/* CTAs */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link
+            href="/admin"
+            className="hidden sm:inline-flex items-center gap-1.5 text-xs text-[var(--color-muted)] hover:text-[var(--color-ink)] transition-colors px-2 py-1"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-[var(--color-accent)]" />
+            <span className="font-mono text-[11px] tracking-wider uppercase">PIN</span>
+          </Link>
+
+          <Link
+            href="/tournois"
+            className="btn btn--accent text-xs sm:text-sm py-1.5 px-3.5 sm:px-4 rounded-full"
+          >
+            S'inscrire
+          </Link>
+
+          {/* Mobile hamburger button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-1.5 text-[var(--color-ink-2)] hover:text-[var(--color-ink)]"
+            aria-label="Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+
+      </div>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="pointer-events-auto fixed top-20 left-4 right-4 bg-[oklch(17%_0.016_265_/_0.95)] backdrop-blur-2xl border border-[var(--color-rule-2)] rounded-2xl p-5 shadow-2xl flex flex-col gap-3 md:hidden animate-in fade-in">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileMenuOpen(false)}
+              className={`py-2 px-3 rounded-lg text-sm transition-colors ${
+                isActive(link.href)
+                  ? 'bg-[oklch(22%_0.018_263)] text-[var(--color-accent)] font-semibold'
+                  : 'text-[var(--color-ink-2)] hover:text-white'
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+          <div className="pt-3 border-t border-[var(--color-rule)] flex justify-between items-center text-xs">
             <Link
               href="/admin"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-2.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-gold-500 text-noir-950 hover:bg-gold-400 transition-colors"
+              className="text-[var(--color-muted)] hover:text-[var(--color-ink)] flex items-center gap-1.5"
             >
-              <ShieldCheck className="w-4 h-4" />
-              <span>Espace Organisateur (Code PIN)</span>
+              <ShieldCheck className="w-4 h-4 text-[var(--color-accent)]" />
+              <span>Console Organisateur</span>
             </Link>
           </div>
         </div>

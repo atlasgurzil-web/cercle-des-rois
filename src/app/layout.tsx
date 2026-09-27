@@ -37,7 +37,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="dark scroll-smooth">
+    <html lang="fr" data-theme="lumen" className="dark scroll-smooth">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+      </head>
       <body className="min-h-screen flex flex-col justify-between selection:bg-gold-500/30 selection:text-gold-200">
         <Navbar />
         <main className="flex-grow">

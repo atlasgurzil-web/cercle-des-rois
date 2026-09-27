@@ -33,8 +33,12 @@ const config: Config = {
         }
       },
       fontFamily: {
-        serif: ['var(--font-cinzel)', 'Georgia', 'serif'],
-        sans: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', '"Instrument Serif"', 'Georgia', 'serif'],
+        serif: ['var(--font-display)', '"Instrument Serif"', 'Georgia', 'serif'],
+        body: ['var(--font-body)', 'Geist', 'Inter', 'sans-serif'],
+        sans: ['var(--font-body)', 'Geist', 'Inter', 'sans-serif'],
+        mono: ['var(--font-mono)', '"JetBrains Mono"', 'monospace'],
+        label: ['var(--font-label)', '"JetBrains Mono"', 'monospace'],
       },
       boxShadow: {
         'gold-glow': '0 0 25px -5px rgba(212, 175, 55, 0.25)',
