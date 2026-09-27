@@ -247,7 +247,33 @@ export function readDatabase(): DatabaseSchema {
   try {
     if (fs.existsSync(DB_FILE_PATH)) {
       const raw = fs.readFileSync(DB_FILE_PATH, 'utf-8');
-      return JSON.parse(raw);
+      const data: DatabaseSchema = JSON.parse(raw);
+      let modified = false;
+      data.tournaments.forEach(t => {
+        if (t.registeredPlayers) {
+          let cIdx = 1;
+          let wIdx = 1;
+          t.registeredPlayers.forEach(p => {
+            if (p.status === 'confirmed') {
+              if (p.dossardNumber !== cIdx) {
+                p.dossardNumber = cIdx;
+                modified = true;
+              }
+              cIdx++;
+            } else if (p.status === 'waitlist') {
+              if (p.waitlistRank !== wIdx) {
+                p.waitlistRank = wIdx;
+                modified = true;
+              }
+              wIdx++;
+            }
+          });
+        }
+      });
+      if (modified) {
+        fs.writeFileSync(DB_FILE_PATH, JSON.stringify(data, null, 2), 'utf-8');
+      }
+      return data;
     }
   } catch (err) {
     console.error('Error reading db.json, re-initializing:', err);
@@ -323,7 +349,7 @@ export function registerPlayerToTournament(
     eloFide?: number;
     notes?: string;
   }
-): { success: boolean; registration?: PlayerRegistration; error?: string; isWaitlist?: boolean } {
+): { success: boolean; registration?: PlayerRegistration; error?: string; isWaitlist?: boolean; dossardNumber?: number; waitlistRank?: number } {
   const db = readDatabase();
   const tournament = db.tournaments.find(t => t.id === tournamentId || t.slug === tournamentId);
   if (!tournament) {
@@ -349,10 +375,14 @@ export function registerPlayerToTournament(
   }
 
   const confirmedCount = tournament.registeredPlayers.filter(p => p.status === 'confirmed').length;
+  const waitlistCount = tournament.registeredPlayers.filter(p => p.status === 'waitlist').length;
   const isWaitlist = confirmedCount >= tournament.maxParticipants;
 
   const rawNom = (playerData.nom || playerData.prenom || `Joueur #${(tournament.registeredPlayers.length || 0) + 1}`).trim();
   const rawPrenom = (playerData.prenom || '').trim();
+
+  const assignedDossard = !isWaitlist ? confirmedCount + 1 : undefined;
+  const assignedWaitlistRank = isWaitlist ? waitlistCount + 1 : undefined;
 
   const newReg: PlayerRegistration = {
     id: `reg-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
@@ -365,6 +395,8 @@ export function registerPlayerToTournament(
     club: playerData.club?.trim() || 'Indépendant',
     eloFide: playerData.eloFide || 0,
     status: isWaitlist ? 'waitlist' : 'confirmed',
+    dossardNumber: assignedDossard,
+    waitlistRank: assignedWaitlistRank,
     registeredAt: new Date().toISOString(),
     isCheckedIn: false,
     isPaid: false,
@@ -378,7 +410,13 @@ export function registerPlayerToTournament(
 
   writeDatabase(db);
 
-  return { success: true, registration: newReg, isWaitlist };
+  return { 
+    success: true, 
+    registration: newReg, 
+    isWaitlist,
+    dossardNumber: assignedDossard,
+    waitlistRank: assignedWaitlistRank
+  };
 }
 
 export function togglePlayerCheckIn(tournamentId: string, registrationId: string): boolean {
@@ -407,6 +445,29 @@ export function togglePlayerPaid(tournamentId: string, registrationId: string): 
   return true;
 }
 
+export function promoteWaitlistPlayer(tournamentId: string, registrationId: string): boolean {
+  const db = readDatabase();
+  const tournament = db.tournaments.find(t => t.id === tournamentId || t.slug === tournamentId);
+  if (!tournament || !tournament.registeredPlayers) return false;
+
+  const reg = tournament.registeredPlayers.find(p => p.id === registrationId);
+  if (!reg || reg.status !== 'waitlist') return false;
+
+  const confirmedCount = tournament.registeredPlayers.filter(p => p.status === 'confirmed').length;
+  reg.status = 'confirmed';
+  reg.dossardNumber = confirmedCount + 1;
+  delete reg.waitlistRank;
+
+  // Re-index remaining waitlist
+  const waitlist = tournament.registeredPlayers.filter(p => p.status === 'waitlist');
+  waitlist.forEach((p, idx) => {
+    p.waitlistRank = idx + 1;
+  });
+
+  writeDatabase(db);
+  return true;
+}
+
 export function removeRegistration(tournamentId: string, registrationId: string): boolean {
   const db = readDatabase();
   const tournament = db.tournaments.find(t => t.id === tournamentId || t.slug === tournamentId);
@@ -421,7 +482,20 @@ export function removeRegistration(tournamentId: string, registrationId: string)
 
   if (hasWaitlist && confirmedCount < tournament.maxParticipants) {
     hasWaitlist.status = 'confirmed';
+    delete hasWaitlist.waitlistRank;
   }
+
+  // Ensure confirmed players have clean sequential dossard numbers
+  const confirmed = tournament.registeredPlayers.filter(p => p.status === 'confirmed');
+  confirmed.forEach((p, idx) => {
+    p.dossardNumber = idx + 1;
+  });
+
+  // Ensure waitlist players have sequential waitlistRank
+  const waitlist = tournament.registeredPlayers.filter(p => p.status === 'waitlist');
+  waitlist.forEach((p, idx) => {
+    p.waitlistRank = idx + 1;
+  });
 
   writeDatabase(db);
   return tournament.registeredPlayers.length !== initialLen;

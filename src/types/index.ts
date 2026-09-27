@@ -28,6 +28,8 @@ export interface PlayerRegistration {
   club?: string;
   eloFide?: number;
   status: 'confirmed' | 'waitlist';
+  dossardNumber?: number;
+  waitlistRank?: number;
   registeredAt: string;
   isCheckedIn: boolean;
   isPaid: boolean;

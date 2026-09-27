@@ -37,7 +37,8 @@
           "registeredAt": "2026-09-20T14:30:00Z",
           "isCheckedIn": true,
           "isPaid": true,
-          "notes": "Directeur du tournoi"
+          "notes": "Directeur du tournoi",
+          "dossardNumber": 1
         },
         {
           "id": "reg-2",
@@ -52,7 +53,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-21T09:15:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 2
         },
         {
           "id": "reg-3",
@@ -67,7 +69,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-21T11:00:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 3
         },
         {
           "id": "reg-4",
@@ -82,7 +85,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-22T16:20:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 4
         },
         {
           "id": "reg-5",
@@ -97,7 +101,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-23T18:45:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 5
         },
         {
           "id": "reg-6",
@@ -112,7 +117,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-23T20:10:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 6
         },
         {
           "id": "reg-7",
@@ -127,7 +133,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-24T10:00:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 7
         },
         {
           "id": "reg-8",
@@ -142,7 +149,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-24T14:15:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 8
         },
         {
           "id": "reg-9",
@@ -155,7 +163,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-25T11:20:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 9
         },
         {
           "id": "reg-10",
@@ -170,7 +179,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-25T17:40:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 10
         },
         {
           "id": "reg-11",
@@ -185,7 +195,8 @@
           "status": "confirmed",
           "registeredAt": "2026-09-26T08:30:00Z",
           "isCheckedIn": false,
-          "isPaid": true
+          "isPaid": true,
+          "dossardNumber": 11
         },
         {
           "id": "reg-1790493024559-1kgz",
@@ -201,7 +212,8 @@
           "registeredAt": "2026-09-27T07:10:24.559Z",
           "isCheckedIn": false,
           "isPaid": false,
-          "notes": ""
+          "notes": "",
+          "dossardNumber": 12
         },
         {
           "id": "reg-1790493080110-fo7f",
@@ -217,7 +229,42 @@
           "registeredAt": "2026-09-27T07:11:20.110Z",
           "isCheckedIn": false,
           "isPaid": false,
-          "notes": ""
+          "notes": "",
+          "dossardNumber": 13
+        },
+        {
+          "id": "reg-1790493538505-7cfg",
+          "nom": "AMINE",
+          "prenom": "Benghida",
+          "fideId": "",
+          "dateNaissance": "",
+          "telephone": "",
+          "email": "",
+          "club": "Hamra Annaba",
+          "eloFide": 0,
+          "status": "confirmed",
+          "registeredAt": "2026-09-27T07:18:58.505Z",
+          "isCheckedIn": false,
+          "isPaid": false,
+          "notes": "",
+          "dossardNumber": 14
+        },
+        {
+          "id": "reg-1790493696610-nmxm",
+          "nom": "BAHNAS",
+          "prenom": "Ahmed",
+          "fideId": "",
+          "dateNaissance": "",
+          "telephone": "",
+          "email": "",
+          "club": "Hamra Annaba",
+          "eloFide": 0,
+          "status": "confirmed",
+          "registeredAt": "2026-09-27T07:21:36.610Z",
+          "isCheckedIn": false,
+          "isPaid": false,
+          "notes": "",
+          "dossardNumber": 15
         }
       ]
     },
@@ -2548,6 +2595,38 @@
       "nom": "JXJX",
       "prenom": "Jdjxjx",
       "nomComplet": "JXJX Jdjxjx",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": null,
+      "tournoisParticipes": []
+    },
+    {
+      "id": "cdr-player-58",
+      "nom": "AMINE",
+      "prenom": "Benghida",
+      "nomComplet": "AMINE Benghida",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": null,
+      "tournoisParticipes": []
+    },
+    {
+      "id": "cdr-player-59",
+      "nom": "BAHNAS",
+      "prenom": "Ahmed",
+      "nomComplet": "BAHNAS Ahmed",
       "sexe": "M",
       "dateNaissance": "",
       "telephone": "",

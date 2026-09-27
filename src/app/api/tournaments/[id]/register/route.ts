@@ -28,7 +28,8 @@ export async function POST(
     }
 
     return NextResponse.json(result, { status: 201 });
-  } catch (error) {
-    return NextResponse.json({ error: 'Erreur lors de l\'inscription.' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Register error:', error);
+    return NextResponse.json({ error: error?.message || 'Erreur lors de l\'inscription.' }, { status: 500 });
   }
 }

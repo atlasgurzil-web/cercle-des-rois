@@ -1,5 +1,12 @@
 import { NextResponse } from 'next/server';
-import { togglePlayerCheckIn, togglePlayerPaid, removeRegistration, getTournamentBySlug, saveTournament } from '@/lib/storage';
+import { 
+  togglePlayerCheckIn, 
+  togglePlayerPaid, 
+  removeRegistration, 
+  promoteWaitlistPlayer,
+  getTournamentBySlug, 
+  saveTournament 
+} from '@/lib/storage';
 
 export async function POST(
   request: Request,
@@ -21,6 +28,11 @@ export async function POST(
 
     if (action === 'paid') {
       const ok = togglePlayerPaid(tournament.id, registrationId);
+      return NextResponse.json({ success: ok });
+    }
+
+    if (action === 'promote') {
+      const ok = promoteWaitlistPlayer(tournament.id, registrationId);
       return NextResponse.json({ success: ok });
     }
 

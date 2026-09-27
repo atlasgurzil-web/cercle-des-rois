@@ -38,6 +38,7 @@ export default function AdminPage() {
 
   // Dashboard Tabs: 'active-tournament' | 'all-tournaments' | 'create-tournament' | 'archive-tournament' | 'directory'
   const [activeTab, setActiveTab] = useState<'active-tournament' | 'all-tournaments' | 'create-tournament' | 'archive-tournament' | 'directory'>('active-tournament');
+  const [pointageTab, setPointageTab] = useState<'confirmed' | 'waitlist'>('confirmed');
 
   const [tournaments, setTournaments] = useState<Tournament[]>([]);
   const [players, setPlayers] = useState<DirectoryPlayer[]>([]);
@@ -143,9 +144,10 @@ export default function AdminPage() {
   const activeTourney = tournaments.find(t => !t.isArchived) || tournaments[0];
 
   // Checkin & Paid actions for active tournament registrations
-  const handleAction = async (action: 'checkin' | 'paid' | 'remove', regId: string) => {
+  const handleAction = async (action: 'checkin' | 'paid' | 'remove' | 'promote', regId: string) => {
     if (!activeTourney) return;
     if (action === 'remove' && !confirm('Supprimer définitivement cette inscription ?')) return;
+    if (action === 'promote' && !confirm('Promouvoir ce joueur en liste principale et lui attribuer un numéro de dossard ?')) return;
 
     try {
       const res = await fetch(`/api/tournaments/${activeTourney.id}/checkin`, {
@@ -601,63 +603,222 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              {/* Registrations Pointage Table */}
-              <div className="space-y-3">
-                <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                  Feuille de Pointage & Liste des Participants
-                </h3>
+              {/* Pointage Sub-Tabs: Titulaires (Dossards) vs Liste d'Attente */}
+              <div className="space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setPointageTab('confirmed')}
+                      className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                        pointageTab === 'confirmed'
+                          ? 'bg-gold-500 text-noir-950 shadow-gold-glow'
+                          : 'bg-noir-900 text-slate-300 hover:text-white border border-slate-800'
+                      }`}
+                    >
+                      <Trophy className="w-4 h-4 flex-shrink-0" />
+                      <span>Liste Principale (Dossards)</span>
+                      <span className={`px-2 py-0.5 rounded-full text-[11px] font-mono ${
+                        pointageTab === 'confirmed' ? 'bg-noir-950/30 text-noir-950' : 'bg-noir-800 text-gold-400'
+                      }`}>
+                        {confirmed.length}
+                      </span>
+                    </button>
 
-                <div className="overflow-x-auto rounded-xl border border-slate-800">
-                  <table className="w-full text-left text-xs sm:text-sm">
-                    <thead>
-                      <tr className="border-b border-slate-800 bg-[oklch(15%_0.014_265)] text-slate-300 uppercase text-[11px] font-semibold">
-                        <th className="py-2.5 px-3 text-center w-12">#</th>
-                        <th className="py-2.5 px-4">Joueur</th>
-                        <th className="py-2.5 px-3">Club</th>
-                        <th className="py-2.5 px-3">Téléphone</th>
-                        <th className="py-2.5 px-3 text-center">Pointage Présence</th>
-                        <th className="py-2.5 px-3 text-right">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
-                      {(activeTourney.registeredPlayers || []).map((p, idx) => (
-                        <tr key={p.id} className="hover:bg-noir-850/60 transition-colors">
-                          <td className="py-2.5 px-3 text-center text-slate-500">{idx + 1}</td>
-                          <td className="py-2.5 px-4 font-sans font-bold text-white">
-                            {p.nom} {p.prenom}
-                          </td>
-                          <td className="py-2.5 px-3 font-sans text-slate-300">
-                            {p.club || 'Indépendant'}
-                          </td>
-                          <td className="py-2.5 px-3 text-slate-300">
-                            {p.telephone || '-'}
-                          </td>
-                          <td className="py-2.5 px-3 text-center">
-                            <button
-                              onClick={() => handleAction('checkin', p.id)}
-                              className={`px-3 py-1 rounded-md text-xs font-bold transition-colors ${
-                                p.isCheckedIn
-                                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
-                                  : 'bg-slate-800 text-slate-400 border border-slate-700 hover:text-white'
-                              }`}
-                            >
-                              {p.isCheckedIn ? '✓ Présent' : 'Non pointé'}
-                            </button>
-                          </td>
-                          <td className="py-2.5 px-3 text-right">
-                            <button
-                              onClick={() => handleAction('remove', p.id)}
-                              className="text-rose-400 hover:text-rose-300 p-1 rounded hover:bg-rose-500/10"
-                              title="Retirer l'inscription"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                    <button
+                      onClick={() => setPointageTab('waitlist')}
+                      className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all cursor-pointer ${
+                        pointageTab === 'waitlist'
+                          ? 'bg-amber-500 text-noir-950 shadow-amber-glow'
+                          : 'bg-noir-900 text-slate-300 hover:text-white border border-slate-800'
+                      }`}
+                    >
+                      <Clock className="w-4 h-4 flex-shrink-0" />
+                      <span>Liste d'Attente Prioritaire</span>
+                      <span className={`px-2 py-0.5 rounded-full text-[11px] font-mono ${
+                        pointageTab === 'waitlist' ? 'bg-noir-950/30 text-noir-950' : 'bg-noir-800 text-amber-400'
+                      }`}>
+                        {waitlist.length}
+                      </span>
+                    </button>
+                  </div>
+
+                  <div className="text-xs text-slate-400">
+                    {pointageTab === 'confirmed' ? (
+                      <span>Pointage en direct à l'arrivée des joueurs</span>
+                    ) : (
+                      <span className="text-amber-400 font-medium">Repêchage direct en cas d'absent</span>
+                    )}
+                  </div>
                 </div>
+
+                {/* VIEW 1: CONFIRMED PLAYERS WITH DOSSARDS */}
+                {pointageTab === 'confirmed' && (
+                  <div className="space-y-3 animate-in fade-in">
+                    <div className="overflow-x-auto rounded-xl border border-slate-800">
+                      <table className="w-full text-left text-xs sm:text-sm">
+                        <thead>
+                          <tr className="border-b border-slate-800 bg-[oklch(15%_0.014_265)] text-slate-300 uppercase text-[11px] font-semibold">
+                            <th className="py-2.5 px-3 text-center w-20">Dossard</th>
+                            <th className="py-2.5 px-4">Joueur</th>
+                            <th className="py-2.5 px-3">Club</th>
+                            <th className="py-2.5 px-3">Téléphone</th>
+                            <th className="py-2.5 px-3 text-center">Pointage Présence</th>
+                            <th className="py-2.5 px-3 text-center">Règlement</th>
+                            <th className="py-2.5 px-3 text-right">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
+                          {confirmed.length === 0 ? (
+                            <tr>
+                              <td colSpan={7} className="py-8 text-center text-slate-400 font-sans">
+                                Aucun joueur titulaire pour l'instant.
+                              </td>
+                            </tr>
+                          ) : (
+                            confirmed.map((p, idx) => (
+                              <tr key={p.id} className="hover:bg-noir-850/60 transition-colors">
+                                <td className="py-2.5 px-3 text-center">
+                                  <span className="inline-flex items-center justify-center min-w-[32px] px-2 py-0.5 rounded-md text-xs font-bold bg-gold-500/15 text-gold-400 border border-gold-500/30">
+                                    #{p.dossardNumber || (idx + 1)}
+                                  </span>
+                                </td>
+                                <td className="py-2.5 px-4 font-sans font-bold text-white">
+                                  {p.nom} {p.prenom}
+                                  {p.fideId && <span className="ml-1.5 text-[10px] text-slate-400 font-mono">({p.fideId})</span>}
+                                </td>
+                                <td className="py-2.5 px-3 font-sans text-slate-300">
+                                  {p.club || 'Indépendant'}
+                                </td>
+                                <td className="py-2.5 px-3 text-slate-300">
+                                  {p.telephone ? (
+                                    <a href={`tel:${p.telephone}`} className="text-gold-400 hover:underline">
+                                      {p.telephone}
+                                    </a>
+                                  ) : (
+                                    <span className="text-slate-500">-</span>
+                                  )}
+                                </td>
+                                <td className="py-2.5 px-3 text-center">
+                                  <button
+                                    onClick={() => handleAction('checkin', p.id)}
+                                    className={`px-3 py-1 rounded-md text-xs font-bold transition-colors cursor-pointer ${
+                                      p.isCheckedIn
+                                        ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
+                                        : 'bg-slate-800 text-slate-400 border border-slate-700 hover:text-white'
+                                    }`}
+                                  >
+                                    {p.isCheckedIn ? '✓ Présent' : 'Non pointé'}
+                                  </button>
+                                </td>
+                                <td className="py-2.5 px-3 text-center">
+                                  <button
+                                    onClick={() => handleAction('paid', p.id)}
+                                    className={`px-3 py-1 rounded-md text-xs font-bold transition-colors cursor-pointer ${
+                                      p.isPaid
+                                        ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40'
+                                        : 'bg-slate-800 text-slate-400 border border-slate-700 hover:text-white'
+                                    }`}
+                                  >
+                                    {p.isPaid ? '✓ Réglé' : 'En attente'}
+                                  </button>
+                                </td>
+                                <td className="py-2.5 px-3 text-right">
+                                  <button
+                                    onClick={() => handleAction('remove', p.id)}
+                                    className="text-rose-400 hover:text-rose-300 p-1.5 rounded hover:bg-rose-500/10 cursor-pointer"
+                                    title="Retirer l'inscription"
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </button>
+                                </td>
+                              </tr>
+                            ))
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {/* VIEW 2: WAITLIST WITH 1-CLICK PROMOTION TO DOSSARD */}
+                {pointageTab === 'waitlist' && (
+                  <div className="space-y-3 animate-in fade-in">
+                    <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-300 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 flex-shrink-0 text-amber-400" />
+                        <span>En cas de désistement ou d'absence d'un titulaire au pointage, cliquez sur « Promouvoir en Titulaire » pour repêcher le joueur et lui attribuer un numéro de dossard.</span>
+                      </div>
+                    </div>
+
+                    <div className="overflow-x-auto rounded-xl border border-slate-800">
+                      <table className="w-full text-left text-xs sm:text-sm">
+                        <thead>
+                          <tr className="border-b border-slate-800 bg-[oklch(15%_0.014_265)] text-slate-300 uppercase text-[11px] font-semibold">
+                            <th className="py-2.5 px-3 text-center w-24">Rang Attente</th>
+                            <th className="py-2.5 px-4">Joueur</th>
+                            <th className="py-2.5 px-3">Club</th>
+                            <th className="py-2.5 px-3">Téléphone</th>
+                            <th className="py-2.5 px-3 text-center">Repêchage</th>
+                            <th className="py-2.5 px-3 text-right">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-800/60 font-mono text-xs">
+                          {waitlist.length === 0 ? (
+                            <tr>
+                              <td colSpan={6} className="py-8 text-center text-slate-400 font-sans">
+                                Aucun joueur actuellement en liste d'attente.
+                              </td>
+                            </tr>
+                          ) : (
+                            waitlist.map((p, idx) => (
+                              <tr key={p.id} className="hover:bg-noir-850/60 transition-colors">
+                                <td className="py-2.5 px-3 text-center">
+                                  <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                                    Attente #{p.waitlistRank || (idx + 1)}
+                                  </span>
+                                </td>
+                                <td className="py-2.5 px-4 font-sans font-bold text-white">
+                                  {p.nom} {p.prenom}
+                                </td>
+                                <td className="py-2.5 px-3 font-sans text-slate-300">
+                                  {p.club || 'Indépendant'}
+                                </td>
+                                <td className="py-2.5 px-3 text-slate-300">
+                                  {p.telephone ? (
+                                    <a href={`tel:${p.telephone}`} className="text-amber-400 hover:underline">
+                                      {p.telephone}
+                                    </a>
+                                  ) : (
+                                    <span className="text-slate-500">-</span>
+                                  )}
+                                </td>
+                                <td className="py-2.5 px-3 text-center">
+                                  <button
+                                    onClick={() => handleAction('promote', p.id)}
+                                    className="btn btn--accent text-xs py-1.5 px-3 flex items-center gap-1.5 mx-auto"
+                                    title="Promouvoir ce joueur en titulaire avec un dossard"
+                                  >
+                                    <Sparkles className="w-3.5 h-3.5" />
+                                    <span>Promouvoir en Titulaire (Dossard)</span>
+                                  </button>
+                                </td>
+                                <td className="py-2.5 px-3 text-right">
+                                  <button
+                                    onClick={() => handleAction('remove', p.id)}
+                                    className="text-rose-400 hover:text-rose-300 p-1.5 rounded hover:bg-rose-500/10 cursor-pointer"
+                                    title="Retirer de la liste d'attente"
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </button>
+                                </td>
+                              </tr>
+                            ))
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           ) : (
