@@ -226,7 +226,7 @@ export default function AdminPage() {
   // LOGIN SCREEN IF NOT AUTHENTICATED
   if (!isAuthenticated) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
+      <div className="min-h-[70vh] flex items-center justify-center px-4 pt-28 pb-16">
         <div className="w-full max-w-md p-8 sm:p-10 rounded-3xl card-royal border-2 border-gold-500/40 shadow-gold-glow-lg text-center space-y-6">
           <div className="w-16 h-16 rounded-2xl bg-gold-500/10 border border-gold-500/40 flex items-center justify-center text-gold-400 mx-auto shadow-inner">
             <Lock className="w-8 h-8" />
@@ -281,7 +281,7 @@ export default function AdminPage() {
   const checkedInCount = activeTourney?.registeredPlayers?.filter(p => p.isCheckedIn).length || 0;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-8">
       
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">

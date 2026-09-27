@@ -181,7 +181,7 @@ export default function TournamentDetailPage() {
   const shareText = `♟️ *Le Cercle des Rois - Tournoi d'échecs à Annaba* %0A🏆 ${tournament.title} %0A📅 Date : ${tournament.dateFormatted} à ${tournament.time} %0A📍 Lieu : ${tournament.location} %0A⏱️ Cadence : ${tournament.cadence} %0AInscriptions ouvertes ici : %0A${typeof window !== 'undefined' ? window.location.href : ''}`;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-12">
       
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-xs text-slate-400">

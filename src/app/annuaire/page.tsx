@@ -83,7 +83,7 @@ export default function AnnuairePage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-12">
       
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
