@@ -77,7 +77,7 @@ export default function HomePage() {
             </p>
             <div className="hero__cta">
               {activeTournament ? (
-                <Link className="btn btn--accent" href={`/tournoi/${activeTournament.slug}`}>
+                <Link className="btn btn--accent" href={`/tournoi/${activeTournament.slug}#inscription`}>
                   S'inscrire à l'Édition #{activeTournament.edition}
                 </Link>
               ) : (
@@ -278,7 +278,7 @@ export default function HomePage() {
         <div className="mt-6 flex flex-wrap items-center gap-4">
           {activeTournament && (
             <Link
-              href={`/tournoi/${activeTournament.slug}`}
+              href={`/tournoi/${activeTournament.slug}#inscription`}
               className="btn btn--accent"
             >
               Rejoindre la table des inscriptions →

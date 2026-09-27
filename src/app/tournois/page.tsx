@@ -121,7 +121,7 @@ export default function TournamentsListPage() {
                       {t.feeDescription || 'Gratuit'}
                     </span>
                     <Link
-                      href={`/tournoi/${t.slug}`}
+                      href={`/tournoi/${t.slug}#inscription`}
                       className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold bg-gold-500 text-noir-950 hover:bg-gold-400 shadow-gold-glow transition-colors"
                     >
                       <span>S'inscrire</span>

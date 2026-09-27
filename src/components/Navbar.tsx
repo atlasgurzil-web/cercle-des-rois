@@ -73,7 +73,7 @@ export const Navbar: React.FC = () => {
           </Link>
 
           <Link
-            href="/tournois"
+            href="/inscription"
             className="btn btn--accent text-xs sm:text-sm py-1.5 px-3.5 sm:px-4 rounded-full"
           >
             S'inscrire
