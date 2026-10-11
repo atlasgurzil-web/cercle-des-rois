@@ -1,14 +1,23 @@
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { Tournament, DirectoryPlayer, PlayerRegistration } from '@/types';
 import tournamentsSeed from '@/data/tournaments.json';
 import playersSeed from '@/data/players.json';
+import { normalizePhoneNumber } from '@/lib/validation';
 
-const DB_FILE_PATH = path.join(process.cwd(), 'src', 'data', 'db.json');
+const PRIMARY_DB_PATH = path.join(process.cwd(), 'src', 'data', 'db.json');
+const FALLBACK_DB_PATH = path.join(os.tmpdir(), 'cdr-database.json');
 
 interface DatabaseSchema {
   tournaments: Tournament[];
   players: DirectoryPlayer[];
+}
+
+// In-process memory store to handle serverless warm instances and read-only environments
+declare global {
+  // eslint-disable-next-line no-var
+  var __CDR_DB__: DatabaseSchema | undefined;
 }
 
 function getInitialUpcomingTournament(): Tournament {
@@ -95,124 +104,6 @@ function getInitialUpcomingTournament(): Tournament {
         registeredAt: '2026-09-22T16:20:00Z',
         isCheckedIn: false,
         isPaid: true
-      },
-      {
-        id: 'reg-5',
-        nom: 'TOUIL',
-        prenom: 'Achref',
-        fideId: '7981961',
-        dateNaissance: '2010-03-16',
-        telephone: '0776112018',
-        email: 'achreftll46@gmail.com',
-        club: 'Indépendant',
-        eloFide: 0,
-        status: 'confirmed',
-        registeredAt: '2026-09-23T18:45:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      },
-      {
-        id: 'reg-6',
-        nom: 'ACHACHE',
-        prenom: 'Abd erahim',
-        fideId: '7981627',
-        dateNaissance: '2010-01-26',
-        telephone: '0793178153',
-        email: 'oumao965@gmail.com',
-        club: 'AUCA',
-        eloFide: 0,
-        status: 'confirmed',
-        registeredAt: '2026-09-23T20:10:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      },
-      {
-        id: 'reg-7',
-        nom: 'DJAWAD',
-        prenom: 'Mohammed',
-        fideId: '7981783',
-        dateNaissance: '1954-01-01',
-        telephone: '0661000000',
-        email: 'm.djawad@gmail.com',
-        club: 'Hamra Annaba',
-        eloFide: 0,
-        status: 'confirmed',
-        registeredAt: '2026-09-24T10:00:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      },
-      {
-        id: 'reg-8',
-        nom: 'BENSAID',
-        prenom: 'Brahim',
-        fideId: '7904606',
-        dateNaissance: '2005-01-28',
-        telephone: '0698170839',
-        email: 'sampras1970@hotmail.com',
-        club: 'Hamra Annaba',
-        eloFide: 1711,
-        status: 'confirmed',
-        registeredAt: '2026-09-24T14:15:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      },
-      {
-        id: 'reg-9',
-        nom: 'AYAD',
-        prenom: 'Zoheir',
-        dateNaissance: '1978-08-31',
-        telephone: '0662535291',
-        email: 'ayad.zoheir@gmail.com',
-        club: 'Hamra Annaba',
-        status: 'confirmed',
-        registeredAt: '2026-09-25T11:20:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      },
-      {
-        id: 'reg-10',
-        nom: 'ANIBA',
-        prenom: 'Tarek',
-        fideId: '7921624',
-        dateNaissance: '1990-01-01',
-        telephone: '0555333222',
-        email: 'tarek.aniba@gmail.com',
-        club: 'Hamra Annaba',
-        eloFide: 1551,
-        status: 'confirmed',
-        registeredAt: '2026-09-25T17:40:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      },
-      {
-        id: 'reg-11',
-        nom: 'ZEGHIB',
-        prenom: 'Rami',
-        fideId: '7973152',
-        dateNaissance: '2003-01-20',
-        telephone: '0793128926',
-        email: 'ramidentaire23@gmail.com',
-        club: 'Hamra Annaba',
-        eloFide: 1579,
-        status: 'confirmed',
-        registeredAt: '2026-09-26T08:30:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      },
-      {
-        id: 'reg-12',
-        nom: 'TOUMARI',
-        prenom: 'Hatem',
-        fideId: '7981970',
-        dateNaissance: '2001-03-06',
-        telephone: '0697101458',
-        email: 'hatemtm36@gmail.com',
-        club: 'Hamra Annaba',
-        eloFide: 1672,
-        status: 'confirmed',
-        registeredAt: '2026-09-26T12:00:00Z',
-        isCheckedIn: false,
-        isPaid: true
       }
     ]
   };
@@ -235,57 +126,75 @@ function initializeDatabase(): DatabaseSchema {
   };
 
   try {
-    fs.writeFileSync(DB_FILE_PATH, JSON.stringify(initialData, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Failed to write initial db.json:', err);
+    fs.writeFileSync(PRIMARY_DB_PATH, JSON.stringify(initialData, null, 2), 'utf-8');
+  } catch {
+    try {
+      fs.writeFileSync(FALLBACK_DB_PATH, JSON.stringify(initialData, null, 2), 'utf-8');
+    } catch {
+      // Memory store fallback
+    }
   }
 
+  globalThis.__CDR_DB__ = initialData;
   return initialData;
 }
 
 export function readDatabase(): DatabaseSchema {
+  // 1. Check in-memory store first
+  if (globalThis.__CDR_DB__) {
+    return globalThis.__CDR_DB__;
+  }
+
+  // 2. Try primary path
   try {
-    if (fs.existsSync(DB_FILE_PATH)) {
-      const raw = fs.readFileSync(DB_FILE_PATH, 'utf-8');
+    if (fs.existsSync(PRIMARY_DB_PATH)) {
+      const raw = fs.readFileSync(PRIMARY_DB_PATH, 'utf-8');
       const data: DatabaseSchema = JSON.parse(raw);
-      let modified = false;
-      data.tournaments.forEach(t => {
-        if (t.registeredPlayers) {
-          let cIdx = 1;
-          let wIdx = 1;
-          t.registeredPlayers.forEach(p => {
-            if (p.status === 'confirmed') {
-              if (p.dossardNumber !== cIdx) {
-                p.dossardNumber = cIdx;
-                modified = true;
-              }
-              cIdx++;
-            } else if (p.status === 'waitlist') {
-              if (p.waitlistRank !== wIdx) {
-                p.waitlistRank = wIdx;
-                modified = true;
-              }
-              wIdx++;
-            }
-          });
-        }
-      });
-      if (modified) {
-        fs.writeFileSync(DB_FILE_PATH, JSON.stringify(data, null, 2), 'utf-8');
-      }
+      globalThis.__CDR_DB__ = data;
       return data;
     }
   } catch (err) {
-    console.error('Error reading db.json, re-initializing:', err);
+    console.warn('Could not read from primary DB path:', err);
   }
+
+  // 3. Try fallback tmp path
+  try {
+    if (fs.existsSync(FALLBACK_DB_PATH)) {
+      const raw = fs.readFileSync(FALLBACK_DB_PATH, 'utf-8');
+      const data: DatabaseSchema = JSON.parse(raw);
+      globalThis.__CDR_DB__ = data;
+      return data;
+    }
+  } catch (err) {
+    console.warn('Could not read from fallback DB path:', err);
+  }
+
+  // 4. Initialize if nothing exists
   return initializeDatabase();
 }
 
 export function writeDatabase(data: DatabaseSchema): void {
+  // Always update global memory first
+  globalThis.__CDR_DB__ = data;
+
+  const serialized = JSON.stringify(data, null, 2);
+
+  // Try writing to primary DB path
+  let written = false;
   try {
-    fs.writeFileSync(DB_FILE_PATH, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error('Error writing to db.json:', err);
+    fs.writeFileSync(PRIMARY_DB_PATH, serialized, 'utf-8');
+    written = true;
+  } catch {
+    // Primary path is read-only (e.g. Vercel serverless)
+  }
+
+  // Try writing to fallback tmp path if primary failed
+  if (!written) {
+    try {
+      fs.writeFileSync(FALLBACK_DB_PATH, serialized, 'utf-8');
+    } catch {
+      // Memory persistence only
+    }
   }
 }
 
@@ -339,17 +248,24 @@ export function deleteTournament(id: string): boolean {
 export function registerPlayerToTournament(
   tournamentId: string,
   playerData: {
-    nom?: string;
-    prenom?: string;
+    nom: string;
+    prenom: string;
     fideId?: string;
     dateNaissance?: string;
-    telephone?: string;
+    telephone: string;
     email?: string;
     club?: string;
     eloFide?: number;
     notes?: string;
   }
-): { success: boolean; registration?: PlayerRegistration; error?: string; isWaitlist?: boolean; dossardNumber?: number; waitlistRank?: number } {
+): { 
+  success: boolean; 
+  registration?: PlayerRegistration; 
+  error?: string; 
+  isWaitlist?: boolean; 
+  dossardNumber?: number; 
+  waitlistRank?: number 
+} {
   const db = readDatabase();
   const tournament = db.tournaments.find(t => t.id === tournamentId || t.slug === tournamentId);
   if (!tournament) {
@@ -358,41 +274,56 @@ export function registerPlayerToTournament(
 
   tournament.registeredPlayers = tournament.registeredPlayers || [];
 
-  // Check if already registered ONLY if valid non-empty phone, email, or FIDE ID is provided
-  const cleanPhone = (playerData.telephone || '').replace(/\s+/g, '');
+  // Normalize comparisons
+  const cleanPhone = normalizePhoneNumber(playerData.telephone || '');
   const cleanEmail = (playerData.email || '').toLowerCase().trim();
   const cleanFide = (playerData.fideId || '').trim();
+  const cleanNom = (playerData.nom || '').trim().toUpperCase();
+  const cleanPrenom = (playerData.prenom || '').trim().toLowerCase();
 
+  // Check for duplicates
   const isDuplicate = tournament.registeredPlayers.some(p => {
-    if (cleanPhone && cleanPhone.length > 5 && p.telephone && p.telephone.replace(/\s+/g, '') === cleanPhone) return true;
-    if (cleanEmail && cleanEmail.length > 3 && p.email && p.email.toLowerCase().trim() === cleanEmail) return true;
-    if (cleanFide && cleanFide.length > 2 && p.fideId && p.fideId === cleanFide) return true;
+    // Match by phone
+    if (cleanPhone && cleanPhone.length >= 8 && normalizePhoneNumber(p.telephone || '') === cleanPhone) {
+      return true;
+    }
+    // Match by email if provided
+    if (cleanEmail && cleanEmail.length > 3 && p.email && p.email.toLowerCase().trim() === cleanEmail) {
+      return true;
+    }
+    // Match by FIDE ID if provided
+    if (cleanFide && cleanFide.length > 3 && p.fideId && p.fideId.trim() === cleanFide) {
+      return true;
+    }
+    // Match by exact full name
+    if (p.nom.toUpperCase().trim() === cleanNom && p.prenom.toLowerCase().trim() === cleanPrenom) {
+      return true;
+    }
     return false;
   });
 
   if (isDuplicate) {
-    return { success: false, error: 'Ce joueur est déjà inscrit à ce tournoi !' };
+    return { success: false, error: 'Ce joueur est déjà enregistré sur la liste de ce tournoi !' };
   }
 
-  const confirmedCount = tournament.registeredPlayers.filter(p => p.status === 'confirmed').length;
-  const waitlistCount = tournament.registeredPlayers.filter(p => p.status === 'waitlist').length;
-  const isWaitlist = confirmedCount >= tournament.maxParticipants;
+  const confirmedPlayers = tournament.registeredPlayers.filter(p => p.status === 'confirmed');
+  const waitlistPlayers = tournament.registeredPlayers.filter(p => p.status === 'waitlist');
+  const isWaitlist = confirmedPlayers.length >= tournament.maxParticipants;
 
-  const rawNom = (playerData.nom || playerData.prenom || `Joueur #${(tournament.registeredPlayers.length || 0) + 1}`).trim();
-  const rawPrenom = (playerData.prenom || '').trim();
+  const assignedDossard = !isWaitlist ? confirmedPlayers.length + 1 : undefined;
+  const assignedWaitlistRank = isWaitlist ? waitlistPlayers.length + 1 : undefined;
 
-  const assignedDossard = !isWaitlist ? confirmedCount + 1 : undefined;
-  const assignedWaitlistRank = isWaitlist ? waitlistCount + 1 : undefined;
+  const formattedPrenom = cleanPrenom.charAt(0).toUpperCase() + cleanPrenom.slice(1);
 
   const newReg: PlayerRegistration = {
-    id: `reg-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
-    nom: rawNom.toUpperCase(),
-    prenom: rawPrenom ? (rawPrenom.charAt(0).toUpperCase() + rawPrenom.slice(1)) : '',
-    fideId: playerData.fideId?.trim() || '',
+    id: `reg-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
+    nom: cleanNom,
+    prenom: formattedPrenom,
+    fideId: cleanFide,
     dateNaissance: playerData.dateNaissance || '',
-    telephone: playerData.telephone?.trim() || '',
-    email: playerData.email?.trim() || '',
-    club: playerData.club?.trim() || 'Indépendant',
+    telephone: cleanPhone,
+    email: cleanEmail,
+    club: (playerData.club || 'Indépendant').trim(),
     eloFide: playerData.eloFide || 0,
     status: isWaitlist ? 'waitlist' : 'confirmed',
     dossardNumber: assignedDossard,
@@ -405,7 +336,7 @@ export function registerPlayerToTournament(
 
   tournament.registeredPlayers.push(newReg);
 
-  // Sync to players directory automatically!
+  // Sync to players directory automatically
   syncPlayerToDirectory(db, newReg);
 
   writeDatabase(db);
@@ -476,7 +407,7 @@ export function removeRegistration(tournamentId: string, registrationId: string)
   const initialLen = tournament.registeredPlayers.length;
   tournament.registeredPlayers = tournament.registeredPlayers.filter(p => p.id !== registrationId);
 
-  // If a confirmed player was removed and there's someone in waitlist, promote the first waitlist player!
+  // If a confirmed player was removed and waitlist exists, promote first waitlist player
   const hasWaitlist = tournament.registeredPlayers.find(p => p.status === 'waitlist');
   const confirmedCount = tournament.registeredPlayers.filter(p => p.status === 'confirmed').length;
 
@@ -485,13 +416,13 @@ export function removeRegistration(tournamentId: string, registrationId: string)
     delete hasWaitlist.waitlistRank;
   }
 
-  // Ensure confirmed players have clean sequential dossard numbers
+  // Ensure sequential dossards
   const confirmed = tournament.registeredPlayers.filter(p => p.status === 'confirmed');
   confirmed.forEach((p, idx) => {
     p.dossardNumber = idx + 1;
   });
 
-  // Ensure waitlist players have sequential waitlistRank
+  // Ensure sequential waitlist ranks
   const waitlist = tournament.registeredPlayers.filter(p => p.status === 'waitlist');
   waitlist.forEach((p, idx) => {
     p.waitlistRank = idx + 1;
@@ -511,10 +442,11 @@ export function getAllPlayers(): DirectoryPlayer[] {
 function syncPlayerToDirectory(db: DatabaseSchema, reg: PlayerRegistration) {
   const normNom = reg.nom.toLowerCase().trim();
   const normPrenom = reg.prenom.toLowerCase().trim();
+  const normPhone = normalizePhoneNumber(reg.telephone);
 
-  let existing = db.players.find(p => {
+  const existing = db.players.find(p => {
     if (reg.fideId && p.fideId && reg.fideId === p.fideId) return true;
-    if (reg.telephone && p.telephone && reg.telephone.replace(/\s+/g, '') === p.telephone.replace(/\s+/g, '')) return true;
+    if (normPhone && p.telephone && normalizePhoneNumber(p.telephone) === normPhone) return true;
     return p.nom.toLowerCase().trim() === normNom && p.prenom.toLowerCase().trim() === normPrenom;
   });
 

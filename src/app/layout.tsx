@@ -1,7 +1,29 @@
 import type { Metadata } from "next";
+import { Instrument_Serif, JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-display",
+  display: "swap",
+});
+
+const fontSans = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cercledesrois.dz'),
@@ -37,12 +59,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" data-theme="lumen" className="dark scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-      </head>
+    <html 
+      lang="fr" 
+      data-theme="lumen" 
+      className={`dark scroll-smooth ${instrumentSerif.variable} ${fontSans.variable} ${jetbrainsMono.variable}`}
+    >
       <body className="min-h-screen flex flex-col justify-between selection:bg-gold-500/30 selection:text-gold-200">
         <Navbar />
         <main className="flex-grow">

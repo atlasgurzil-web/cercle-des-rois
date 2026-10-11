@@ -23,14 +23,39 @@ import playersSeed from '@/data/players.json';
 import { DirectoryPlayer } from '@/types';
 
 export default function AnnuairePage() {
-  const players: DirectoryPlayer[] = playersSeed as unknown as DirectoryPlayer[];
-
+  const [players, setPlayers] = useState<DirectoryPlayer[]>(playersSeed as unknown as DirectoryPlayer[]);
   const [search, setSearch] = useState('');
   const [selectedClub, setSelectedClub] = useState('ALL');
   const [adminUnlocked, setAdminUnlocked] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [showPinModal, setShowPinModal] = useState(false);
   const [pinError, setPinError] = useState('');
+
+  const fetchPlayersData = async (token?: string) => {
+    try {
+      const headers: Record<string, string> = {};
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      const res = await fetch('/api/players', { headers });
+      if (res.ok) {
+        const data = await res.json();
+        setPlayers(data);
+      }
+    } catch (err) {
+      console.error('Error fetching players:', err);
+    }
+  };
+
+  React.useEffect(() => {
+    const savedToken = typeof window !== 'undefined' ? sessionStorage.getItem('cdr_admin_token') : null;
+    if (savedToken) {
+      setAdminUnlocked(true);
+      fetchPlayersData(savedToken);
+    } else {
+      fetchPlayersData();
+    }
+  }, []);
 
   // Extract unique clubs for filter
   const clubs = ['ALL', ...Array.from(new Set(players.map(p => p.club || 'Indépendant')))];
@@ -49,14 +74,28 @@ export default function AnnuairePage() {
     return matchesSearch && matchesClub;
   });
 
-  const handleUnlockPin = (e: React.FormEvent) => {
+  const handleUnlockPin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (pinInput === '12081988') {
-      setAdminUnlocked(true);
-      setShowPinModal(false);
-      setPinError('');
-    } else {
-      setPinError('Code secret invalide.');
+    setPinError('');
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: pinInput })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        sessionStorage.setItem('cdr_admin_token', data.token);
+        setAdminUnlocked(true);
+        setShowPinModal(false);
+        setPinError('');
+        setPinInput('');
+        fetchPlayersData(data.token);
+      } else {
+        setPinError(data.error || 'Code secret invalide.');
+      }
+    } catch {
+      setPinError('Erreur de connexion au serveur.');
     }
   };
 

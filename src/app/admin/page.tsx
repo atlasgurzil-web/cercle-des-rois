@@ -91,11 +91,27 @@ export default function AdminPage() {
   // Directory search
   const [dirSearch, setDirSearch] = useState('');
 
+  const getAuthHeaders = () => {
+    const token = typeof window !== 'undefined' ? sessionStorage.getItem('cdr_admin_token') : '';
+    return token ? { 'Authorization': `Bearer ${token}` } : {};
+  };
+
+  const authFetch = (url: string, options: RequestInit = {}) => {
+    const authHeaders = getAuthHeaders();
+    return fetch(url, {
+      ...options,
+      headers: {
+        ...authHeaders,
+        ...(options.headers || {})
+      }
+    });
+  };
+
   // Check session on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const stored = sessionStorage.getItem('cdr_admin_auth');
-      if (stored === 'valid') {
+      const stored = sessionStorage.getItem('cdr_admin_token');
+      if (stored) {
         setIsAuthenticated(true);
       }
     }
@@ -105,8 +121,8 @@ export default function AdminPage() {
     try {
       setLoading(true);
       const [tRes, pRes] = await Promise.all([
-        fetch('/api/tournaments'),
-        fetch('/api/players')
+        authFetch('/api/tournaments'),
+        authFetch('/api/players')
       ]);
       const tData = await tRes.json();
       const pData = await pRes.json();
@@ -125,20 +141,33 @@ export default function AdminPage() {
     }
   }, [isAuthenticated]);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (pinInput === '12081988') {
-      setIsAuthenticated(true);
-      sessionStorage.setItem('cdr_admin_auth', 'valid');
-      setAuthError('');
-    } else {
-      setAuthError('Code PIN secret incorrect.');
+    setAuthError('');
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: pinInput })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        sessionStorage.setItem('cdr_admin_token', data.token);
+        setIsAuthenticated(true);
+        setAuthError('');
+        setPinInput('');
+      } else {
+        setAuthError(data.error || 'Code PIN secret incorrect.');
+      }
+    } catch {
+      setAuthError('Erreur de connexion au serveur.');
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsAuthenticated(false);
-    sessionStorage.removeItem('cdr_admin_auth');
+    sessionStorage.removeItem('cdr_admin_token');
+    await fetch('/api/auth', { method: 'DELETE' }).catch(() => {});
   };
 
   const activeTourney = tournaments.find(t => !t.isArchived) || tournaments[0];
@@ -150,7 +179,7 @@ export default function AdminPage() {
     if (action === 'promote' && !confirm('Promouvoir ce joueur en liste principale et lui attribuer un numéro de dossard ?')) return;
 
     try {
-      const res = await fetch(`/api/tournaments/${activeTourney.id}/checkin`, {
+      const res = await authFetch(`/api/tournaments/${activeTourney.id}/checkin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action, registrationId: regId })
@@ -167,7 +196,7 @@ export default function AdminPage() {
   const handleCreateTournament = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/tournaments', {
+      const res = await authFetch('/api/tournaments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newTourney)
@@ -191,7 +220,7 @@ export default function AdminPage() {
     if (!editingTourney) return;
 
     try {
-      const res = await fetch(`/api/tournaments/${editingTourney.id}`, {
+      const res = await authFetch(`/api/tournaments/${editingTourney.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editingTourney)
@@ -213,7 +242,7 @@ export default function AdminPage() {
     if (!confirm(`Supprimer définitivement le tournoi "${tTitle}" ? Cette action est irréversible.`)) return;
 
     try {
-      const res = await fetch(`/api/tournaments/${tId}`, {
+      const res = await authFetch(`/api/tournaments/${tId}`, {
         method: 'DELETE'
       });
       if (res.ok) {
@@ -239,7 +268,7 @@ export default function AdminPage() {
         third: archiveForm.thirdWinner ? { rank: 3, name: archiveForm.thirdWinner, points: parseFloat(archiveForm.thirdPoints), elo: 0 } : null,
       };
 
-      const res = await fetch(`/api/tournaments/${activeTourney.id}/checkin`, {
+      const res = await authFetch(`/api/tournaments/${activeTourney.id}/checkin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -264,7 +293,7 @@ export default function AdminPage() {
     if (!editingPlayer) return;
 
     try {
-      const res = await fetch('/api/players', {
+      const res = await authFetch('/api/players', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editingPlayer)
@@ -286,7 +315,7 @@ export default function AdminPage() {
     if (!confirm(`Supprimer définitivement le joueur "${pName}" de l'annuaire ?`)) return;
 
     try {
-      const res = await fetch(`/api/players?id=${pId}`, {
+      const res = await authFetch(`/api/players?id=${pId}`, {
         method: 'DELETE'
       });
       if (res.ok) {
@@ -304,7 +333,7 @@ export default function AdminPage() {
   const handleCreatePlayer = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/players', {
+      const res = await authFetch('/api/players', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newPlayerForm)

@@ -83,7 +83,9 @@ export const Navbar: React.FC = () => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-1.5 text-[var(--color-ink-2)] hover:text-[var(--color-ink)]"
-            aria-label="Menu"
+            aria-label={mobileMenuOpen ? "Fermer le menu de navigation" : "Ouvrir le menu de navigation"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -93,7 +95,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="pointer-events-auto fixed top-20 left-4 right-4 bg-[oklch(17%_0.016_265_/_0.95)] backdrop-blur-2xl border border-[var(--color-rule-2)] rounded-2xl p-5 shadow-2xl flex flex-col gap-3 md:hidden animate-in fade-in">
+        <div id="mobile-navigation" className="pointer-events-auto fixed top-20 left-4 right-4 bg-[oklch(17%_0.016_265_/_0.95)] backdrop-blur-2xl border border-[var(--color-rule-2)] rounded-2xl p-5 shadow-2xl flex flex-col gap-3 md:hidden animate-in fade-in">
           {navLinks.map((link) => (
             <Link
               key={link.href}

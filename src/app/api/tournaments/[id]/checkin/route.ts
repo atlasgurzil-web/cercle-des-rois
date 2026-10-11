@@ -7,11 +7,17 @@ import {
   getTournamentBySlug, 
   saveTournament 
 } from '@/lib/storage';
+import { verifyAdminRequest } from '@/lib/auth';
 
 export async function POST(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  // Enforce server-side admin authentication
+  if (!verifyAdminRequest(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé : session organisateur requise.' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { action, registrationId, podium, standings } = body;

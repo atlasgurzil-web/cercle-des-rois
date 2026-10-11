@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { registerPlayerToTournament } from '@/lib/storage';
+import { validateRegistrationInput } from '@/lib/validation';
 
 export async function POST(
   request: Request,
@@ -7,17 +8,25 @@ export async function POST(
 ) {
   try {
     const body = await request.json();
-    const { nom, prenom, fideId, dateNaissance, telephone, email, club, notes } = body;
+    
+    // Strict validation
+    const validation = validateRegistrationInput(body);
+    if (!validation.isValid || !validation.data) {
+      const firstErrorMessage = Object.values(validation.errors)[0] || 'Données du formulaire invalides';
+      return NextResponse.json({ 
+        error: firstErrorMessage, 
+        details: validation.errors 
+      }, { status: 400 });
+    }
 
-    const safeNom = (nom || prenom || 'Joueur').trim();
-    const safePrenom = (prenom || '').trim();
+    const { nom, prenom, fideId, dateNaissance, telephone, email, club, notes } = validation.data;
 
     const result = registerPlayerToTournament(params.id, {
-      nom: safeNom,
-      prenom: safePrenom,
+      nom,
+      prenom,
       fideId: fideId || '',
       dateNaissance: dateNaissance || '',
-      telephone: telephone || '',
+      telephone,
       email: email || '',
       club: club || 'Indépendant',
       notes: notes || ''

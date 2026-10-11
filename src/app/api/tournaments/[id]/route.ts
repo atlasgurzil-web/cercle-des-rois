@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getTournamentBySlug, saveTournament, deleteTournament } from '@/lib/storage';
+import { verifyAdminRequest } from '@/lib/auth';
 
 export async function GET(
   request: Request,
@@ -20,6 +21,11 @@ export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  // Enforce server-side admin authentication
+  if (!verifyAdminRequest(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé : code PIN ou session organisateur requis.' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const existing = getTournamentBySlug(params.id);
@@ -39,6 +45,11 @@ export async function DELETE(
   request: Request,
   { params }: { params: { id: string } }
 ) {
+  // Enforce server-side admin authentication
+  if (!verifyAdminRequest(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé : code PIN ou session organisateur requis.' }, { status: 401 });
+  }
+
   try {
     const existing = getTournamentBySlug(params.id);
     if (!existing) {

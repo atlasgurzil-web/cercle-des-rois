@@ -20,9 +20,26 @@ import tournamentsSeed from '@/data/tournaments.json';
 import { Tournament, StandingEntry } from '@/types';
 
 export default function ArchivesPage() {
-  const tournaments = tournamentsSeed as unknown as Tournament[];
+  const [tournaments, setTournaments] = useState<Tournament[]>(tournamentsSeed as unknown as Tournament[]);
   const [selectedTournamentId, setSelectedTournamentId] = useState<string>(tournaments[2]?.id || tournaments[0]?.id);
   const [searchQuery, setSearchQuery] = useState('');
+
+  React.useEffect(() => {
+    fetch('/api/tournaments')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const archived = data.filter((t: Tournament) => t.isArchived);
+          if (archived.length > 0) {
+            setTournaments(archived);
+            if (!archived.some(t => t.id === selectedTournamentId)) {
+              setSelectedTournamentId(archived[0].id);
+            }
+          }
+        }
+      })
+      .catch(err => console.error('Error fetching tournaments in archives:', err));
+  }, []);
 
   const currentTournament = tournaments.find(t => t.id === selectedTournamentId) || tournaments[0];
   

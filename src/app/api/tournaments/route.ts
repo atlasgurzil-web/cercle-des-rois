@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getAllTournaments, saveTournament } from '@/lib/storage';
+import { verifyAdminRequest } from '@/lib/auth';
 import { Tournament } from '@/types';
 
 export async function GET() {
@@ -12,12 +13,17 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // Enforce server-side admin authentication
+  if (!verifyAdminRequest(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé : code PIN ou session organisateur requis.' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { title, date, time, location, cadence, maxParticipants, rounds, fee, feeDescription, prizes, description, rules, isOnline, onlineUrl } = body;
 
-    if (!title || !date || !location) {
-      return NextResponse.json({ error: 'Champs obligatoires manquants (titre, date, lieu)' }, { status: 400 });
+    if (!title?.trim() || !date?.trim() || !location?.trim()) {
+      return NextResponse.json({ error: 'Champs obligatoires manquants (titre, date, lieu).' }, { status: 400 });
     }
 
     const tournaments = getAllTournaments();
@@ -27,23 +33,23 @@ export async function POST(request: Request) {
     const newTournament: Tournament = {
       id: `cdr-${Date.now()}`,
       edition: nextEdition,
-      title,
+      title: title.trim(),
       slug,
-      date,
+      date: date.trim(),
       dateFormatted: new Date(date).toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
-      time: time || '20:30 (Après Isha)',
-      location,
+      time: time?.trim() || '20:30 (Après Isha)',
+      location: location.trim(),
       isOnline: !!isOnline,
-      onlineUrl: onlineUrl || '',
+      onlineUrl: onlineUrl?.trim() || '',
       rounds: parseInt(rounds) || 7,
-      cadence: cadence || 'Blitz 5m + 3s',
+      cadence: cadence?.trim() || 'Blitz 5m + 3s',
       type: 'Système suisse amical',
       maxParticipants: parseInt(maxParticipants) || 32,
       fee: parseFloat(fee) || 0,
-      feeDescription: feeDescription || (parseFloat(fee) > 0 ? `${fee} DZD sur place` : 'Gratuit'),
-      prizes: prizes || 'Trophées & Médailles Le Cercle des Rois',
-      description: description || 'Rendez-vous mensuel des passionnés d\'échecs d\'Annaba.',
-      rules: rules || 'Système suisse, fair-play et convivialité.',
+      feeDescription: feeDescription?.trim() || (parseFloat(fee) > 0 ? `${fee} DZD sur place` : 'Gratuit'),
+      prizes: prizes?.trim() || 'Trophées & Médailles Le Cercle des Rois',
+      description: description?.trim() || 'Rendez-vous mensuel des passionnés d\'échecs d\'Annaba.',
+      rules: rules?.trim() || 'Système suisse, fair-play et convivialité.',
       isArchived: false,
       organizer: 'Le Cercle des Rois (Hamra & AUCA)',
       registeredPlayers: []

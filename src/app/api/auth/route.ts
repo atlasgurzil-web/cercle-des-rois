@@ -1,18 +1,51 @@
 import { NextResponse } from 'next/server';
-
-const ADMIN_PIN = process.env.ADMIN_PIN || '12081988';
+import { validateAdminPin, createAdminToken, verifyAdminRequest } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
     const { pin } = body;
 
-    if (pin === ADMIN_PIN) {
-      return NextResponse.json({ success: true, token: 'cdr-admin-auth-session-valid' });
+    if (!pin) {
+      return NextResponse.json({ error: 'Code PIN requis' }, { status: 400 });
     }
 
-    return NextResponse.json({ success: false, error: 'Code secret incorrect' }, { status: 401 });
+    if (!validateAdminPin(pin)) {
+      return NextResponse.json({ error: 'Code PIN incorrect' }, { status: 401 });
+    }
+
+    const token = createAdminToken();
+
+    const response = NextResponse.json({
+      success: true,
+      message: 'Authentification réussie',
+      token
+    });
+
+    // Set secure HTTP-only cookie
+    response.cookies.set({
+      name: 'cdr_admin_token',
+      value: token,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 24 * 60 * 60 // 24 hours
+    });
+
+    return response;
   } catch (error) {
-    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
+    return NextResponse.json({ error: 'Erreur serveur lors de la vérification' }, { status: 500 });
   }
+}
+
+export async function GET(request: Request) {
+  const isAuth = verifyAdminRequest(request);
+  return NextResponse.json({ authenticated: isAuth });
+}
+
+export async function DELETE() {
+  const response = NextResponse.json({ success: true, message: 'Déconnexion effectuée' });
+  response.cookies.delete('cdr_admin_token');
+  return response;
 }

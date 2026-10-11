@@ -1,10 +1,19 @@
 import { NextResponse } from 'next/server';
 import { getAllPlayers, savePlayer, deletePlayer } from '@/lib/storage';
+import { verifyAdminRequest, sanitizePlayerForPublic } from '@/lib/auth';
 import { DirectoryPlayer } from '@/types';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const players = getAllPlayers();
+    const isAdmin = verifyAdminRequest(request);
+
+    // If not authenticated as organizer, sanitize private information
+    if (!isAdmin) {
+      const sanitized = players.map(sanitizePlayerForPublic);
+      return NextResponse.json(sanitized);
+    }
+
     return NextResponse.json(players);
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors du chargement de l\'annuaire' }, { status: 500 });
@@ -12,6 +21,11 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  // Enforce server-side admin authentication
+  if (!verifyAdminRequest(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé : code PIN ou session organisateur requis.' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const newPlayer: DirectoryPlayer = {
@@ -39,6 +53,11 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
+  // Enforce server-side admin authentication
+  if (!verifyAdminRequest(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé : code PIN ou session organisateur requis.' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     if (!body.id) {
@@ -70,6 +89,11 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
+  // Enforce server-side admin authentication
+  if (!verifyAdminRequest(request)) {
+    return NextResponse.json({ error: 'Accès non autorisé : code PIN ou session organisateur requis.' }, { status: 401 });
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
