@@ -39,31 +39,15 @@ export default function HomePage() {
           {/* Colonne Gauche : Présentation & Titre */}
           <div className="lg:col-span-7 space-y-8 text-left">
             
-            {/* Badge officiel noble */}
-            <div className="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-noir-850/80 border border-white/10 backdrop-blur-md">
-              <div className="relative w-6 h-6 rounded-full overflow-hidden border border-gold-500/50 flex-shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="Logo officiel Le Cercle des Rois"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-              <span className="text-xs font-medium text-slate-300">
-                Échiquier d'Annaba <span className="text-gold-500 mx-1">·</span> Cercle Indépendant
-              </span>
-            </div>
-
             {/* Titre Principal */}
             <div className="space-y-4">
-              <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-white tracking-tight leading-[1.08]">
-                Le Cercle des <span className="text-gold-400 italic">Rois</span>.
+              <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-white tracking-tight leading-[1.08]">
+                Le Cercle des <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-400 to-amber-200 italic font-serif">Rois</span>.
               </h1>
               <p className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed font-light">
-                La plateforme indépendante des passionnés du noble jeu à Annaba.
-                Préservée par les anciens du Hamra et de l'AUCA : des tournois amicaux
-                chaque premier jeudi du mois, après la prière d'Isha.
+                La plateforme des passionnés du noble jeu à Annaba.
+                Rencontres fraternelles et tournois amicaux
+                chaque premier jeudi du mois, le soir après la prière d'Aïcha.
               </p>
             </div>
 
@@ -96,11 +80,11 @@ export default function HomePage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 text-xs text-slate-400">
               <div className="space-y-1">
                 <span className="text-slate-500 block uppercase font-mono tracking-wider text-[10px]">Périodicité</span>
-                <span className="text-slate-200 font-medium">1ᵉʳ jeudi du mois</span>
+                <span className="text-slate-200 font-medium">Premier jeudi du mois</span>
               </div>
               <div className="space-y-1">
                 <span className="text-slate-500 block uppercase font-mono tracking-wider text-[10px]">Horaire</span>
-                <span className="text-slate-200 font-medium">20:30 (Après Isha)</span>
+                <span className="text-slate-200 font-medium">Le soir après Aïcha</span>
               </div>
               <div className="space-y-1">
                 <span className="text-slate-500 block uppercase font-mono tracking-wider text-[10px]">Cadence</span>
@@ -297,46 +281,46 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="card-royal p-6 space-y-4">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-mono">Mai 2024</span>
+              <span className="text-slate-400 font-mono">27-28 Août 2026</span>
               <span className="text-gold-400 font-semibold">CDR III</span>
             </div>
             <div>
-              <div className="text-xs uppercase tracking-wider text-slate-400">Vainqueur</div>
+              <div className="text-xs uppercase tracking-wider text-slate-400">Champion</div>
               <h3 className="font-serif text-xl font-bold text-white mt-1">BENLAID Lakhdar</h3>
-              <p className="text-xs text-gold-400 mt-0.5">6.0 pts / 7 rondes</p>
+              <p className="text-xs text-gold-400 mt-0.5">6.0 pts / 7 rondes · Makomades</p>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
-              2ᵉ : TOUIL Achref (5.5 pts) · 3ᵉ : KOUDRI Samir (5.0 pts). 22 participants au Café Dardara.
+              Vainqueur de la 3ᵉ édition. 2ᵉ : Touil Achref (5.5 pts) · 3ᵉ : Koudri Samir (5.0 pts). 27 participants au Café Dardara.
             </p>
           </div>
 
           <div className="card-royal p-6 space-y-4">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-mono">Avril 2024</span>
+              <span className="text-slate-400 font-mono">1 Août 2026</span>
               <span className="text-gold-400 font-semibold">CDR II</span>
             </div>
             <div>
-              <div className="text-xs uppercase tracking-wider text-slate-400">Vainqueur</div>
-              <h3 className="font-serif text-xl font-bold text-white mt-1">TOUIL Achref</h3>
-              <p className="text-xs text-gold-400 mt-0.5">5.5 pts / 7 rondes</p>
+              <div className="text-xs uppercase tracking-wider text-slate-400">Champion</div>
+              <h3 className="font-serif text-xl font-bold text-white mt-1">ASSOUL Abdelaziz</h3>
+              <p className="text-xs text-gold-400 mt-0.5">6.5 pts / 7 rondes · Makomades</p>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
-              2ᵉ : BENLAID Lakhdar (5.5 pts) · 3ᵉ : AMARA Oussama (5.0 pts). Départage Buchholz Cut 1.
+              Vainqueur de la 2ᵉ édition. 2ᵉ : Benlaid Lakhdar (6.0 pts) · 3ᵉ : Ayad Zoheir (5.5 pts). 28 participants.
             </p>
           </div>
 
           <div className="card-royal p-6 space-y-4">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-mono">Mars 2024</span>
+              <span className="text-slate-400 font-mono">29 Mai 2026</span>
               <span className="text-gold-400 font-semibold">CDR I</span>
             </div>
             <div>
-              <div className="text-xs uppercase tracking-wider text-slate-400">Vainqueur</div>
-              <h3 className="font-serif text-xl font-bold text-white mt-1">KOUDRI Samir</h3>
-              <p className="text-xs text-gold-400 mt-0.5">6.5 pts / 7 rondes</p>
+              <div className="text-xs uppercase tracking-wider text-slate-400">Champion</div>
+              <h3 className="font-serif text-xl font-bold text-white mt-1">BENLAID Lakhdar</h3>
+              <p className="text-xs text-gold-400 mt-0.5">4.5 pts / 5 rondes · Makomades</p>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
-              Édition inaugurale réunissant 24 anciens sociétaires et passionnés de la wilaya d'Annaba.
+              Vainqueur de l'édition inaugurale. 2ᵉ : Bouzitoune Abdelhafid (4.0 pts) · 3ᵉ : Koudri Samir (3.5 pts). 12 participants.
             </p>
           </div>
         </div>

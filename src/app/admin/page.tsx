@@ -27,12 +27,15 @@ import {
   RefreshCw, 
   Search,
   FileSpreadsheet,
-  X
+  X,
+  Database
 } from 'lucide-react';
 import { Tournament, PlayerRegistration, DirectoryPlayer } from '@/types';
+import { SupabaseModal } from '@/components/SupabaseModal';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showSqlModal, setShowSqlModal] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [authError, setAuthError] = useState('');
 
@@ -485,7 +488,16 @@ export default function AdminPage() {
           </h1>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <button
+            onClick={() => setShowSqlModal(true)}
+            className="px-3.5 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25 transition-colors cursor-pointer shadow-sm"
+            title="Ouvrir le script SQL Supabase prêt à copier-coller"
+          >
+            <Database className="w-3.5 h-3.5" />
+            <span>Script SQL Supabase (1 Clic)</span>
+          </button>
+
           <button
             onClick={loadData}
             disabled={loading}
@@ -1235,7 +1247,7 @@ export default function AdminPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-400">Lien Chess-Results (Optionnel)</label>
+              <label className="text-xs font-semibold text-slate-400">Lien Chess-Results</label>
               <input
                 type="url"
                 placeholder="https://chess-results.com/tnr..."
@@ -1588,6 +1600,12 @@ export default function AdminPage() {
           </div>
         </div>
       )}
+
+      {/* Supabase 1-Click Copy Modal */}
+      <SupabaseModal 
+        isOpen={showSqlModal} 
+        onClose={() => setShowSqlModal(false)} 
+      />
 
     </div>
   );

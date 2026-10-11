@@ -43,69 +43,7 @@ function getInitialUpcomingTournament(): Tournament {
     isArchived: false,
     organizer: 'Le Cercle des Rois (Hamra & AUCA)',
     director: 'Benghida Hamza',
-    registeredPlayers: [
-      {
-        id: 'reg-1',
-        nom: 'BENGHIDA',
-        prenom: 'Hamza',
-        fideId: '7981600',
-        dateNaissance: '1988-08-12',
-        telephone: '0551056785',
-        email: 'thealgerino23@gmail.com',
-        club: 'Hamra Annaba',
-        eloFide: 0,
-        status: 'confirmed',
-        registeredAt: '2026-09-20T14:30:00Z',
-        isCheckedIn: true,
-        isPaid: true,
-        notes: 'Directeur du tournoi'
-      },
-      {
-        id: 'reg-2',
-        nom: 'BENLAID',
-        prenom: 'Lakhdar',
-        fideId: '7903413',
-        dateNaissance: '1978-10-25',
-        telephone: '0551263599',
-        email: '',
-        club: 'Makomades chess Club oum el bouaghi',
-        eloFide: 1867,
-        status: 'confirmed',
-        registeredAt: '2026-09-21T09:15:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      },
-      {
-        id: 'reg-3',
-        nom: 'ASSOUL',
-        prenom: 'Abdelaziz',
-        fideId: '7922817',
-        dateNaissance: '1991-01-01',
-        telephone: '0555000000',
-        email: 'assoul@gmail.com',
-        club: 'Hamra Annaba',
-        eloFide: 1820,
-        status: 'confirmed',
-        registeredAt: '2026-09-21T11:00:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      },
-      {
-        id: 'reg-4',
-        nom: 'KOUDRI',
-        prenom: 'Samir',
-        fideId: '7922884',
-        dateNaissance: '1981-01-01',
-        telephone: '0550123456',
-        email: 'samir.koudri@gmail.com',
-        club: 'Hamra Annaba',
-        eloFide: 1854,
-        status: 'confirmed',
-        registeredAt: '2026-09-22T16:20:00Z',
-        isCheckedIn: false,
-        isPaid: true
-      }
-    ]
+    registeredPlayers: []
   };
 }
 
@@ -295,8 +233,8 @@ export function registerPlayerToTournament(
     if (cleanFide && cleanFide.length > 3 && p.fideId && p.fideId.trim() === cleanFide) {
       return true;
     }
-    // Match by exact full name
-    if (p.nom.toUpperCase().trim() === cleanNom && p.prenom.toLowerCase().trim() === cleanPrenom) {
+    // Match by exact full name (unless generic default)
+    if (cleanNom && cleanNom !== 'JOUEUR' && p.nom.toUpperCase().trim() === cleanNom && p.prenom.toLowerCase().trim() === cleanPrenom) {
       return true;
     }
     return false;

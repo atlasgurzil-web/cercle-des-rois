@@ -40,87 +40,47 @@ export function normalizePhoneNumber(rawPhone: string): string {
 }
 
 /**
- * Validates registration input with localized Algerian rules
+ * Validates registration input - All fields are optional and flexible as requested
  */
 export function validateRegistrationInput(input: any): ValidationResult<RegistrationInput> {
-  const errors: Record<string, string> = {};
+  // 1. Nom & Prénom (Entièrement optionnels, avec valeur par défaut amicale si vide)
+  const rawNom = (input?.nom || '').trim();
+  const rawPrenom = (input?.prenom || '').trim();
 
-  // 1. Nom
-  const nom = (input?.nom || '').trim();
-  if (!nom) {
-    errors.nom = 'Le nom de famille est obligatoire.';
-  } else if (nom.length < 2) {
-    errors.nom = 'Le nom doit comporter au moins 2 caractères.';
-  } else if (nom.length > 50) {
-    errors.nom = 'Le nom ne peut pas dépasser 50 caractères.';
-  }
+  const nom = rawNom || (rawPrenom ? '' : 'JOUEUR');
+  const prenom = rawPrenom || (rawNom ? '' : 'Participant');
 
-  // 2. Prénom
-  const prenom = (input?.prenom || '').trim();
-  if (!prenom) {
-    errors.prenom = 'Le prénom est obligatoire.';
-  } else if (prenom.length < 2) {
-    errors.prenom = 'Le prénom doit comporter au moins 2 caractères.';
-  } else if (prenom.length > 50) {
-    errors.prenom = 'Le prénom ne peut pas dépasser 50 caractères.';
-  }
-
-  // 3. Téléphone (Algérie: 05, 06 ou 07 suivi de 8 chiffres = 10 chiffres au total)
+  // 2. Téléphone (Optionnel, normalisé si présent sans bloquer)
   const rawPhone = (input?.telephone || '').trim();
-  const normalizedPhone = normalizePhoneNumber(rawPhone);
-  
-  if (!normalizedPhone) {
-    errors.telephone = 'Le numéro de téléphone est obligatoire pour le pointage.';
-  } else {
-    const algerianPhoneRegex = /^0(5|6|7)[0-9]{8}$/;
-    if (!algerianPhoneRegex.test(normalizedPhone)) {
-      errors.telephone = 'Numéro de téléphone algérien invalide (ex: 0551056785, 06xx, 07xx).';
-    }
-  }
+  const normalizedPhone = rawPhone ? normalizePhoneNumber(rawPhone) : '';
 
-  // 4. Email (optionnel, mais si fourni doit être valide)
+  // 3. Email (Optionnel)
   const email = (input?.email || '').trim().toLowerCase();
-  if (email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      errors.email = 'Adresse e-mail invalide.';
-    }
-  }
 
-  // 5. FIDE ID (optionnel, doit être composé de chiffres uniquement)
+  // 4. FIDE ID (Optionnel)
   const fideId = (input?.fideId || '').trim();
-  if (fideId) {
-    const fideRegex = /^[0-9]{4,10}$/;
-    if (!fideRegex.test(fideId)) {
-      errors.fideId = 'Le FIDE ID doit être un identifiant numérique (ex: 7981600).';
-    }
-  }
 
-  // 6. Club
-  const club = (input?.club || 'Indépendant').trim();
+  // 5. Club (Saisie texte libre, non imposée)
+  const club = (input?.club || '').trim() || 'Indépendant';
 
-  // 7. Notes / Commentaires (max 200 chars)
+  // 6. Notes / Commentaires (max 200 chars)
   const notes = (input?.notes || '').trim().slice(0, 200);
 
-  // 8. Date de naissance (optionnel, YYYY-MM-DD)
+  // 7. Date de naissance (Optionnel)
   const dateNaissance = (input?.dateNaissance || '').trim();
 
-  const isValid = Object.keys(errors).length === 0;
-
   return {
-    isValid,
-    errors,
-    data: isValid
-      ? {
-          nom: nom.toUpperCase(),
-          prenom: prenom.charAt(0).toUpperCase() + prenom.slice(1),
-          telephone: normalizedPhone,
-          email,
-          fideId,
-          dateNaissance,
-          club,
-          notes
-        }
-      : undefined
+    isValid: true,
+    errors: {},
+    data: {
+      nom: (nom || 'JOUEUR').toUpperCase(),
+      prenom: prenom ? (prenom.charAt(0).toUpperCase() + prenom.slice(1)) : '',
+      telephone: normalizedPhone || rawPhone,
+      email,
+      fideId,
+      dateNaissance,
+      club,
+      notes
+    }
   };
 }

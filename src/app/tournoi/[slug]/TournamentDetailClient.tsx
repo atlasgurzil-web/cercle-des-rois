@@ -19,7 +19,8 @@ import {
   CheckCircle2,
   Trophy,
   X,
-  HeartHandshake
+  HeartHandshake,
+  Download
 } from 'lucide-react';
 import QRCodeLib from 'qrcode';
 import { Tournament, PlayerRegistration } from '@/types';
@@ -132,6 +133,31 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
     }
   };
 
+  const handleExportCSV = () => {
+    if (!tournament || !tournament.registeredPlayers) return;
+
+    const currentList = playersTab === 'confirmed' ? confirmedPlayers : waitlistPlayers;
+    const headers = ['Rang / Dossard', 'Nom', 'Prénom', 'Club', 'Elo FIDE', 'ID FIDE', 'Statut'];
+    const rows = currentList.map((p, idx) => [
+      p.dossardNumber ? `#${p.dossardNumber}` : p.waitlistRank ? `Attente #${p.waitlistRank}` : idx + 1,
+      `"${p.nom}"`,
+      `"${p.prenom || ''}"`,
+      `"${p.club || 'Indépendant'}"`,
+      p.eloFide || '-',
+      `"${p.fideId || ''}"`,
+      p.status === 'confirmed' ? 'Confirmé' : 'Liste d\'attente'
+    ]);
+
+    const csv = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(';'), ...rows.map(r => r.join(';'))].join('\n');
+    const encodedUri = encodeURI(csv);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `${tournament.slug}_${playersTab}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError('');
@@ -141,21 +167,12 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
     const safePrenom = (formData.prenom || '').trim();
     const safePhone = (formData.telephone || '').trim();
 
-    if (!safeNom || !safePrenom) {
-      setFormError('Le nom et le prénom sont obligatoires.');
-      return;
-    }
-
-    if (!safePhone) {
-      setFormError('Le numéro de téléphone est obligatoire pour le pointage.');
-      return;
-    }
-
     const payload = {
       ...formData,
       nom: safeNom,
       prenom: safePrenom,
-      telephone: safePhone
+      telephone: safePhone,
+      club: (formData.club || '').trim() || 'Indépendant'
     };
 
     try {
@@ -173,6 +190,7 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
 
       const assignedDossard = data.dossardNumber || (data.registration && data.registration.dossardNumber);
       const assignedWaitlist = data.waitlistRank || (data.registration && data.registration.waitlistRank);
+      const displayName = [safeNom.toUpperCase(), safePrenom].filter(Boolean).join(' ') || 'Joueur Inscrit';
 
       setRegistrationSuccess({
         message: data.isWaitlist 
@@ -181,7 +199,7 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
         isWaitlist: !!data.isWaitlist,
         dossardNumber: assignedDossard,
         waitlistRank: assignedWaitlist,
-        playerName: `${safeNom.toUpperCase()} ${safePrenom}`.trim()
+        playerName: displayName
       });
 
       // If registered to waitlist, automatically switch tab
@@ -197,7 +215,7 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
         dateNaissance: '',
         telephone: '',
         email: '',
-        club: 'Hamra Annaba',
+        club: '',
         notes: ''
       });
 
@@ -420,12 +438,11 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300">
-                  Nom <span className="text-gold-400 font-bold">*</span>
+                  Nom
                 </label>
                 <input
                   ref={nomInputRef}
                   type="text"
-                  required
                   placeholder="ex: BENLAID"
                   value={formData.nom}
                   onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
@@ -435,11 +452,10 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
 
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300">
-                  Prénom <span className="text-gold-400 font-bold">*</span>
+                  Prénom
                 </label>
                 <input
                   type="text"
-                  required
                   placeholder="ex: Lakhdar"
                   value={formData.prenom}
                   onChange={(e) => setFormData({ ...formData, prenom: e.target.value })}
@@ -451,11 +467,10 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300">
-                  Numéro de Téléphone <span className="text-gold-400 font-bold">*</span>
+                  Numéro de Téléphone
                 </label>
                 <input
                   type="tel"
-                  required
                   placeholder="ex: 0551056785"
                   value={formData.telephone}
                   onChange={(e) => setFormData({ ...formData, telephone: e.target.value })}
@@ -479,7 +494,7 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-slate-300">
-                  ID FIDE <span className="text-slate-500 font-normal">(Optionnel)</span>
+                  ID FIDE
                 </label>
                 <input
                   type="text"
@@ -494,25 +509,19 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
                 <label className="text-xs font-semibold text-slate-300">
                   Club ou Ville
                 </label>
-                <select
+                <input
+                  type="text"
+                  placeholder="ex: Hamra Annaba, AUCA, Indépendant..."
                   value={formData.club}
                   onChange={(e) => setFormData({ ...formData, club: e.target.value })}
-                  className="w-full px-3 py-2.5 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white focus:border-gold-500 transition-colors"
-                >
-                  <option value="Hamra Annaba">Hamra Annaba</option>
-                  <option value="AUCA">AUCA</option>
-                  <option value="Chess Club Annaba">Chess Club Annaba</option>
-                  <option value="Makomades Oum El Bouaghi">Makomades Oum El Bouaghi</option>
-                  <option value="Biskra">Biskra</option>
-                  <option value="Tébessa">Tébessa</option>
-                  <option value="Indépendant">Indépendant (Sans club)</option>
-                </select>
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white placeholder-slate-500 focus:border-gold-500 transition-colors"
+                />
               </div>
             </div>
 
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-slate-300">
-                Email <span className="text-slate-500 font-normal">(Optionnel)</span>
+                Email
               </label>
               <input
                 type="email"
@@ -573,9 +582,21 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
                 </p>
               </div>
 
-              <div className="text-xs text-slate-300 bg-noir-900 px-3 py-1.5 rounded-lg border border-slate-800 flex items-center gap-2 self-start sm:self-auto">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>Pointage à 20:30 après Isha</span>
+              <div className="flex items-center gap-2 self-start sm:self-auto">
+                <button
+                  type="button"
+                  onClick={handleExportCSV}
+                  title="Télécharger la liste au format CSV / Excel"
+                  className="text-xs text-gold-400 hover:text-gold-300 bg-noir-900 px-3 py-1.5 rounded-lg border border-gold-500/30 hover:border-gold-500/60 flex items-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Export CSV</span>
+                </button>
+
+                <div className="text-xs text-slate-300 bg-noir-900 px-3 py-1.5 rounded-lg border border-slate-800 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Pointage à 20:30 après Isha</span>
+                </div>
               </div>
             </div>
 

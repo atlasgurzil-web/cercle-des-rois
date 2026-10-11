@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import { DirectoryPlayer, PlayerRegistration } from '@/types';
 
 // Admin PIN configuration (configurable via environment variable, fallback to default)
-const ADMIN_PIN = process.env.ADMIN_PIN || '12081988';
+const ADMIN_PIN = process.env.ADMIN_PIN || 'Hamra1944';
 const SECRET_SALT = process.env.AUTH_SECRET || 'cercle-des-rois-annaba-secret-salt-2026';
 
 /**
@@ -25,8 +25,8 @@ export function verifyAdminToken(token: string | null | undefined): boolean {
     const [pin, expiryStr, signature] = decoded.split(':');
     if (!pin || !expiryStr || !signature) return false;
 
-    // Check PIN match
-    if (pin !== ADMIN_PIN) return false;
+    // Check PIN match (case-insensitive)
+    if (pin.trim().toLowerCase() !== ADMIN_PIN.toLowerCase()) return false;
 
     // Check expiry
     const expiry = parseInt(expiryStr, 10);
@@ -47,7 +47,8 @@ export function verifyAdminToken(token: string | null | undefined): boolean {
  */
 export function validateAdminPin(pin: string | null | undefined): boolean {
   if (!pin) return false;
-  return pin.trim() === ADMIN_PIN;
+  const clean = pin.trim();
+  return clean.toLowerCase() === ADMIN_PIN.toLowerCase();
 }
 
 /**

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { registerPlayerToTournament } from '@/lib/storage';
 import { validateRegistrationInput } from '@/lib/validation';
+import { syncRegistrationToSupabase } from '@/lib/supabase-service';
 
 export async function POST(
   request: Request,
@@ -34,6 +35,11 @@ export async function POST(
 
     if (!result.success) {
       return NextResponse.json({ error: result.error }, { status: 400 });
+    }
+
+    if (result.registration) {
+      // Background sync to Supabase if configured
+      syncRegistrationToSupabase(params.id, result.registration).catch(() => {});
     }
 
     return NextResponse.json(result, { status: 201 });
