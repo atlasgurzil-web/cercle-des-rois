@@ -101,12 +101,13 @@ export default function AdminPage() {
 
   const authFetch = (url: string, options: RequestInit = {}) => {
     const authHeaders = getAuthHeaders();
+    const headers = new Headers(options.headers);
+    Object.entries(authHeaders).forEach(([k, v]) => {
+      headers.set(k, v);
+    });
     return fetch(url, {
       ...options,
-      headers: {
-        ...authHeaders,
-        ...(options.headers || {})
-      }
+      headers
     });
   };
 

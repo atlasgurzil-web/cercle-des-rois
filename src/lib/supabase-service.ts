@@ -55,7 +55,7 @@ export async function syncTournamentToSupabase(tournament: Tournament) {
       is_archived: Boolean(tournament.isArchived),
       description: tournament.description || '',
       rules: tournament.rules || '',
-      fee: tournament.fee || '0',
+      fee: String(tournament.fee ?? 0),
       fee_description: tournament.feeDescription || '',
       prizes: tournament.prizes || '',
       chess_results_url: tournament.chessResultsUrl || ''
@@ -82,8 +82,8 @@ export async function syncPlayerToSupabase(player: DirectoryPlayer) {
       telephone: player.telephone || '',
       email: player.email || '',
       date_naissance: player.dateNaissance || '',
-      tournois_joues: player.tournoisJoues || 0,
-      meilleur_classement: player.meilleurClassement || ''
+      tournois_joues: player.nbTournois || 0,
+      meilleur_classement: player.bestRank ? String(player.bestRank) : ''
     });
   } catch (err) {
     console.warn('[Supabase Sync Warning] Could not sync player:', err);
