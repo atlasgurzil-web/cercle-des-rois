@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
-import { getAllTournaments, saveTournament } from '@/lib/storage';
+import { getAllTournaments, getTournamentsAsync, saveTournament } from '@/lib/storage';
 import { verifyAdminRequest } from '@/lib/auth';
+import { syncTournamentToSupabase } from '@/lib/supabase-service';
 import { Tournament } from '@/types';
 
 export async function GET() {
   try {
-    const tournaments = getAllTournaments();
+    const tournaments = await getTournamentsAsync();
     return NextResponse.json(tournaments);
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors du chargement des tournois' }, { status: 500 });
@@ -56,6 +57,7 @@ export async function POST(request: Request) {
     };
 
     const saved = saveTournament(newTournament);
+    syncTournamentToSupabase(newTournament).catch(() => {});
     return NextResponse.json(saved, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors de la création du tournoi' }, { status: 500 });

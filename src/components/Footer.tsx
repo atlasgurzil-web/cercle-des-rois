@@ -107,7 +107,7 @@ export const Footer: React.FC = () => {
         {/* Copyright */}
         <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
           <span>
-            © {new Date().getFullYear()} Le Cercle des Rois — Tous droits réservés. Échiquier d'Annaba.
+            © {new Date().getFullYear()} Le Cercle des Rois — Tous droits réservés.
           </span>
           <span className="font-mono text-slate-600">
             annaba · blitz · cdr 2026

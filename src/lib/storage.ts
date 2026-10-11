@@ -5,6 +5,11 @@ import { Tournament, DirectoryPlayer, PlayerRegistration } from '@/types';
 import tournamentsSeed from '@/data/tournaments.json';
 import playersSeed from '@/data/players.json';
 import { normalizePhoneNumber } from '@/lib/validation';
+import { 
+  fetchTournamentsFromSupabase, 
+  fetchTournamentBySlugFromSupabase, 
+  fetchPlayersFromSupabase 
+} from '@/lib/supabase-service';
 
 const PRIMARY_DB_PATH = path.join(process.cwd(), 'src', 'data', 'db.json');
 const FALLBACK_DB_PATH = path.join(os.tmpdir(), 'cdr-database.json');
@@ -143,9 +148,25 @@ export function getAllTournaments(): Tournament[] {
   return db.tournaments;
 }
 
+export async function getTournamentsAsync(): Promise<Tournament[]> {
+  const fromSupabase = await fetchTournamentsFromSupabase();
+  if (fromSupabase && fromSupabase.length > 0) {
+    if (globalThis.__CDR_DB__) {
+      globalThis.__CDR_DB__.tournaments = fromSupabase;
+    }
+    return fromSupabase;
+  }
+  return getAllTournaments();
+}
+
 export function getUpcomingTournaments(): Tournament[] {
   const db = readDatabase();
   return db.tournaments.filter(t => !t.isArchived);
+}
+
+export async function getUpcomingTournamentsAsync(): Promise<Tournament[]> {
+  const all = await getTournamentsAsync();
+  return all.filter(t => !t.isArchived);
 }
 
 export function getArchivedTournaments(): Tournament[] {
@@ -153,9 +174,22 @@ export function getArchivedTournaments(): Tournament[] {
   return db.tournaments.filter(t => t.isArchived).sort((a, b) => b.edition - a.edition);
 }
 
+export async function getArchivedTournamentsAsync(): Promise<Tournament[]> {
+  const all = await getTournamentsAsync();
+  return all.filter(t => t.isArchived).sort((a, b) => b.edition - a.edition);
+}
+
 export function getTournamentBySlug(slug: string): Tournament | undefined {
   const db = readDatabase();
   return db.tournaments.find(t => t.slug === slug || t.id === slug);
+}
+
+export async function getTournamentBySlugAsync(slug: string): Promise<Tournament | undefined> {
+  const fromSupabase = await fetchTournamentBySlugFromSupabase(slug);
+  if (fromSupabase) {
+    return fromSupabase;
+  }
+  return getTournamentBySlug(slug);
 }
 
 export function saveTournament(tournament: Tournament): Tournament {
@@ -375,6 +409,17 @@ export function removeRegistration(tournamentId: string, registrationId: string)
 export function getAllPlayers(): DirectoryPlayer[] {
   const db = readDatabase();
   return db.players;
+}
+
+export async function getPlayersAsync(): Promise<DirectoryPlayer[]> {
+  const fromSupabase = await fetchPlayersFromSupabase();
+  if (fromSupabase && fromSupabase.length > 0) {
+    if (globalThis.__CDR_DB__) {
+      globalThis.__CDR_DB__.players = fromSupabase;
+    }
+    return fromSupabase;
+  }
+  return getAllPlayers();
 }
 
 function syncPlayerToDirectory(db: DatabaseSchema, reg: PlayerRegistration) {

@@ -1,13 +1,19 @@
 import { NextResponse } from 'next/server';
-import { getTournamentBySlug, saveTournament, deleteTournament } from '@/lib/storage';
+import { 
+  getTournamentBySlug, 
+  getTournamentBySlugAsync, 
+  saveTournament, 
+  deleteTournament 
+} from '@/lib/storage';
 import { verifyAdminRequest } from '@/lib/auth';
+import { syncTournamentToSupabase, deleteTournamentFromSupabase } from '@/lib/supabase-service';
 
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
-    const tournament = getTournamentBySlug(params.id);
+    const tournament = await getTournamentBySlugAsync(params.id);
     if (!tournament) {
       return NextResponse.json({ error: 'Tournoi introuvable' }, { status: 404 });
     }
@@ -35,6 +41,7 @@ export async function PUT(
 
     const updated = { ...existing, ...body };
     saveTournament(updated);
+    syncTournamentToSupabase(updated).catch(() => {});
     return NextResponse.json(updated);
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors de la mise à jour' }, { status: 500 });
@@ -56,6 +63,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Tournoi introuvable' }, { status: 404 });
     }
     deleteTournament(existing.id);
+    deleteTournamentFromSupabase(existing.id).catch(() => {});
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors de la suppression' }, { status: 500 });

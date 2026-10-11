@@ -42,32 +42,34 @@ export function normalizePhoneNumber(rawPhone: string): string {
 /**
  * Validates registration input - All fields are optional and flexible as requested
  */
-export function validateRegistrationInput(input: any): ValidationResult<RegistrationInput> {
+export function validateRegistrationInput(input: unknown): ValidationResult<RegistrationInput> {
+  const payload = (input && typeof input === 'object' ? input : {}) as Record<string, unknown>;
+
   // 1. Nom & Prénom (Entièrement optionnels, avec valeur par défaut amicale si vide)
-  const rawNom = (input?.nom || '').trim();
-  const rawPrenom = (input?.prenom || '').trim();
+  const rawNom = String(payload.nom || '').trim();
+  const rawPrenom = String(payload.prenom || '').trim();
 
   const nom = rawNom || (rawPrenom ? '' : 'JOUEUR');
   const prenom = rawPrenom || (rawNom ? '' : 'Participant');
 
   // 2. Téléphone (Optionnel, normalisé si présent sans bloquer)
-  const rawPhone = (input?.telephone || '').trim();
+  const rawPhone = String(payload.telephone || '').trim();
   const normalizedPhone = rawPhone ? normalizePhoneNumber(rawPhone) : '';
 
   // 3. Email (Optionnel)
-  const email = (input?.email || '').trim().toLowerCase();
+  const email = String(payload.email || '').trim().toLowerCase();
 
   // 4. FIDE ID (Optionnel)
-  const fideId = (input?.fideId || '').trim();
+  const fideId = String(payload.fideId || '').trim();
 
   // 5. Club (Saisie texte libre, non imposée)
-  const club = (input?.club || '').trim() || 'Indépendant';
+  const club = String(payload.club || '').trim() || 'Indépendant';
 
   // 6. Notes / Commentaires (max 200 chars)
-  const notes = (input?.notes || '').trim().slice(0, 200);
+  const notes = String(payload.notes || '').trim().slice(0, 200);
 
   // 7. Date de naissance (Optionnel)
-  const dateNaissance = (input?.dateNaissance || '').trim();
+  const dateNaissance = String(payload.dateNaissance || '').trim();
 
   return {
     isValid: true,

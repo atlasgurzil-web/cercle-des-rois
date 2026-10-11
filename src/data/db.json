@@ -2297,54 +2297,6 @@
       "nbTournois": 0,
       "bestRank": null,
       "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-54",
-      "nom": "BOUZID",
-      "prenom": "Sofiane",
-      "nomComplet": "BOUZID Sofiane",
-      "sexe": "M",
-      "dateNaissance": "",
-      "telephone": "",
-      "email": "",
-      "club": "Indépendant",
-      "fideId": "",
-      "elo": 0,
-      "nbTournois": 1,
-      "bestRank": null,
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-55",
-      "nom": "JDJF",
-      "prenom": "Udjfjf",
-      "nomComplet": "JDJF Udjfjf",
-      "sexe": "M",
-      "dateNaissance": "",
-      "telephone": "",
-      "email": "",
-      "club": "Hamra Annaba",
-      "fideId": "",
-      "elo": 0,
-      "nbTournois": 1,
-      "bestRank": null,
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-56",
-      "nom": "KARIM",
-      "prenom": "",
-      "nomComplet": "KARIM ",
-      "sexe": "M",
-      "dateNaissance": "",
-      "telephone": "",
-      "email": "",
-      "club": "Club des Cavaliers",
-      "fideId": "",
-      "elo": 0,
-      "nbTournois": 1,
-      "bestRank": null,
-      "tournoisParticipes": []
     }
   ]
 }

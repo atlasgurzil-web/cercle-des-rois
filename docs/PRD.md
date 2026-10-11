@@ -14,7 +14,7 @@ Une plateforme officielle et sur-mesure pour « Le Cercle des Rois » permettant
 - Offrir aux participants un formulaire d'inscription mobile ultra-rapide (nom, prénom, ID FIDE, date de naissance, téléphone, email, club) sans création de compte ni mot de passe obligatoire.
 - Réguler la capacité d'accueil de la salle grâce à une jauge en direct et une liste d'attente automatique dès que le quota est atteint.
 - Conserver et mettre en valeur les archives des éditions passées avec podiums d'honneur, statistiques et grilles de classements complets.
-- Permettre à l'organisateur, via un code d'accès simple (12081988), de pointer les présences sur place le jour J, d'exporter la liste des inscrits pour les logiciels d'arbitrage (format tableur / Papi) et de gérer un annuaire centralisé des membres.
+- Permettre à l'organisateur, via un code d'accès simple (Hamra1944), de pointer les présences sur place le jour J, d'exporter la liste des inscrits pour les logiciels d'arbitrage (format tableur / Papi) et de gérer un annuaire centralisé des membres.
 
 ## Utilisateur cible
 
@@ -34,7 +34,7 @@ Une plateforme officielle et sur-mesure pour « Le Cercle des Rois » permettant
 - **US-8** : En tant que joueur ou passionné, je veux consulter les archives des éditions passées, afin de revoir les podiums d'honneur et les vainqueurs historiques.
 - **US-9** : En tant que joueur, je veux accéder aux grilles de classements détaillées des anciens tournois (points, départages Buchholz et Sonneborn-Berger, liens officiels Chess-Results), afin de vérifier les résultats officiels.
 - **US-10** : En tant que membre de la communauté, je veux consulter l'annuaire public des joueurs pour voir les membres répertoriés, leurs clubs et leur assiduité aux tournois.
-- **US-11** : En tant qu'organisateur, je veux déverrouiller l'espace d'administration à l'aide de mon code secret (12081988), afin d'accéder aux fonctions de gestion et aux coordonnées complètes sans compte complexe.
+- **US-11** : En tant qu'organisateur, je veux déverrouiller l'espace d'administration à l'aide de mon code secret (Hamra1944), afin d'accéder aux fonctions de gestion et aux coordonnées complètes sans compte complexe.
 - **US-12** : En tant qu'organisateur, je veux marquer d'un clic les joueurs présents à leur arrivée sur le lieu du tournoi (pointage), afin de préparer la liste réelle avant la ronde 1.
 - **US-13** : En tant qu'organisateur, je veux exporter la liste des joueurs inscrits au format tableur (CSV / compatible Papi), afin de l'injecter immédiatement dans le logiciel d'arbitrage.
 - **US-14** : En tant qu'organisateur, je veux clôturer un tournoi terminé en renseignant le podium pour qu'il soit versé automatiquement dans les archives officielles du site.
@@ -45,7 +45,7 @@ Une plateforme officielle et sur-mesure pour « Le Cercle des Rois » permettant
 - Bouton de partage WhatsApp ouvrant l'application avec message pré-formaté et lien direct opérationnel.
 - Attribution automatique du statut « Validé » ou « Liste d'attente » selon le plafond de participants configuré.
 - Fichier d'export CSV généré en 1 clic contenant les colonnes nécessaires au logiciel d'arbitrage (Nom, Prénom, FIDE, Club, Date de naissance, Présence).
-- Déverrouillage immédiat des informations privées et des outils de gestion lors de la saisie du code PIN 12081988.
+- Déverrouillage immédiat des informations privées et des outils de gestion lors de la saisie du code PIN Hamra1944.
 - Absence totale de numéros de téléphone et d'emails sur les vues publiques non authentifiées.
 
 ## Hors périmètre
@@ -58,7 +58,7 @@ Une plateforme officielle et sur-mesure pour « Le Cercle des Rois » permettant
 
 ## Décisions d'implémentation
 
-- Accès organisateur sécurisé par un code PIN direct (12081988) avec mémorisation de session.
+- Accès organisateur sécurisé par un code PIN direct (Hamra1944) avec mémorisation de session.
 - Formulaire d'inscription conçu en priorité pour une utilisation mobile rapide.
 - Protection stricte des données personnelles : téléphone, email et date de naissance masqués par défaut aux visiteurs.
 - Traitement de l'annuaire initial avec réconciliation des noms inversés et suppression des doublons entre l'ancien club et les archives.

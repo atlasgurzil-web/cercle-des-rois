@@ -392,7 +392,7 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
               Inscription Rapide
             </h2>
             <p className="text-xs text-slate-300 leading-relaxed">
-              Inscription immédiate et sécurisée. Renseignez votre nom, prénom et numéro pour réserver votre place.
+              Inscription immédiate et libre. Renseignez vos coordonnées pour réserver votre place au tournoi.
             </p>
           </div>
 

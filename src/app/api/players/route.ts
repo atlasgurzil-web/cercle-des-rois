@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
-import { getAllPlayers, savePlayer, deletePlayer } from '@/lib/storage';
+import { getAllPlayers, getPlayersAsync, savePlayer, deletePlayer } from '@/lib/storage';
 import { verifyAdminRequest, sanitizePlayerForPublic } from '@/lib/auth';
+import { syncPlayerToSupabase, deletePlayerFromSupabase } from '@/lib/supabase-service';
 import { DirectoryPlayer } from '@/types';
 
 export async function GET(request: Request) {
   try {
-    const players = getAllPlayers();
+    const players = await getPlayersAsync();
     const isAdmin = verifyAdminRequest(request);
 
     // If not authenticated as organizer, sanitize private information
@@ -46,6 +47,7 @@ export async function POST(request: Request) {
     };
 
     savePlayer(newPlayer);
+    syncPlayerToSupabase(newPlayer).catch(() => {});
     return NextResponse.json(newPlayer, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors de la création du joueur' }, { status: 500 });
@@ -82,6 +84,7 @@ export async function PUT(request: Request) {
     };
 
     savePlayer(updatedPlayer);
+    syncPlayerToSupabase(updatedPlayer).catch(() => {});
     return NextResponse.json(updatedPlayer);
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors de la mise à jour du joueur' }, { status: 500 });
@@ -103,10 +106,12 @@ export async function DELETE(request: Request) {
         return NextResponse.json({ error: 'ID du joueur requis' }, { status: 400 });
       }
       deletePlayer(body.id);
+      deletePlayerFromSupabase(body.id).catch(() => {});
       return NextResponse.json({ success: true });
     }
 
     deletePlayer(id);
+    deletePlayerFromSupabase(id).catch(() => {});
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors de la suppression du joueur' }, { status: 500 });

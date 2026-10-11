@@ -15,14 +15,18 @@ import {
   ShieldCheck,
   CheckCircle2
 } from 'lucide-react';
-import { getUpcomingTournaments, getArchivedTournaments, getAllPlayers } from '@/lib/storage';
+import { 
+  getUpcomingTournamentsAsync, 
+  getArchivedTournamentsAsync, 
+  getAllPlayersAsync 
+} from '@/lib/storage';
 
 export const dynamic = 'force-dynamic';
 
-export default function HomePage() {
-  const upcomingTournaments = getUpcomingTournaments();
-  const archivedTournaments = getArchivedTournaments();
-  const allPlayers = getAllPlayers();
+export default async function HomePage() {
+  const upcomingTournaments = await getUpcomingTournamentsAsync();
+  const archivedTournaments = await getArchivedTournamentsAsync();
+  const allPlayers = await getAllPlayersAsync();
   const activeTournament = upcomingTournaments[0];
 
   const confirmedPlayers = activeTournament?.registeredPlayers?.filter(p => p.status === 'confirmed') || [];
@@ -279,50 +283,35 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="card-royal p-6 space-y-4">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-mono">27-28 Août 2026</span>
-              <span className="text-gold-400 font-semibold">CDR III</span>
-            </div>
-            <div>
-              <div className="text-xs uppercase tracking-wider text-slate-400">Champion</div>
-              <h3 className="font-serif text-xl font-bold text-white mt-1">BENLAID Lakhdar</h3>
-              <p className="text-xs text-gold-400 mt-0.5">6.0 pts / 7 rondes · Makomades</p>
-            </div>
-            <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
-              Vainqueur de la 3ᵉ édition. 2ᵉ : Touil Achref (5.5 pts) · 3ᵉ : Koudri Samir (5.0 pts). 27 participants au Café Dardara.
-            </p>
-          </div>
+          {archivedTournaments.slice(0, 3).map((tourney) => {
+            const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+            const roman = romanNumerals[tourney.edition - 1] || String(tourney.edition);
+            const winner = tourney.podium?.first;
+            const second = tourney.podium?.second;
+            const third = tourney.podium?.third;
+            const winnerName = winner?.name || 'Vainqueur non renseigné';
+            const winnerClub = winner?.club ? ` · ${winner.club}` : '';
+            const winnerPoints = winner ? `${winner.points} pts / ${tourney.rounds || 7} rondes${winnerClub}` : 'Classement officiel';
 
-          <div className="card-royal p-6 space-y-4">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-mono">1 Août 2026</span>
-              <span className="text-gold-400 font-semibold">CDR II</span>
-            </div>
-            <div>
-              <div className="text-xs uppercase tracking-wider text-slate-400">Champion</div>
-              <h3 className="font-serif text-xl font-bold text-white mt-1">ASSOUL Abdelaziz</h3>
-              <p className="text-xs text-gold-400 mt-0.5">6.5 pts / 7 rondes · Makomades</p>
-            </div>
-            <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
-              Vainqueur de la 2ᵉ édition. 2ᵉ : Benlaid Lakhdar (6.0 pts) · 3ᵉ : Ayad Zoheir (5.5 pts). 28 participants.
-            </p>
-          </div>
-
-          <div className="card-royal p-6 space-y-4">
-            <div className="flex items-center justify-between text-xs">
-              <span className="text-slate-400 font-mono">29 Mai 2026</span>
-              <span className="text-gold-400 font-semibold">CDR I</span>
-            </div>
-            <div>
-              <div className="text-xs uppercase tracking-wider text-slate-400">Champion</div>
-              <h3 className="font-serif text-xl font-bold text-white mt-1">BENLAID Lakhdar</h3>
-              <p className="text-xs text-gold-400 mt-0.5">4.5 pts / 5 rondes · Makomades</p>
-            </div>
-            <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
-              Vainqueur de l'édition inaugurale. 2ᵉ : Bouzitoune Abdelhafid (4.0 pts) · 3ᵉ : Koudri Samir (3.5 pts). 12 participants.
-            </p>
-          </div>
+            return (
+              <div key={tourney.id} className="card-royal p-6 space-y-4">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-slate-400 font-mono">{tourney.dateFormatted}</span>
+                  <span className="text-gold-400 font-semibold">CDR {roman}</span>
+                </div>
+                <div>
+                  <div className="text-xs uppercase tracking-wider text-slate-400">Champion</div>
+                  <h3 className="font-serif text-xl font-bold text-white mt-1">{winnerName}</h3>
+                  <p className="text-xs text-gold-400 mt-0.5">{winnerPoints}</p>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
+                  {tourney.description || (second && third 
+                    ? `Vainqueur de la ${tourney.edition}ᵉ édition. 2ᵉ : ${second.name} (${second.points} pts) · 3ᵉ : ${third.name} (${third.points} pts).`
+                    : `Édition officielle du Cercle des Rois disputée à Annaba.`)}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </section>
 

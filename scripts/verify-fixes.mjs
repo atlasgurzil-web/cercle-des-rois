@@ -30,7 +30,7 @@ if (p1 === '0551056785' && p2 === '0551056785' && p3 === '0551056785' && p4 === 
 }
 
 // 2. Token generation and cryptographic verification test
-const ADMIN_PIN = '12081988';
+const ADMIN_PIN = 'Hamra1944';
 const SECRET_SALT = 'cercle-des-rois-annaba-secret-salt-2026';
 
 function createAdminToken() {

@@ -1,67 +1,52 @@
-# Design System — Le Cercle des Rois (Lumen-01 DNA Locked)
+# Design System — Le Cercle des Rois (Charte Officielle Épurée)
 
-/* Hallmark · macrostructure: Marquee Hero with Apparatus · theme: Lumen (catalog)
- * drop: Night Foundry · paper: oklch(13% 0.014 265) · accent: oklch(76% 0.17 50) + oklch(68% 0.16 18)
- * display: Instrument Serif 400 (italic pivot) · body: Geist Sans · labels: JetBrains Mono all-caps
- * axes: dark / classical-serif / warm-brass
- * nav: N5 floating pill · footer: Ft5 statement
- * reference: https://www.usehallmark.com/examples/lumen-01/
- */
-
-## 1. Direction Artistique & Genre
-- **Genre** : `atmospheric` / `editorial` (Lumen Drop: Night Foundry).
-- **Ambiance** : Salle d'échecs nocturne, feutrée et prestigieuse. Noir violet profond, filament d'or chaud en lévitation, typographie d'art classique et précision technique horlogère.
-- **Référence verrouillée** : `Lumen-01` (`usehallmark.com/examples/lumen-01/`).
+## 1. Direction Artistique & Identité
+- **Genre** : Épuré, Noble, Atmosphérique.
+- **Ambiance** : Salle d'échecs nocturne feutrée et prestigieuse. Noir profond texturé, or laiton impérial chaud, clarté typographique horlogère, élimination de tout apparat visuel superflu ou gadget distrayant.
+- **Philosophie** : Priorité à l'expérience joueur, lisibilité optimale sur smartphone et élégance institutionnelle digne du noble jeu.
 
 ---
 
-## 2. Palette & Jetons OKLCH (Night Foundry)
-```css
-:root, [data-theme="lumen"] {
-  color-scheme: dark;
+## 2. Palette Chromatique (Noir Profond & Or Impérial)
 
-  /* Paper / Fond nocturne */
-  --color-paper:      oklch(13% 0.014 265); /* Fond principal nuit violette */
-  --color-paper-2:    oklch(17% 0.016 265); /* Surface des cartes et panneaux */
-  --color-paper-3:    oklch(22% 0.018 263); /* Surface active / hover */
-  --color-rule:       oklch(30% 0.018 265); /* Filets et séparateurs fins */
-  --color-rule-2:     oklch(42% 0.020 263); /* Filets secondaires / bordures */
-  
-  /* Textes / Encre */
-  --color-muted:      oklch(60% 0.016 263); /* Légendes et métadonnées */
-  --color-neutral:    oklch(72% 0.014 263); /* Corps secondaire */
-  --color-ink-2:      oklch(82% 0.010 262); /* Texte courant haute lisibilité */
-  --color-ink:        oklch(96% 0.006 262); /* Titres et éléments principaux */
+### Surfaces Nocturnes
+- **Fond principal (`--bg-main`)** : `#08090D` (Noir nuit profond sans reflets agressifs).
+- **Cartes & Conteneurs (`--bg-card`)** : `#0D0F17` (Surface feutrée contrastée).
+- **Surfaces actives / Hover (`--bg-card-hover`)** : `#141824` (Élévation subtile au survol).
+- **Séparateurs & Bordures (`--border-royal`)** : `rgba(212, 175, 55, 0.15)` à `rgba(255, 255, 255, 0.08)`.
 
-  /* Accents / Métal en fusion */
-  --color-accent:     oklch(76% 0.17 50);    /* Or laiton incandescent (#F5D061) */
-  --color-accent-2:   oklch(68% 0.16 18);    /* Vermillon incandescent pour pivot em */
-  --color-accent-ink: oklch(13% 0.014 265);  /* Contraste texte sur or */
-  --color-focus:      oklch(76% 0.17 50);    /* Anneau de focus clavier */
+### Métal & Accents Royaux
+- **Or principal (`--gold-primary`)** : `#D4AF37` (Or laiton royal).
+- **Or lumineux (`--gold-light`)** : `#F5D061` (Accents vifs, reflets de titre, badges).
+- **Dégradé Titres** : Dégradé doux `from-gold-300 via-gold-400 to-amber-200`.
 
-  /* Effets de rayonnement */
-  --color-glow:       oklch(80% 0.16 50 / 0.42); /* Halo intense */
-  --color-glow-2:     oklch(80% 0.16 50 / 0.12); /* Halo diffus */
-  --color-paper-emit: oklch(76% 0.17 50 / 0.05); /* Rayonnement de fond */
-  --rule-blueprint:   oklch(96% 0.006 262 / 0.04); /* Grille millimétrée */
-}
-```
+### Typographie & Encre
+- **Titres & En-têtes** : `#FFFFFF` (Blanc pur haute lisibilité).
+- **Corps de texte** : `#CBD5E1` (Slate-300, contraste supérieur à WCAG AA).
+- **Métadonnées & Secondaire** : `#94A3B8` (Slate-400).
+
+### Statuts Fonctionnels
+- **Confirmé / Dossard validé** : `#10B981` (Vert émeraude franc, fond `emerald-500/15`).
+- **Liste d'attente** : `#F59E0B` (Ambre chaleureux, fond `amber-500/15`).
 
 ---
 
-## 3. Typographie (Trio 2+1 Lumen)
-- **Display** : `Instrument Serif` (`font-weight: 400`), tracking `-0.032em`, taille clamp `clamp(3rem, 6.5vw + 0.75rem, 6.5rem)`.
-  - Mot pivot avec `em` : `color: var(--color-accent-2)`, non italique, avec soulignement animé en filet (`em::after`).
-- **Body** : `Geist Sans` (ou `Inter`), font-weight 400/500/600, line-height 1.55.
-- **Labels & Monospace** : `JetBrains Mono`, tracking `0.10em` à `0.16em`, tout en majuscules pour les badges et ordonnances (`00 · `, `01 · `).
+## 3. Typographie
+
+- **Display & Titres d'Honneur** : `Instrument Serif` (font-weight: 400/700). Utilisé pour le nom du Cercle, les titres de tournois et les champions.
+- **Corps de texte & Formulaires** : `Geist Sans` (ou `Inter`, font-weight: 400/500/600). Lisibilité maximale sur tous écrans.
+- **Monospace & Métadonnées** : `JetBrains Mono`. Utilisé pour les dossards, dates au format technique, pendules et cotes Elo.
 
 ---
 
-## 4. Signatures Visuelles Lumen-01 Verrouillées
-1. **N5 Floating Pill Nav** : Pilule centrale fixe en verre dépoli (`backdrop-filter: blur(22px)`), pastille d'or battant au cœur avec halo (`.nav__mark`), liens discrets et bouton d'action pilule.
-2. **Hero Marquee avec Chambre Filament (Apparatus)** : Tube en verre scellé avec filament vertical d'or pur battant doucement, électrodes horizontales, halo et 4 lignes de repérage techniques (Callouts : Édition, Jauge, Cadence, Lieu).
-3. **Grille Millimétrée (Blueprint Grid)** : Trame technique 48px × 48px estompée en masque radial sous le hero et le footer.
-4. **Meter Strip (Signature Move 5)** : Bandeau de fréquence en direct avec voyant vert pulsant et 80 barres verticales suivant une onde sinusoïdale en or laiton.
-5. **Stats Row avec Chiffres Instrument Serif** : Chiffres géants avec filet doré inférieur (`.stat__num::after`) et étiquettes techniques en JetBrains Mono.
-6. **Cartes à Émission Interne** : Cartes avec filet doré de 32px au coin supérieur gauche (`.card::before`), dégradé radial subtil à 5% d'opacité, et surélévation douce au survol.
-7. **Ft5 Statement Footer** : Grande phrase d'honneur gravée en Instrument Serif avec pivot `em`, grille blueprint en fond, pastille d'or et métadonnées en colonnes.
+## 4. Composants Clés
+
+1. **Cartes Royales (`card-royal`)** :
+   - Fond sombre uniforme `#0D0F17`, bordure fine en or estompé (`border-gold-500/20`), arrondi `rounded-xl` ou `rounded-2xl`.
+   - Transitions fluides au survol (150ms).
+2. **Hero Épuré** :
+   - Grand titre *Le Cercle des Rois* en majesté, sous-titre contextualisé (1er jeudi du mois, après la prière d'Aïcha), carte d'inscription immédiate avec jauge en direct.
+3. **Formulaire d'Inscription Sans Friction** :
+   - Saisie libre, aucun champ obligatoire bloquant, validation bienveillante, retour instantané avec dossard ou rang en liste d'attente.
+4. **Podium Dynamique des Champions** :
+   - Cartes calculées dynamiquement à partir des tournois archivés dans la base de données.

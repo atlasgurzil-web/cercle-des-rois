@@ -8,6 +8,11 @@ import {
   saveTournament 
 } from '@/lib/storage';
 import { verifyAdminRequest } from '@/lib/auth';
+import { 
+  updateRegistrationInSupabase, 
+  deleteRegistrationFromSupabase, 
+  syncTournamentToSupabase 
+} from '@/lib/supabase-service';
 
 export async function POST(
   request: Request,
@@ -29,21 +34,38 @@ export async function POST(
 
     if (action === 'checkin') {
       const ok = togglePlayerCheckIn(tournament.id, registrationId);
+      const updated = getTournamentBySlug(tournament.id)?.registeredPlayers.find(p => p.id === registrationId);
+      if (updated) {
+        updateRegistrationInSupabase(registrationId, { isCheckedIn: updated.isCheckedIn }).catch(() => {});
+      }
       return NextResponse.json({ success: ok });
     }
 
     if (action === 'paid') {
       const ok = togglePlayerPaid(tournament.id, registrationId);
+      const updated = getTournamentBySlug(tournament.id)?.registeredPlayers.find(p => p.id === registrationId);
+      if (updated) {
+        updateRegistrationInSupabase(registrationId, { isPaid: updated.isPaid }).catch(() => {});
+      }
       return NextResponse.json({ success: ok });
     }
 
     if (action === 'promote') {
       const ok = promoteWaitlistPlayer(tournament.id, registrationId);
+      const updated = getTournamentBySlug(tournament.id)?.registeredPlayers.find(p => p.id === registrationId);
+      if (updated) {
+        updateRegistrationInSupabase(registrationId, { 
+          status: 'confirmed', 
+          dossardNumber: updated.dossardNumber, 
+          waitlistRank: null 
+        }).catch(() => {});
+      }
       return NextResponse.json({ success: ok });
     }
 
     if (action === 'remove') {
       const ok = removeRegistration(tournament.id, registrationId);
+      deleteRegistrationFromSupabase(registrationId).catch(() => {});
       return NextResponse.json({ success: ok });
     }
 
@@ -52,6 +74,7 @@ export async function POST(
       if (podium) tournament.podium = podium;
       if (standings) tournament.standings = standings;
       saveTournament(tournament);
+      syncTournamentToSupabase(tournament).catch(() => {});
       return NextResponse.json({ success: true, tournament });
     }
 
