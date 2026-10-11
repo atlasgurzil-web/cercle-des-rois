@@ -1,8 +1,3 @@
-/* Hallmark · macrostructure: Editorial Broadside · theme: Studio/Royal · genre: editorial
- * pre-emit critique: P5 H5 E5 S5 R5 V5
- * slop: pass (1-58) · contrast: pass (40-41) · nav: N5 · footer: Ft5
- */
-
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -14,8 +9,8 @@ export default function HistoirePage() {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-16">
       
       {/* Editorial Header */}
-      <div className="space-y-4 border-b border-slate-800 pb-8">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-noir-900 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-widest">
+      <div className="space-y-4 border-b border-white/10 pb-8">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 text-xs font-semibold uppercase tracking-widest">
           <BookOpen className="w-3.5 h-3.5" />
           <span>Histoire & Mémoire d'Annaba</span>
         </div>
@@ -98,13 +93,13 @@ export default function HistoirePage() {
         <div className="flex items-center gap-3">
           <Link
             href="/tournois"
-            className="px-6 py-3 rounded-xl font-bold bg-gold-500 text-noir-950 hover:bg-gold-400 transition-colors text-xs uppercase tracking-wider"
+            className="btn-gold !py-2.5 !px-5 !text-xs"
           >
             Rejoindre un Tournoi
           </Link>
           <Link
             href="/annuaire"
-            className="px-5 py-3 rounded-xl font-semibold bg-noir-850 text-slate-300 border border-slate-700 hover:border-gold-500/50 transition-colors text-xs"
+            className="btn-secondary !py-2.5 !px-5 !text-xs"
           >
             L'Annuaire des Joueurs
           </Link>

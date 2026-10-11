@@ -1,10 +1,3 @@
-/* Hallmark · macrostructure: Marquee Hero with Apparatus · theme: Lumen (Night Foundry)
- * drop: Night Foundry · paper: oklch(13% 0.014 265) · accent: oklch(76% 0.17 50) + oklch(68% 0.16 18)
- * display: Instrument Serif 400 · body: Geist Sans · labels: JetBrains Mono all-caps
- * axes: dark / classical-serif / warm-brass · nav: N5 floating pill · footer: Ft5 statement
- * reference: https://www.usehallmark.com/examples/lumen-01/
- */
-
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -16,7 +9,9 @@ import {
   Users, 
   ChevronRight, 
   Flame, 
-  ExternalLink,
+  Award,
+  Sparkles,
+  ArrowRight,
   ShieldCheck,
   CheckCircle2
 } from 'lucide-react';
@@ -35,305 +30,338 @@ export default function HomePage() {
   const fillPercentage = activeTournament ? Math.min(100, Math.round((confirmedPlayers.length / activeTournament.maxParticipants) * 100)) : 0;
 
   return (
-    <div className="space-y-0">
+    <div className="min-h-screen space-y-24 pb-20">
 
-      {/* ─── Hero — Marquee Hero with filament-chamber apparatus ─── */}
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="hero__grid" aria-hidden="true" />
-        <div className="hero__emit" aria-hidden="true" />
-
-        <div className="hero__inner">
-          <div className="hero__copy">
-            {/* Proud Royal Crest with Official Logo */}
-            <div className="flex items-center gap-3.5 mb-5">
-              <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[oklch(17%_0.016_265)] border border-[var(--color-rule-2)] p-1.5 shadow-[0_0_24px_var(--color-glow-2)] flex-shrink-0 overflow-hidden">
+      {/* ─── Hero Section Épurée & Prestigieuse ─── */}
+      <section className="relative pt-32 sm:pt-40 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          {/* Colonne Gauche : Présentation & Titre */}
+          <div className="lg:col-span-7 space-y-8 text-left">
+            
+            {/* Badge officiel noble */}
+            <div className="inline-flex items-center gap-3 px-3.5 py-1.5 rounded-full bg-noir-850/80 border border-white/10 backdrop-blur-md">
+              <div className="relative w-6 h-6 rounded-full overflow-hidden border border-gold-500/50 flex-shrink-0">
                 <Image
                   src="/logo.png"
-                  alt="Logo officiel Le Cercle des Rois - Annaba"
+                  alt="Logo officiel Le Cercle des Rois"
                   fill
-                  className="object-contain p-1"
+                  className="object-cover"
                   priority
                 />
               </div>
-              <div>
-                <p className="eyebrow !mb-0.5">
-                  <span className="ord">00</span>
-                  <span className="dot-mid">·</span>
-                  Échiquier d'Annaba
-                </p>
-                <span className="font-mono text-[11px] tracking-wider uppercase text-[var(--color-accent)] font-semibold block">
-                  Cercle Indépendant
-                </span>
-              </div>
+              <span className="text-xs font-medium text-slate-300">
+                Échiquier d'Annaba <span className="text-gold-500 mx-1">·</span> Cercle Indépendant
+              </span>
             </div>
 
-            <h1 className="hero__title" id="hero-title">
-              Le Cercle des&nbsp;<em>Rois</em>.
-            </h1>
-            <p className="hero__lede">
-              La plateforme indépendante des passionnés d'échecs d'Annaba.
-              Préservée par les anciens du Hamra et de l'AUCA : des tournois amicaux
-              le premier jeudi de chaque mois (au Café Dardara et dans différents lieux d'Annaba selon les éditions), après la prière d'Isha.
-            </p>
-            <div className="hero__cta">
+            {/* Titre Principal */}
+            <div className="space-y-4">
+              <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-white tracking-tight leading-[1.08]">
+                Le Cercle des <span className="text-gold-400 italic">Rois</span>.
+              </h1>
+              <p className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed font-light">
+                La plateforme indépendante des passionnés du noble jeu à Annaba.
+                Préservée par les anciens du Hamra et de l'AUCA : des tournois amicaux
+                chaque premier jeudi du mois, après la prière d'Isha.
+              </p>
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               {activeTournament ? (
-                <Link className="btn btn--accent" href={`/tournoi/${activeTournament.slug}#inscription`}>
-                  S'inscrire à l'Édition #{activeTournament.edition}
+                <Link 
+                  href={`/tournoi/${activeTournament.slug}#inscription`}
+                  className="btn-gold"
+                >
+                  <span>S'inscrire à l'Édition #{activeTournament.edition}</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               ) : (
-                <Link className="btn btn--accent" href="/tournois">
-                  Voir les Tournois
+                <Link href="/tournois" className="btn-gold">
+                  <span>Voir les Tournois</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               )}
-              <Link className="btn btn--ghost" href="/archives">
-                Consulter les Archives →
+
+              <Link 
+                href="/archives" 
+                className="btn-secondary"
+              >
+                <span>Consulter les Archives</span>
               </Link>
             </div>
-            
-            {/* Runtime Specification block */}
-            <dl className="hero__spec" aria-label="Spécifications du tournoi">
-              <div className="hero__spec-pair">
-                <dt>Lieu</dt>
-                <dd>{activeTournament?.location || "Café Dardara & selon l'édition, Annaba"}</dd>
-              </div>
-              <div className="hero__spec-pair">
-                <dt>Horaire</dt>
-                <dd>Chaque 1ᵉʳ jeudi du mois · 20:30 (après Isha)</dd>
-              </div>
-              <div className="hero__spec-pair">
-                <dt>Cadence</dt>
-                <dd>Blitz 5 min + 3 sec · Système suisse 7 rondes</dd>
-              </div>
-              <div className="hero__spec-pair">
-                <dt>Formule</dt>
-                <dd>Système suisse en 7 rondes · Inscription libre</dd>
-              </div>
-            </dl>
-          </div>
 
-          {/* Apparatus — vertical royal filament chamber, annotated */}
-          <figure className="apparatus" aria-hidden="true">
-            <div className="chamber">
-              <span className="chamber__cap chamber__cap--top" />
-              <span className="chamber__cap chamber__cap--bottom" />
-              <span className="chamber__electrode" style={{ '--y': '20%' } as React.CSSProperties} />
-              <span className="chamber__electrode" style={{ '--y': '40%' } as React.CSSProperties} />
-              <span className="chamber__electrode" style={{ '--y': '60%' } as React.CSSProperties} />
-              <span className="chamber__electrode" style={{ '--y': '80%' } as React.CSSProperties} />
-              <span className="chamber__halo" />
-              <span className="chamber__filament" />
-              <span className="chamber__bloom" />
-              <p className="chamber__stencil">CDR-26</p>
+            {/* Caractéristiques rapides */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4 border-t border-white/10 text-xs text-slate-400">
+              <div className="space-y-1">
+                <span className="text-slate-500 block uppercase font-mono tracking-wider text-[10px]">Périodicité</span>
+                <span className="text-slate-200 font-medium">1ᵉʳ jeudi du mois</span>
+              </div>
+              <div className="space-y-1">
+                <span className="text-slate-500 block uppercase font-mono tracking-wider text-[10px]">Horaire</span>
+                <span className="text-slate-200 font-medium">20:30 (Après Isha)</span>
+              </div>
+              <div className="space-y-1">
+                <span className="text-slate-500 block uppercase font-mono tracking-wider text-[10px]">Cadence</span>
+                <span className="text-slate-200 font-medium">Blitz 5 min + 3 sec</span>
+              </div>
             </div>
 
-            <ul className="callouts">
-              <li className="callout callout--left" style={{ '--y': '18%' } as React.CSSProperties}>
-                <span>Édition #IV · Inscriptions</span>
-              </li>
-              <li className="callout callout--right" style={{ '--y': '36%' } as React.CSSProperties}>
-                <span>Système Suisse</span>
-              </li>
-              <li className="callout callout--left" style={{ '--y': '58%' } as React.CSSProperties}>
-                <span>Cadence · 5'+3" Blitz</span>
-              </li>
-              <li className="callout callout--right" style={{ '--y': '78%' } as React.CSSProperties}>
-                <span>Annaba · Lieux selon édition</span>
-              </li>
-            </ul>
-          </figure>
+          </div>
+
+          {/* Colonne Droite : Carte Épurée de la Prochaine Édition */}
+          <div className="lg:col-span-5">
+            {activeTournament ? (
+              <div className="card-royal p-6 sm:p-8 space-y-6 relative overflow-hidden bg-gradient-to-b from-noir-850 to-noir-900 border-gold-500/20">
+                <div className="flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Inscriptions Ouvertes
+                  </span>
+                  <span className="text-xs font-mono text-gold-400 font-semibold px-2.5 py-1 rounded bg-gold-500/10 border border-gold-500/20">
+                    Édition #{activeTournament.edition}
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white">
+                    {activeTournament.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    {activeTournament.description}
+                  </p>
+                </div>
+
+                <div className="space-y-3 py-2 text-xs text-slate-300">
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-4 h-4 text-gold-400 flex-shrink-0" />
+                    <span>{activeTournament.dateFormatted}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Clock className="w-4 h-4 text-gold-400 flex-shrink-0" />
+                    <span>{activeTournament.time}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <MapPin className="w-4 h-4 text-gold-400 flex-shrink-0" />
+                    <span>{activeTournament.location}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Flame className="w-4 h-4 text-gold-400 flex-shrink-0" />
+                    <span>{activeTournament.cadence} · 7 Rondes Système Suisse</span>
+                  </div>
+                </div>
+
+                {/* Jauge de remplissage */}
+                <div className="space-y-2 pt-2 border-t border-white/10">
+                  <div className="flex justify-between items-center text-xs font-medium">
+                    <span className="text-slate-300">Table des inscriptions</span>
+                    <span className="text-gold-400 font-mono">
+                      {confirmedPlayers.length} / {activeTournament.maxParticipants} inscrits ({spotsLeft} places)
+                    </span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-noir-950 overflow-hidden border border-white/10">
+                    <div 
+                      className="h-full bg-gold-500 transition-all duration-500"
+                      style={{ width: `${fillPercentage}%` }}
+                    />
+                  </div>
+                </div>
+
+                <Link
+                  href={`/tournoi/${activeTournament.slug}#inscription`}
+                  className="w-full btn-gold !py-3 !rounded-xl text-center block text-sm"
+                >
+                  Réserver ma place autour des échiquiers →
+                </Link>
+              </div>
+            ) : (
+              <div className="card-royal p-8 text-center space-y-4">
+                <Calendar className="w-10 h-10 text-gold-400 mx-auto" />
+                <h3 className="font-serif text-xl font-bold text-white">Prochaine Édition en Préparation</h3>
+                <p className="text-xs text-slate-400">
+                  Rendez-vous le premier jeudi du mois prochain après Isha. Consultez l'annuaire ou le palmarès en attendant.
+                </p>
+                <Link href="/archives" className="btn-secondary !py-2 !text-xs inline-block">
+                  Voir les éditions passées
+                </Link>
+              </div>
+            )}
+          </div>
+
         </div>
       </section>
 
-      {/* ─── Meter strip — signature move 5 ─── */}
-      <aside className="meter" aria-label="Statut en direct de la jauge">
-        <p className="meter__label meter__label--left">
-          <span className="meter__dot" aria-hidden="true" />
-          Échiquier Annaba · Pointage en direct
-        </p>
-        <div className="meter__bars" aria-hidden="true">
-          {/* 60 vertical bars driven by sine envelope */}
-          {[28, 34, 42, 50, 62, 74, 86, 94, 100, 92, 80, 68, 54, 42, 34, 28, 22, 28, 36, 48, 64, 78, 90, 96, 90, 78, 62, 48, 36, 26, 22, 28, 40, 56, 72, 86, 92, 88, 76, 60, 46, 34, 26, 22, 30, 44, 60, 76, 88, 94, 88, 74, 58, 44, 32, 26, 22, 26, 32, 40].map((h, i) => (
-            <span key={i} style={{ '--h': `${h}%` } as React.CSSProperties} />
-          ))}
-        </div>
-        <p className="meter__label meter__label--right">
-          {confirmedPlayers.length} / {activeTournament?.maxParticipants || 32} inscrits · {spotsLeft} places restantes
-        </p>
-      </aside>
+      {/* ─── Statistiques Clés du Club ─── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="card-royal p-6 space-y-2 text-center md:text-left">
+            <span className="text-xs uppercase tracking-wider font-mono text-slate-400">Membres Répertoriés</span>
+            <div className="flex items-baseline gap-2 justify-center md:justify-start">
+              <span className="font-serif text-4xl sm:text-5xl font-bold text-white">{allPlayers.length}</span>
+              <span className="text-xs text-gold-400 font-medium">joueurs d'Annaba</span>
+            </div>
+            <p className="text-xs text-slate-400">
+              Anciens sociétaires du Hamra, de l'AUCA et nouvelle génération réunis.
+            </p>
+          </div>
 
-      {/* ─── Stat row — Instrument Serif numerals, tabular-nums ─── */}
-      <section className="stats" aria-label="Statistiques du club">
-        <dl className="stats__grid">
-          <div className="stat">
-            <dt className="stat__label">Joueurs répertoriés</dt>
-            <dd className="stat__value">
-              <span className="stat__num">{allPlayers.length}</span>
-              <span className="stat__unit">membres</span>
-            </dd>
+          <div className="card-royal p-6 space-y-2 text-center md:text-left">
+            <span className="text-xs uppercase tracking-wider font-mono text-slate-400">Éditions Homologuées</span>
+            <div className="flex items-baseline gap-2 justify-center md:justify-start">
+              <span className="font-serif text-4xl sm:text-5xl font-bold text-white">{archivedTournaments.length}</span>
+              <span className="text-xs text-gold-400 font-medium">tournois disputés</span>
+            </div>
+            <p className="text-xs text-slate-400">
+              Archives vérifiées avec grilles Chess-Results et calculs de départage FIDE.
+            </p>
           </div>
-          <div className="stat">
-            <dt className="stat__label">Éditions officielles</dt>
-            <dd className="stat__value">
-              <span className="stat__num">{archivedTournaments.length}</span>
-              <span className="stat__unit">tournois</span>
-            </dd>
+
+          <div className="card-royal p-6 space-y-2 text-center md:text-left">
+            <span className="text-xs uppercase tracking-wider font-mono text-slate-400">Format Compétitif</span>
+            <div className="flex items-baseline gap-2 justify-center md:justify-start">
+              <span className="font-serif text-4xl sm:text-5xl font-bold text-white">7</span>
+              <span className="text-xs text-gold-400 font-medium">rondes par édition</span>
+            </div>
+            <p className="text-xs text-slate-400">
+              Système suisse homologué, cadence Blitz 5'+3" avec pendules électroniques.
+            </p>
           </div>
-          <div className="stat">
-            <dt className="stat__label">Format compétitif</dt>
-            <dd className="stat__value">
-              <span className="stat__num">7</span>
-              <span className="stat__unit">rondes</span>
-            </dd>
-          </div>
-        </dl>
-        <p className="stats__note">
-          Données historiques vérifiées issues des fichiers officiels Chess-Results (CDR I, CDR II, CDR III) 
-          et de l'annuaire des anciens joueurs d'Annaba.
-        </p>
+        </div>
       </section>
 
-      {/* ─── Piliers / Runtime cards — hairline + inner emission ─── */}
-      <section className="section" id="tradition" aria-labelledby="tradition-title">
-        <header className="section__head">
-          <p className="eyebrow">
-            <span className="ord">01</span>
-            <span className="dot-mid">·</span>
-            Tradition
-          </p>
-          <h2 className="section__title" id="tradition-title">
-            Garder vivante une <em>flamme</em> échiquéenne.
+      {/* ─── Piliers & Esprit du Club ─── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <span className="badge-gold">L'Esprit du Cercle</span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
+            Garder vivante une tradition échiquéenne
           </h2>
-          <p className="section__lede">
+          <p className="text-sm text-slate-300 leading-relaxed font-light">
             Même sans club formel, même sans ligue locale. Le Cercle des Rois s'appuie 
-            sur la fidélité de ses membres pour réunir toutes les générations autour des 64 cases.
+            sur la fidélité et la fraternité de ses membres pour faire vivre le jeu à Annaba.
           </p>
-        </header>
+        </div>
 
-        <div className="cards">
-          <article className="card-lumen">
-            <p className="card__eyebrow">a · mémoire</p>
-            <h3 className="card__title text-white font-medium text-lg mt-1 mb-2">Héritage du Hamra & AUCA</h3>
-            <p className="card__body text-sm text-[var(--color-ink-2)] leading-relaxed">
-              La plupart des joueurs d'Annaba sont les héritiers des grands clubs de la ville. 
-              Le Cercle perpétue cette mémoire vivante en maintenant le niveau et l'esprit du jeu.
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="card-royal p-6 sm:p-8 space-y-4">
+            <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <h3 className="font-serif text-xl font-bold text-white">Héritage du Hamra & AUCA</h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              La plupart des joueurs d'Annaba sont les héritiers des grands clubs historiques de la ville. 
+              Le Cercle perpétue cette mémoire vivante en maintenant le niveau et l'éthique du noble jeu.
             </p>
-          </article>
-          <article className="card-lumen">
-            <p className="card__eyebrow">b · convivialité</p>
-            <h3 className="card__title text-white font-medium text-lg mt-1 mb-2">Le rendez-vous d'Isha</h3>
-            <p className="card__body text-sm text-[var(--color-ink-2)] leading-relaxed">
-              Pas d'arbitres rigides, pas d'enjeu financier. Le premier jeudi du mois, 
-              on pose les pendules au Café Dardara ou dans les différents lieux choisis d'Annaba pour le plaisir pur de la compétition fraternelle.
+          </div>
+
+          <div className="card-royal p-6 sm:p-8 space-y-4">
+            <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+              <Clock className="w-5 h-5" />
+            </div>
+            <h3 className="font-serif text-xl font-bold text-white">Le Rendez-vous d'Isha</h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Pas de barrières ni d'enjeux financiers. Le premier jeudi du mois, 
+              on pose les pendules au Café Dardara pour le plaisir pur de la compétition fraternelle autour d'un thé.
             </p>
-          </article>
-          <article className="card-lumen">
-            <p className="card__eyebrow">c · transmission</p>
-            <h3 className="card__title text-white font-medium text-lg mt-1 mb-2">De 7 à 77 ans</h3>
-            <p className="card__body text-sm text-[var(--color-ink-2)] leading-relaxed">
+          </div>
+
+          <div className="card-royal p-6 sm:p-8 space-y-4">
+            <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400">
+              <Users className="w-5 h-5" />
+            </div>
+            <h3 className="font-serif text-xl font-bold text-white">De 7 à 77 ans</h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
               Les maîtres chevronnés affrontent la jeune relève. Les pendules électroniques 
               et les jeux complets sont fournis bénévolement par les organisateurs du Cercle.
             </p>
-          </article>
+          </div>
         </div>
       </section>
 
-      {/* ─── Tournament Workbench — Lumen Code Block Style ─── */}
-      <section className="section section--code" id="prochain" aria-labelledby="prochain-title">
-        <header className="section__head">
-          <p className="eyebrow">
-            <span className="ord">02</span>
-            <span className="dot-mid">·</span>
-            Prochaine Édition
-          </p>
-          <h2 className="section__title" id="prochain-title">
-            Fiche technique du <em>Tournoi</em>.
-          </h2>
-          <p className="section__lede">
-            Pointage le jour J sur place. Inscription en ligne immédiate avec confirmation instantanée 
-            et placement prioritaire sur liste d'attente.
-          </p>
-        </header>
-
-        <div className="code">
-          <div className="code__head">
-            <p className="code__path">cercle-des-rois/annaba/edition-04.json</p>
-            <p className="code__sha">jauge {confirmedPlayers.length}/32</p>
+      {/* ─── Palmarès des Champions ─── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+          <div>
+            <span className="badge-gold">Historique</span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white mt-2">
+              Les Champions du Cercle
+            </h2>
           </div>
-          <div className="code__tabs" role="tablist">
-            <button className="code__tab is-active" role="tab" aria-selected="true">tournoi.json</button>
-            <button className="code__tab" role="tab" aria-selected="false">reglement.md</button>
-            <button className="code__tab" role="tab" aria-selected="false">inscrits.csv</button>
-          </div>
-          <pre className="code__body"><code><span className="ln">01</span> <span className="tok-kw">"edition"</span>: <span className="tok-num">4</span>,
-<span className="ln">02</span> <span className="tok-kw">"titre"</span>: <span className="tok-str">"{activeTournament?.title || 'Le Cercle des Rois IV'}"</span>,
-<span className="ln">03</span> <span className="tok-kw">"date"</span>: <span className="tok-str">"{activeTournament?.dateFormatted || 'Premier jeudi du mois'}"</span>,
-<span className="ln">04</span> <span className="tok-kw">"horaire"</span>: <span className="tok-str">"{activeTournament?.time || '20:30 (Après la prière d\'Isha)'}"</span>,
-<span className="ln">05</span> <span className="tok-kw">"lieu"</span>: <span className="tok-str">"{activeTournament?.location || 'Café Dardara, Annaba'}"</span>,
-<span className="ln">06</span> <span className="tok-kw">"cadence"</span>: <span className="tok-str">"{activeTournament?.cadence || 'Blitz 5 min + 3 sec'}"</span>,
-<span className="ln">07</span> <span className="tok-kw">"systeme"</span>: <span className="tok-str">"Suisse en 7 rondes homologué FIDE départages (DE, Buchholz)"</span>,
-<span className="ln">08</span> <span className="tok-kw">"jauge_max"</span>: <span className="tok-num">32</span>,
-<span className="ln">09</span> <span className="tok-kw">"places_restantes"</span>: <span className="tok-num">{spotsLeft}</span></code></pre>
+          <Link href="/archives" className="text-xs font-semibold text-gold-400 hover:text-gold-300 flex items-center gap-1 transition-colors">
+            <span>Voir les grilles américaines complètes</span>
+            <ChevronRight className="w-4 h-4" />
+          </Link>
         </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-4">
-          {activeTournament && (
-            <Link
-              href={`/tournoi/${activeTournament.slug}#inscription`}
-              className="btn btn--accent"
-            >
-              Rejoindre la table des inscriptions →
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="card-royal p-6 space-y-4">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-slate-400 font-mono">Mai 2024</span>
+              <span className="text-gold-400 font-semibold">CDR III</span>
+            </div>
+            <div>
+              <div className="text-xs uppercase tracking-wider text-slate-400">Vainqueur</div>
+              <h3 className="font-serif text-xl font-bold text-white mt-1">BENLAID Lakhdar</h3>
+              <p className="text-xs text-gold-400 mt-0.5">6.0 pts / 7 rondes</p>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
+              2ᵉ : TOUIL Achref (5.5 pts) · 3ᵉ : KOUDRI Samir (5.0 pts). 22 participants au Café Dardara.
+            </p>
+          </div>
+
+          <div className="card-royal p-6 space-y-4">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-slate-400 font-mono">Avril 2024</span>
+              <span className="text-gold-400 font-semibold">CDR II</span>
+            </div>
+            <div>
+              <div className="text-xs uppercase tracking-wider text-slate-400">Vainqueur</div>
+              <h3 className="font-serif text-xl font-bold text-white mt-1">TOUIL Achref</h3>
+              <p className="text-xs text-gold-400 mt-0.5">5.5 pts / 7 rondes</p>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
+              2ᵉ : BENLAID Lakhdar (5.5 pts) · 3ᵉ : AMARA Oussama (5.0 pts). Départage Buchholz Cut 1.
+            </p>
+          </div>
+
+          <div className="card-royal p-6 space-y-4">
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-slate-400 font-mono">Mars 2024</span>
+              <span className="text-gold-400 font-semibold">CDR I</span>
+            </div>
+            <div>
+              <div className="text-xs uppercase tracking-wider text-slate-400">Vainqueur</div>
+              <h3 className="font-serif text-xl font-bold text-white mt-1">KOUDRI Samir</h3>
+              <p className="text-xs text-gold-400 mt-0.5">6.5 pts / 7 rondes</p>
+            </div>
+            <p className="text-xs text-slate-400 leading-relaxed pt-2 border-t border-white/10">
+              Édition inaugurale réunissant 24 anciens sociétaires et passionnés de la wilaya d'Annaba.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Bannière d'Invitation Sobre ─── */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-2xl p-8 sm:p-12 card-royal bg-gradient-to-r from-noir-900 via-noir-850 to-noir-900 border-gold-500/20 text-center space-y-6">
+          <div className="max-w-2xl mx-auto space-y-3">
+            <h2 className="font-serif text-2xl sm:text-4xl font-bold text-white">
+              Une place vous attend autour des 64 cases
+            </h2>
+            <p className="text-sm text-slate-300 leading-relaxed font-light">
+              Que vous soyez ancien compétiteur classé FIDE ou joueur d'échecs passionné de café,
+              le Cercle des Rois est ouvert à tous les talents d'Annaba.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link href="/inscription" className="btn-gold">
+              S'inscrire au prochain tournoi
             </Link>
-          )}
-          <Link
-            href="/annuaire"
-            className="btn btn--ghost"
-          >
-            Consulter l'annuaire des 53 joueurs
-          </Link>
-        </div>
-      </section>
-
-      {/* ─── Palmarès / Changelog ─── */}
-      <section className="section section--changelog" id="palmares" aria-labelledby="palmares-title">
-        <header className="section__head">
-          <p className="eyebrow">
-            <span className="ord">03</span>
-            <span className="dot-mid">·</span>
-            Palmarès
-          </p>
-          <h2 className="section__title" id="palmares-title">
-            Historique des <em>champions</em>.
-          </h2>
-        </header>
-
-        <ol className="log">
-          <li className="log__entry">
-            <time className="log__date" dateTime="2024-05">CDR III · Mai 2024</time>
-            <div className="log__text">
-              <strong className="text-[var(--color-accent)] font-semibold">Champion : BENLAID Lakhdar</strong> (6.0 pts / 7 rondes).
-              2ᵉ place : TOUIL Achref (5.5 pts), 3ᵉ place : KOUDRI Samir (5.0 pts). 22 participants au Café Dardara.
-            </div>
-          </li>
-          <li className="log__entry">
-            <time className="log__date" dateTime="2024-04">CDR II · Avril 2024</time>
-            <div className="log__text">
-              <strong className="text-[var(--color-accent)] font-semibold">Champion : TOUIL Achref</strong> (5.5 pts / 7 rondes).
-              2ᵉ place : BENLAID Lakhdar (5.5 pts), 3ᵉ place : AMARA Oussama (5.0 pts). Départage Buchholz Cut 1.
-            </div>
-          </li>
-          <li className="log__entry">
-            <time className="log__date" dateTime="2024-03">CDR I · Mars 2024</time>
-            <div className="log__text">
-              <strong className="text-[var(--color-accent)] font-semibold">Champion : KOUDRI Samir</strong> (6.5 pts / 7 rondes).
-              Édition inaugurale réunissant 24 anciens sociétaires de la wilaya d'Annaba.
-            </div>
-          </li>
-        </ol>
-
-        <div className="mt-8">
-          <Link href="/archives" className="btn btn--ghost text-xs">
-            Voir les grilles américaines complètes et départages FIDE →
-          </Link>
+            <Link href="/annuaire" className="btn-secondary">
+              Consulter l'annuaire des membres
+            </Link>
+          </div>
         </div>
       </section>
 
