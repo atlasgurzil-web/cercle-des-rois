@@ -422,6 +422,8 @@ export async function getPlayersAsync(): Promise<DirectoryPlayer[]> {
   return getAllPlayers();
 }
 
+export const getAllPlayersAsync = getPlayersAsync;
+
 function syncPlayerToDirectory(db: DatabaseSchema, reg: PlayerRegistration) {
   const normNom = reg.nom.toLowerCase().trim();
   const normPrenom = reg.prenom.toLowerCase().trim();

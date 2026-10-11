@@ -34,7 +34,7 @@ export async function POST(
 
     if (action === 'checkin') {
       const ok = togglePlayerCheckIn(tournament.id, registrationId);
-      const updated = getTournamentBySlug(tournament.id)?.registeredPlayers.find(p => p.id === registrationId);
+      const updated = getTournamentBySlug(tournament.id)?.registeredPlayers?.find(p => p.id === registrationId);
       if (updated) {
         updateRegistrationInSupabase(registrationId, { isCheckedIn: updated.isCheckedIn }).catch(() => {});
       }
@@ -43,7 +43,7 @@ export async function POST(
 
     if (action === 'paid') {
       const ok = togglePlayerPaid(tournament.id, registrationId);
-      const updated = getTournamentBySlug(tournament.id)?.registeredPlayers.find(p => p.id === registrationId);
+      const updated = getTournamentBySlug(tournament.id)?.registeredPlayers?.find(p => p.id === registrationId);
       if (updated) {
         updateRegistrationInSupabase(registrationId, { isPaid: updated.isPaid }).catch(() => {});
       }
@@ -52,7 +52,7 @@ export async function POST(
 
     if (action === 'promote') {
       const ok = promoteWaitlistPlayer(tournament.id, registrationId);
-      const updated = getTournamentBySlug(tournament.id)?.registeredPlayers.find(p => p.id === registrationId);
+      const updated = getTournamentBySlug(tournament.id)?.registeredPlayers?.find(p => p.id === registrationId);
       if (updated) {
         updateRegistrationInSupabase(registrationId, { 
           status: 'confirmed', 
