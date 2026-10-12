@@ -165,6 +165,7 @@ export default function AnnuairePage() {
             <select
               value={selectedClub}
               onChange={(e) => setSelectedClub(e.target.value)}
+              aria-label="Filtrer les joueurs par club"
               className="px-3.5 py-2 rounded-xl bg-noir-900 border border-slate-700 text-xs sm:text-sm text-white focus:border-gold-500 transition-colors"
             >
               {clubs.map(c => (
