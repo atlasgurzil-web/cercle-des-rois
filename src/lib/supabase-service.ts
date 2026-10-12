@@ -190,15 +190,27 @@ export async function fetchPlayersFromSupabase(): Promise<DirectoryPlayer[] | nu
 
 // ---------------- WRITE / MUTATION OPERATIONS ----------------
 
-export async function syncRegistrationToSupabase(tournamentId: string, reg: PlayerRegistration) {
+export async function syncRegistrationToSupabase(tournamentIdOrSlug: string, reg: PlayerRegistration) {
   if (!isSupabaseConfigured()) return;
   try {
     const client = getSupabaseServerClient();
     if (!client) return;
 
+    let targetTournamentId = tournamentIdOrSlug;
+    if (!targetTournamentId.startsWith('cdr-')) {
+      const { data: tourney } = await client
+        .from('tournaments')
+        .select('id')
+        .eq('slug', tournamentIdOrSlug)
+        .maybeSingle();
+      if (tourney?.id) {
+        targetTournamentId = tourney.id;
+      }
+    }
+
     await client.from('registrations').upsert({
       id: reg.id,
-      tournament_id: tournamentId,
+      tournament_id: targetTournamentId,
       nom: reg.nom,
       prenom: reg.prenom || '',
       telephone: reg.telephone || '',
