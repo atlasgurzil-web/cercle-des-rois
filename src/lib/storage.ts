@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
-import { Tournament, DirectoryPlayer, PlayerRegistration } from '@/types';
+import { Tournament, DirectoryPlayer, PlayerRegistration, Podium, StandingEntry } from '@/types';
 import tournamentsSeed from '@/data/tournaments.json';
 import playersSeed from '@/data/players.json';
 import { normalizePhoneNumber } from '@/lib/validation';
@@ -483,3 +483,122 @@ export function deletePlayer(id: string): boolean {
   }
   return false;
 }
+
+/**
+ * Synchronise l'annuaire des membres avec les résultats d'un tournoi officiel
+ */
+export function syncDirectoryFromStandings(
+  tournamentTitle: string,
+  tournamentDate: string,
+  standings: StandingEntry[]
+): void {
+  const db = readDatabase();
+
+  for (const entry of standings) {
+    if (!entry.name) continue;
+
+    const rawClean = entry.name.toLowerCase().replace(/[,;\.]/g, ' ').replace(/\s+/g, ' ').trim();
+    const parts = rawClean.split(' ').filter(Boolean);
+
+    const existing = db.players.find(p => {
+      const pFull = (p.nomComplet || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      const pNomPrenom = `${p.nom || ''} ${p.prenom || ''}`.toLowerCase().replace(/\s+/g, ' ').trim();
+      const pPrenomNom = `${p.prenom || ''} ${p.nom || ''}`.toLowerCase().replace(/\s+/g, ' ').trim();
+
+      if (pFull === rawClean || pNomPrenom === rawClean || pPrenomNom === rawClean) return true;
+
+      if (parts.length >= 2 && p.nom && p.prenom) {
+        const hasNom = parts.includes(p.nom.toLowerCase().trim());
+        const hasPrenom = parts.includes(p.prenom.toLowerCase().trim());
+        if (hasNom && hasPrenom) return true;
+      }
+      return false;
+    });
+
+    if (existing) {
+      if (!existing.tournoisParticipes) existing.tournoisParticipes = [];
+
+      const existingRecord = existing.tournoisParticipes.find(t => t.tournamentTitle === tournamentTitle);
+      if (existingRecord) {
+        existingRecord.rank = entry.rank;
+        existingRecord.points = entry.points;
+      } else {
+        existing.tournoisParticipes.push({
+          tournamentTitle,
+          rank: entry.rank,
+          points: entry.points
+        });
+      }
+
+      existing.nbTournois = existing.tournoisParticipes.length;
+      const ranks = existing.tournoisParticipes.map(t => t.rank).filter(r => r > 0);
+      if (ranks.length > 0) {
+        existing.bestRank = Math.min(...ranks);
+      }
+
+      if (entry.elo && entry.elo > 0 && (!existing.elo || existing.elo === 0)) {
+        existing.elo = entry.elo;
+      }
+      if (entry.club && entry.club !== 'Indépendant' && (!existing.club || existing.club === 'Indépendant')) {
+        existing.club = entry.club;
+      }
+    } else {
+      const nom = parts[0] ? parts[0].toUpperCase() : 'JOUEUR';
+      const prenom = parts.slice(1).join(' ') || '';
+
+      db.players.push({
+        id: `cdr-player-${Date.now()}-${entry.rank}`,
+        nom,
+        prenom,
+        nomComplet: entry.name,
+        sexe: 'M',
+        club: entry.club || 'Indépendant',
+        fideId: '',
+        elo: entry.elo || 0,
+        nbTournois: 1,
+        bestRank: entry.rank,
+        tournoisParticipes: [
+          {
+            tournamentTitle,
+            rank: entry.rank,
+            points: entry.points
+          }
+        ]
+      });
+    }
+  }
+
+  writeDatabase(db);
+}
+
+/**
+ * Clôture et archive un tournoi avec son podium officiel et sa grille complète
+ */
+export function archiveTournamentWithResults(
+  tournamentId: string,
+  podium: Podium,
+  standings: StandingEntry[],
+  chessResultsUrl?: string,
+  syncDirectory: boolean = true
+): Tournament | null {
+  const db = readDatabase();
+  const tournament = db.tournaments.find(t => t.id === tournamentId || t.slug === tournamentId);
+  if (!tournament) return null;
+
+  tournament.isArchived = true;
+  tournament.podium = podium;
+  tournament.standings = standings;
+  tournament.participantsCount = standings.length;
+  if (chessResultsUrl) {
+    tournament.chessResultsUrl = chessResultsUrl;
+  }
+
+  writeDatabase(db);
+
+  if (syncDirectory && standings.length > 0) {
+    syncDirectoryFromStandings(tournament.title, tournament.dateFormatted, standings);
+  }
+
+  return tournament;
+}
+

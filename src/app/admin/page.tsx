@@ -32,6 +32,7 @@ import {
 } from 'lucide-react';
 import { Tournament, PlayerRegistration, DirectoryPlayer } from '@/types';
 import { SupabaseModal } from '@/components/SupabaseModal';
+import { TournamentResultsPublisher } from '@/components/TournamentResultsPublisher';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -575,8 +576,8 @@ export default function AdminPage() {
               : 'btn--ghost'
           }`}
         >
-          <Archive className="w-4 h-4 flex-shrink-0" />
-          <span>Clôturer & Archiver</span>
+          <Trophy className="w-4 h-4 flex-shrink-0" />
+          <span>Publier Résultats & Podium</span>
         </button>
       </div>
 
@@ -1173,100 +1174,14 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* TAB 5: ARCHIVE TOURNAMENT */}
+      {/* TAB 5: PUBLISH RESULTS & PODIUM */}
       {activeTab === 'archive-tournament' && (
-        <div className="card-royal p-6 sm:p-8 rounded-2xl border border-[var(--color-rule)] space-y-6 max-w-2xl animate-in fade-in">
-          <div>
-            <h2 className="font-serif text-2xl font-bold text-white">Clôturer et Archiver le Tournoi Actif</h2>
-            <p className="text-xs text-slate-400">
-              Enregistrez le podium officiel. Le tournoi passera automatiquement dans la section Palmarès & Archives.
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-amber-400">🥇 1ʳᵉ Place (Champion)</label>
-              <div className="grid grid-cols-3 gap-2">
-                <input
-                  type="text"
-                  placeholder="ex: Benlaid Lakhdar"
-                  value={archiveForm.firstWinner}
-                  onChange={(e) => setArchiveForm({ ...archiveForm, firstWinner: e.target.value })}
-                  className="col-span-2 px-3.5 py-2 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white"
-                />
-                <input
-                  type="number"
-                  step="0.5"
-                  placeholder="Points (ex: 6)"
-                  value={archiveForm.firstPoints}
-                  onChange={(e) => setArchiveForm({ ...archiveForm, firstPoints: e.target.value })}
-                  className="px-3.5 py-2 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-300">🥈 2ᵉ Place (Nom & Prénom)</label>
-              <div className="grid grid-cols-3 gap-2">
-                <input
-                  type="text"
-                  placeholder="ex: Touil Achref"
-                  value={archiveForm.secondWinner}
-                  onChange={(e) => setArchiveForm({ ...archiveForm, secondWinner: e.target.value })}
-                  className="col-span-2 px-3.5 py-2 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white"
-                />
-                <input
-                  type="number"
-                  step="0.5"
-                  placeholder="Points (ex: 5.5)"
-                  value={archiveForm.secondPoints}
-                  onChange={(e) => setArchiveForm({ ...archiveForm, secondPoints: e.target.value })}
-                  className="px-3.5 py-2 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-amber-500">🥉 3ᵉ Place (Nom & Prénom)</label>
-              <div className="grid grid-cols-3 gap-2">
-                <input
-                  type="text"
-                  placeholder="ex: Koudri Samir"
-                  value={archiveForm.thirdWinner}
-                  onChange={(e) => setArchiveForm({ ...archiveForm, thirdWinner: e.target.value })}
-                  className="col-span-2 px-3.5 py-2 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white"
-                />
-                <input
-                  type="number"
-                  step="0.5"
-                  placeholder="Points (ex: 5)"
-                  value={archiveForm.thirdPoints}
-                  onChange={(e) => setArchiveForm({ ...archiveForm, thirdPoints: e.target.value })}
-                  className="px-3.5 py-2 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-400">Lien Chess-Results</label>
-              <input
-                type="url"
-                placeholder="https://chess-results.com/tnr..."
-                value={archiveForm.chessResultsUrl}
-                onChange={(e) => setArchiveForm({ ...archiveForm, chessResultsUrl: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-lg bg-noir-900 border border-slate-700 text-sm text-white"
-              />
-            </div>
-
-            <button
-              type="button"
-              onClick={handleArchiveTournament}
-              className="btn btn--accent w-full py-3.5 font-bold"
-            >
-              Enregistrer aux Archives du Club
-            </button>
-          </div>
-        </div>
+        <TournamentResultsPublisher
+          tournaments={tournaments}
+          activeTourney={activeTourney}
+          authFetch={authFetch}
+          onSuccess={loadData}
+        />
       )}
 
       {/* EDIT TOURNAMENT MODAL */}

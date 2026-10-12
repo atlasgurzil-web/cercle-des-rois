@@ -5,7 +5,8 @@ import {
   removeRegistration, 
   promoteWaitlistPlayer,
   getTournamentBySlug, 
-  saveTournament 
+  saveTournament,
+  archiveTournamentWithResults
 } from '@/lib/storage';
 import { verifyAdminRequest } from '@/lib/auth';
 import { 
@@ -70,12 +71,19 @@ export async function POST(
     }
 
     if (action === 'archive') {
-      tournament.isArchived = true;
-      if (podium) tournament.podium = podium;
-      if (standings) tournament.standings = standings;
-      saveTournament(tournament);
-      await syncTournamentToSupabase(tournament);
-      return NextResponse.json({ success: true, tournament });
+      const { chessResultsUrl, syncDirectory } = body;
+      const updated = archiveTournamentWithResults(
+        tournament.id,
+        podium || null,
+        standings || [],
+        chessResultsUrl,
+        syncDirectory !== false
+      );
+      if (updated) {
+        await syncTournamentToSupabase(updated);
+        return NextResponse.json({ success: true, tournament: updated });
+      }
+      return NextResponse.json({ error: 'Échec de l\'archivage' }, { status: 500 });
     }
 
     return NextResponse.json({ error: 'Action inconnue' }, { status: 400 });
