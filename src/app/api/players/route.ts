@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     };
 
     savePlayer(newPlayer);
-    syncPlayerToSupabase(newPlayer).catch(() => {});
+    await syncPlayerToSupabase(newPlayer);
     return NextResponse.json(newPlayer, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors de la création du joueur' }, { status: 500 });
@@ -84,7 +84,7 @@ export async function PUT(request: Request) {
     };
 
     savePlayer(updatedPlayer);
-    syncPlayerToSupabase(updatedPlayer).catch(() => {});
+    await syncPlayerToSupabase(updatedPlayer);
     return NextResponse.json(updatedPlayer);
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors de la mise à jour du joueur' }, { status: 500 });
@@ -106,12 +106,12 @@ export async function DELETE(request: Request) {
         return NextResponse.json({ error: 'ID du joueur requis' }, { status: 400 });
       }
       deletePlayer(body.id);
-      deletePlayerFromSupabase(body.id).catch(() => {});
+      await deletePlayerFromSupabase(body.id);
       return NextResponse.json({ success: true });
     }
 
     deletePlayer(id);
-    deletePlayerFromSupabase(id).catch(() => {});
+    await deletePlayerFromSupabase(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: 'Erreur lors de la suppression du joueur' }, { status: 500 });

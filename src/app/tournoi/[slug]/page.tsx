@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getTournamentBySlug } from '@/lib/storage';
+import { getTournamentBySlugAsync } from '@/lib/storage';
 import TournamentDetailClient from './TournamentDetailClient';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const tournament = getTournamentBySlug(params.slug);
+  const tournament = await getTournamentBySlugAsync(params.slug);
   if (!tournament) {
     return {
       title: "Tournoi d'échecs introuvable | Le Cercle des Rois — Annaba",
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: 'Le Cercle des Rois',
       images: [
         {
-          url: '/logo.png',
+          url: '/og-image.jpg',
           width: 800,
           height: 800,
           alt: `Logo Cercle des Rois - ${tournament.title}`,
@@ -38,15 +38,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title,
       description,
-      images: ['/logo.png'],
+      images: ['/og-image.jpg'],
     }
   };
 }
 
-export default function TournamentDetailPage({ params }: Props) {
-  const initialTournament = getTournamentBySlug(params.slug) || null;
+export default async function TournamentDetailPage({ params }: Props) {
+  const initialTournament = (await getTournamentBySlugAsync(params.slug)) || null;
   return <TournamentDetailClient slug={params.slug} initialTournament={initialTournament} />;
 }

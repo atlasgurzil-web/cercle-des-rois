@@ -22,25 +22,7 @@
       "chessResultsUrl": "https://chess-results.com/tnr1482060.aspx?lan=20",
       "isArchived": false,
       "organizer": "Le Cercle des Rois (Hamra & AUCA)",
-      "registeredPlayers": [
-        {
-          "id": "reg-1791793699835-6yof",
-          "nom": "JOUEUR",
-          "prenom": "Participant",
-          "fideId": "",
-          "dateNaissance": "",
-          "telephone": "",
-          "email": "",
-          "club": "Hamra Annaba",
-          "eloFide": 0,
-          "status": "confirmed",
-          "dossardNumber": 1,
-          "registeredAt": "2026-10-12T08:28:19.835Z",
-          "isCheckedIn": false,
-          "isPaid": false,
-          "notes": ""
-        }
-      ]
+      "registeredPlayers": []
     },
     {
       "id": "cdr-3",
@@ -117,947 +99,1300 @@
   ],
   "players": [
     {
-      "id": "cdr-player-40",
-      "nomComplet": "CHANAFI Abderrazak",
-      "nom": "CHANAFI",
-      "prenom": "Abderrazak",
-      "club": "Biskra",
-      "elo": 1920,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "6",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-25",
-      "nomComplet": "MAHFOUDIA Adnen",
-      "nom": "MAHFOUDIA",
-      "prenom": "Adnen",
-      "club": "Hamra annaba",
-      "elo": 1900,
-      "fideId": "",
-      "telephone": "0796639493",
-      "email": "adnendz8@gmail.com",
-      "dateNaissance": "2005-06-26",
-      "nbTournois": 2,
-      "bestRank": "12",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
       "id": "cdr-player-23",
-      "nomComplet": "BENLAID Lakhdar",
       "nom": "BENLAID",
       "prenom": "Lakhdar",
-      "club": "Makomades chess Club oum el bouaghi",
-      "elo": 1867,
-      "fideId": "7903413",
+      "nomComplet": "BENLAID Lakhdar",
+      "sexe": "M",
+      "dateNaissance": "1978-10-25",
       "telephone": "0551263599",
       "email": "",
-      "dateNaissance": "1978-10-25",
+      "club": "Makomades chess Club oum el bouaghi",
+      "fideId": "7903413",
+      "elo": 1867,
       "nbTournois": 3,
-      "bestRank": "1",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-15",
-      "nomComplet": "KOUDRI Samir",
-      "nom": "KOUDRI",
-      "prenom": "Samir",
-      "club": "Hamra Annaba",
-      "elo": 1854,
-      "fideId": "7922884",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "1981-01-01",
-      "nbTournois": 2,
-      "bestRank": "3",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-53",
-      "nomComplet": "HADJI Madjed",
-      "nom": "HADJI",
-      "prenom": "Madjed",
-      "club": "Annaba",
-      "elo": 1848,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "13",
-      "sexe": "M",
-      "tournoisParticipes": []
+      "bestRank": 1,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 1,
+          "points": 4.5
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 2,
+          "points": 6
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 1,
+          "points": 6
+        }
+      ]
     },
     {
       "id": "cdr-player-14",
-      "nomComplet": "ASSOUL Abdelaziz",
       "nom": "ASSOUL",
       "prenom": "Abdelaziz",
-      "club": "HAMRA ANNABA",
-      "elo": 1820,
-      "fideId": "7922817",
+      "nomComplet": "ASSOUL Abdelaziz",
+      "sexe": "M",
+      "dateNaissance": "1991-01-01",
       "telephone": "00",
       "email": "000@sdg.com",
-      "dateNaissance": "1991-01-01",
+      "club": "HAMRA ANNABA",
+      "fideId": "7922817",
+      "elo": 1820,
       "nbTournois": 3,
-      "bestRank": "1",
+      "bestRank": 1,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 4,
+          "points": 3
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 1,
+          "points": 6.5
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 5,
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-16",
+      "nom": "ANIBA",
+      "prenom": "Tarek",
+      "nomComplet": "ANIBA Tarek",
       "sexe": "M",
-      "tournoisParticipes": []
+      "dateNaissance": "1990-01-01",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "7921624",
+      "elo": 1551,
+      "nbTournois": 3,
+      "bestRank": 4,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 7,
+          "points": 2
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 4,
+          "points": 5
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 6,
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-25",
+      "nom": "MAHFOUDIA",
+      "prenom": "Adnen",
+      "nomComplet": "MAHFOUDIA Adnen",
+      "sexe": "M",
+      "dateNaissance": "2005-06-26",
+      "telephone": "0796639493",
+      "email": "adnendz8@gmail.com",
+      "club": "Hamra annaba",
+      "fideId": "",
+      "elo": 1900,
+      "nbTournois": 2,
+      "bestRank": 12,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 12,
+          "points": 4
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 14,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-15",
+      "nom": "KOUDRI",
+      "prenom": "Samir",
+      "nomComplet": "KOUDRI Samir",
+      "sexe": "M",
+      "dateNaissance": "1981-01-01",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "7922884",
+      "elo": 1854,
+      "nbTournois": 2,
+      "bestRank": 3,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 3,
+          "points": 3.5
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 3,
+          "points": 5
+        }
+      ]
     },
     {
       "id": "cdr-player-4",
-      "nomComplet": "BENSAID Brahim (Ibrahim)",
       "nom": "BENSAID",
       "prenom": "Brahim (Ibrahim)",
-      "club": "Hamra Annaba",
-      "elo": 1711,
-      "fideId": "7904606",
+      "nomComplet": "BENSAID Brahim (Ibrahim)",
+      "sexe": "M",
+      "dateNaissance": "2005-01-28",
       "telephone": "0698170839",
       "email": "sampras1970@hotmail.com",
-      "dateNaissance": "2005-01-28",
+      "club": "Hamra Annaba",
+      "fideId": "7904606",
+      "elo": 1711,
       "nbTournois": 2,
-      "bestRank": "5",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-22",
-      "nomComplet": "TOUMI Fakhreddine",
-      "nom": "TOUMI",
-      "prenom": "Fakhreddine",
-      "club": "Indépendant",
-      "elo": 1688,
-      "fideId": "7924682",
-      "telephone": "0770252554",
-      "email": "fd.ryouko.chess@gmail.com",
-      "dateNaissance": "1994-04-17",
-      "nbTournois": 0,
-      "bestRank": null,
-      "sexe": "M",
-      "tournoisParticipes": []
+      "bestRank": 5,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 5,
+          "points": 4.5
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 23,
+          "points": 2
+        }
+      ]
     },
     {
       "id": "cdr-player-33",
-      "nomComplet": "TOUMARI Hatem",
       "nom": "TOUMARI",
       "prenom": "Hatem",
-      "club": "Hamra annaba",
-      "elo": 1672,
-      "fideId": "7981970",
+      "nomComplet": "TOUMARI Hatem",
+      "sexe": "M",
+      "dateNaissance": "2001-03-06",
       "telephone": "0697101458",
       "email": "hatemtm36@gmail.com",
-      "dateNaissance": "2001-03-06",
+      "club": "Hamra annaba",
+      "fideId": "7981970",
+      "elo": 1672,
       "nbTournois": 2,
-      "bestRank": "8",
+      "bestRank": 8,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 8,
+          "points": 4
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 8,
+          "points": 4
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-32",
+      "nom": "ZEGHIB",
+      "prenom": "Rami",
+      "nomComplet": "ZEGHIB Rami",
       "sexe": "M",
+      "dateNaissance": "2003-01-20",
+      "telephone": "0793128926",
+      "email": "ramidentaire23@gmail.com",
+      "club": "Hamra annaba",
+      "fideId": "7973152",
+      "elo": 1579,
+      "nbTournois": 2,
+      "bestRank": 8,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 8,
+          "points": 2
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 9,
+          "points": 4
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-8",
+      "nom": "MENASSEL",
+      "prenom": "Skander",
+      "nomComplet": "MENASSEL Skander",
+      "sexe": "M",
+      "dateNaissance": "1998-01-01",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 2,
+      "bestRank": 13,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 13,
+          "points": 4
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 18,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-10",
+      "nom": "OUERHANI",
+      "prenom": "Badreddine",
+      "nomComplet": "OUERHANI Badreddine",
+      "sexe": "M",
+      "dateNaissance": "1988-01-01",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 2,
+      "bestRank": 7,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 7,
+          "points": 4.5
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 11,
+          "points": 4
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-12",
+      "nom": "AYAD",
+      "prenom": "Zoheir",
+      "nomComplet": "AYAD Zoheir",
+      "sexe": "M",
+      "dateNaissance": "1978-08-31",
+      "telephone": "0662535291",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 2,
+      "bestRank": 3,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 3,
+          "points": 5.5
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 26,
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-17",
+      "nom": "DJAWAD",
+      "prenom": "Mohammed",
+      "nomComplet": "DJAWAD Mohammed",
+      "sexe": "M",
+      "dateNaissance": "1954-01-01",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "7981783",
+      "elo": 0,
+      "nbTournois": 2,
+      "bestRank": 14,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 14,
+          "points": 4
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 20,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-18",
+      "nom": "BENTBOULA",
+      "prenom": "Kheir Eddine",
+      "nomComplet": "BENTBOULA Kheir Eddine",
+      "sexe": "M",
+      "dateNaissance": "1960-01-01",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 2,
+      "bestRank": 9,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 9,
+          "points": 2
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 24,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-21",
+      "nom": "RAIS",
+      "prenom": "Khalil",
+      "nomComplet": "RAIS Khalil",
+      "sexe": "M",
+      "dateNaissance": "2007-08-26",
+      "telephone": "0542057710",
+      "email": "maksrais37@gmail.com",
+      "club": "Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 2,
+      "bestRank": 11,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 11,
+          "points": 4
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 17,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-28",
+      "nom": "ACHACHE",
+      "prenom": "Abd erahim",
+      "nomComplet": "ACHACHE Abd erahim",
+      "sexe": "M",
+      "dateNaissance": "2010-01-26",
+      "telephone": "0793178153",
+      "email": "oumao965@gmail.com",
+      "club": "AUCA",
+      "fideId": "7981627",
+      "elo": 0,
+      "nbTournois": 2,
+      "bestRank": 9,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 9,
+          "points": 4
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 16,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-31",
+      "nom": "GOUASMIA",
+      "prenom": "Ishak",
+      "nomComplet": "GOUASMIA Ishak",
+      "sexe": "M",
+      "dateNaissance": "2002-07-22",
+      "telephone": "0549174194",
+      "email": "gouasmia.ishak@gmail.com",
+      "club": "Hamra Annaba",
+      "fideId": "7981813",
+      "elo": 0,
+      "nbTournois": 2,
+      "bestRank": 15,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 15,
+          "points": 3.5
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 22,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-41",
+      "nom": "HADJ AZZAM",
+      "prenom": "Nasreddine",
+      "nomComplet": "HADJ AZZAM Nasreddine",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 2,
+      "bestRank": 10,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 10,
+          "points": 4
+        },
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 15,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-40",
+      "nom": "CHANAFI",
+      "prenom": "Abderrazak",
+      "nomComplet": "CHANAFI Abderrazak",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Biskra",
+      "fideId": "",
+      "elo": 1920,
+      "nbTournois": 1,
+      "bestRank": 6,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 6,
+          "points": 4.5
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-53",
+      "nom": "HADJI",
+      "prenom": "Madjed",
+      "nomComplet": "HADJI Madjed",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Annaba",
+      "fideId": "",
+      "elo": 1848,
+      "nbTournois": 1,
+      "bestRank": 13,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 13,
+          "points": 4
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-1",
+      "nom": "BENCHIRF",
+      "prenom": "Iyed mouslim",
+      "nomComplet": "BENCHIRF Iyed mouslim",
+      "sexe": "M",
+      "dateNaissance": "2010-01-11",
+      "telephone": "0540856599",
+      "email": "iyedpipox@gmail.com",
+      "club": "Chess club annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 12,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 12,
+          "points": 4
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-3",
+      "nom": "CHERIFI",
+      "prenom": "Nacer eddine",
+      "nomComplet": "CHERIFI Nacer eddine",
+      "sexe": "M",
+      "dateNaissance": "2000-01-05",
+      "telephone": "",
+      "email": "",
+      "club": "Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 4,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 4,
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-6",
+      "nom": "ZIANI",
+      "prenom": "Aimen",
+      "nomComplet": "ZIANI Aimen",
+      "sexe": "M",
+      "dateNaissance": "1997-12-07",
+      "telephone": "0654200279",
+      "email": "zianiaimen23@gmail.com",
+      "club": "Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 25,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 25,
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-7",
+      "nom": "ZADI",
+      "prenom": "Sofiane",
+      "nomComplet": "ZADI Sofiane",
+      "sexe": "M",
+      "dateNaissance": "1984-04-19",
+      "telephone": "0674639133",
+      "email": "payserazadi23@gmail.com",
+      "club": "Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 21,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 21,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-9",
+      "nom": "HAMOUD",
+      "prenom": "Hamza",
+      "nomComplet": "HAMOUD Hamza",
+      "sexe": "M",
+      "dateNaissance": "1987-01-01",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 19,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 19,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-11",
+      "nom": "BERRAHOU",
+      "prenom": "Abdelaz",
+      "nomComplet": "BERRAHOU Abdelaz",
+      "sexe": "M",
+      "dateNaissance": "1973-07-28",
+      "telephone": "0555179661",
+      "email": "hydroagricoles@gmail.com",
+      "club": "Hamra  Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 10,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 10,
+          "points": 4
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-13",
+      "nom": "BACCOUCHE",
+      "prenom": "Abdelhafid",
+      "nomComplet": "BACCOUCHE Abdelhafid",
+      "sexe": "M",
+      "dateNaissance": "1988-05-31",
+      "telephone": "0557758057",
+      "email": "baccoucheabdelhafid@gmail.com",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 28,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 28,
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-19",
+      "nom": "BOUZITOUNE",
+      "prenom": "Abdelhafid",
+      "nomComplet": "BOUZITOUNE Abdelhafid",
+      "sexe": "M",
+      "dateNaissance": "1976-01-01",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "7921225",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 2,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 2,
+          "points": 4
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-24",
+      "nom": "AYAT",
+      "prenom": "Houssem",
+      "nomComplet": "AYAT Houssem",
+      "sexe": "M",
+      "dateNaissance": "2010-11-21",
+      "telephone": "0664192454",
+      "email": "",
+      "club": "Annaba",
+      "fideId": "7981660",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 7,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 7,
+          "points": 4.5
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-26",
+      "nom": "ABBACI",
+      "prenom": "Abdelouahed",
+      "nomComplet": "ABBACI Abdelouahed",
+      "sexe": "M",
+      "dateNaissance": "2002-10-23",
+      "telephone": "",
+      "email": "abbaciabdelouahed@gmail.com",
+      "club": "Annaba",
+      "fideId": "7976089",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 27,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 27,
+          "points": 0
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-27",
+      "nom": "ALI RACHEDI",
+      "prenom": "Fares",
+      "nomComplet": "ALI RACHEDI Fares",
+      "sexe": "M",
+      "dateNaissance": "1993-03-05",
+      "telephone": "0558386525",
+      "email": "alirachedifares@gmail.com",
+      "club": "Hamra Annaba",
+      "fideId": "7981643",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 23,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 23,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-29",
+      "nom": "TOUIL",
+      "prenom": "Achref",
+      "nomComplet": "TOUIL Achref",
+      "sexe": "M",
+      "dateNaissance": "2010-03-16",
+      "telephone": "0776112018",
+      "email": "achreftll46@gmail.com",
+      "club": "Annaba",
+      "fideId": "7981961",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 2,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois III – 3ᵉ édition",
+          "date": "27-28 Août 2026",
+          "rank": 2,
+          "points": 5.5
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-35",
+      "nom": "ATOUI",
+      "prenom": "Nadir",
+      "nomComplet": "ATOUI Nadir",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Amel",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 5,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 5,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-36",
+      "nom": "MEDJI",
+      "prenom": "Yakoub",
+      "nomComplet": "MEDJI Yakoub",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "HAMRA ANNABA",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 6,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 6,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-37",
+      "nom": "ZEGHIDA",
+      "prenom": "Mohamed",
+      "nomComplet": "ZEGHIDA Mohamed",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "HAMRA ANNABA",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 10,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 10,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-38",
+      "nom": "DJAWAD",
+      "prenom": "Salah",
+      "nomComplet": "DJAWAD Salah",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "HAMRA ANNABA ",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 11,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 11,
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-39",
+      "nom": "AALDINI",
+      "prenom": "Hakim",
+      "nomComplet": "AALDINI Hakim",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "HAMRA ANNABA ",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 12,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois I",
+          "date": "29 Mai 2026",
+          "rank": 12,
+          "points": 0
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-42",
+      "nom": "CHEDDADI",
+      "prenom": "Abdelaziz",
+      "nomComplet": "CHEDDADI Abdelaziz",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 16,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 16,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-43",
+      "nom": "BOULEMTAFES",
+      "prenom": "Amir",
+      "nomComplet": "BOULEMTAFES Amir",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 17,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 17,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-44",
+      "nom": "DEROUICHE",
+      "prenom": "Islem",
+      "nomComplet": "DEROUICHE Islem",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 18,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 18,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-45",
+      "nom": "BOUZIANE",
+      "prenom": "Badreddine",
+      "nomComplet": "BOUZIANE Badreddine",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Tebessa",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 19,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 19,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-46",
+      "nom": "GUERCHI",
+      "prenom": "Ilyes",
+      "nomComplet": "GUERCHI Ilyes",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 20,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 20,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-47",
+      "nom": "BERRAHOU",
+      "prenom": "Abdeaziz",
+      "nomComplet": "BERRAHOU Abdeaziz",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba ",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 21,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 21,
+          "points": 3
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-48",
+      "nom": "BOUAZINA",
+      "prenom": "Hani",
+      "nomComplet": "BOUAZINA Hani",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 22,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 22,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-49",
+      "nom": "GUENFOUDI",
+      "prenom": "Abdelkrim",
+      "nomComplet": "GUENFOUDI Abdelkrim",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 24,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 24,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-50",
+      "nom": "KHADRAOUI",
+      "prenom": "Louai",
+      "nomComplet": "KHADRAOUI Louai",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Hamra Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 25,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 25,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-51",
+      "nom": "JAHEL",
+      "prenom": "Ayoub",
+      "nomComplet": "JAHEL Ayoub",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 26,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 26,
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-52",
+      "nom": "YAHIAOUI",
+      "prenom": "Sohaib",
+      "nomComplet": "YAHIAOUI Sohaib",
+      "sexe": "M",
+      "dateNaissance": "",
+      "telephone": "",
+      "email": "",
+      "club": "Annaba",
+      "fideId": "",
+      "elo": 0,
+      "nbTournois": 1,
+      "bestRank": 27,
+      "tournoisParticipes": [
+        {
+          "tournamentTitle": "Le Cercle des Rois II – 2ᵉ édition",
+          "date": "1 Août 2026",
+          "rank": 27,
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": "cdr-player-22",
+      "nom": "TOUMI",
+      "prenom": "Fakhreddine",
+      "nomComplet": "TOUMI Fakhreddine",
+      "sexe": "M",
+      "dateNaissance": "1994-04-17",
+      "telephone": "0770252554",
+      "email": "fd.ryouko.chess@gmail.com",
+      "club": "Indépendant",
+      "fideId": "7924682",
+      "elo": 1688,
+      "nbTournois": 0,
+      "bestRank": null,
       "tournoisParticipes": []
     },
     {
       "id": "cdr-player-20",
-      "nomComplet": "ABEDOU Abdelkrim",
       "nom": "ABEDOU",
       "prenom": "Abdelkrim",
-      "club": "Indépendant",
-      "elo": 1639,
-      "fideId": "7924585",
+      "nomComplet": "ABEDOU Abdelkrim",
+      "sexe": "M",
+      "dateNaissance": "1995-04-22",
       "telephone": "0657645274",
       "email": "abdelkrimabeddou@gmail.com",
-      "dateNaissance": "1995-04-22",
+      "club": "Indépendant",
+      "fideId": "7924585",
+      "elo": 1639,
       "nbTournois": 0,
       "bestRank": null,
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-32",
-      "nomComplet": "ZEGHIB Rami",
-      "nom": "ZEGHIB",
-      "prenom": "Rami",
-      "club": "Hamra annaba",
-      "elo": 1579,
-      "fideId": "7973152",
-      "telephone": "0793128926",
-      "email": "ramidentaire23@gmail.com",
-      "dateNaissance": "2003-01-20",
-      "nbTournois": 2,
-      "bestRank": "8",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-16",
-      "nomComplet": "ANIBA Tarek",
-      "nom": "ANIBA",
-      "prenom": "Tarek",
-      "club": "Hamra Annaba",
-      "elo": 1551,
-      "fideId": "7921624",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "1990-01-01",
-      "nbTournois": 3,
-      "bestRank": "4",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-6",
-      "nomComplet": "ZIANI Aimen",
-      "nom": "ZIANI",
-      "prenom": "Aimen",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "0654200279",
-      "email": "zianiaimen23@gmail.com",
-      "dateNaissance": "1997-12-07",
-      "nbTournois": 1,
-      "bestRank": "25",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-7",
-      "nomComplet": "ZADI Sofiane",
-      "nom": "ZADI",
-      "prenom": "Sofiane",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "0674639133",
-      "email": "payserazadi23@gmail.com",
-      "dateNaissance": "1984-04-19",
-      "nbTournois": 1,
-      "bestRank": "21",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-9",
-      "nomComplet": "HAMOUD Hamza",
-      "nom": "HAMOUD",
-      "prenom": "Hamza",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "1987-01-01",
-      "nbTournois": 1,
-      "bestRank": "19",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-11",
-      "nomComplet": "BERRAHOU Abdelaz",
-      "nom": "BERRAHOU",
-      "prenom": "Abdelaz",
-      "club": "Hamra  Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "0555179661",
-      "email": "hydroagricoles@gmail.com",
-      "dateNaissance": "1973-07-28",
-      "nbTournois": 1,
-      "bestRank": "10",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-13",
-      "nomComplet": "BACCOUCHE Abdelhafid",
-      "nom": "BACCOUCHE",
-      "prenom": "Abdelhafid",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "0557758057",
-      "email": "baccoucheabdelhafid@gmail.com",
-      "dateNaissance": "1988-05-31",
-      "nbTournois": 1,
-      "bestRank": "28",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-19",
-      "nomComplet": "BOUZITOUNE Abdelhafid",
-      "nom": "BOUZITOUNE",
-      "prenom": "Abdelhafid",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "7921225",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "1976-01-01",
-      "nbTournois": 1,
-      "bestRank": "2",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-24",
-      "nomComplet": "AYAT Houssem",
-      "nom": "AYAT",
-      "prenom": "Houssem",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "7981660",
-      "telephone": "0664192454",
-      "email": "",
-      "dateNaissance": "2010-11-21",
-      "nbTournois": 1,
-      "bestRank": "7",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-26",
-      "nomComplet": "ABBACI Abdelouahed",
-      "nom": "ABBACI",
-      "prenom": "Abdelouahed",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "7976089",
-      "telephone": "",
-      "email": "abbaciabdelouahed@gmail.com",
-      "dateNaissance": "2002-10-23",
-      "nbTournois": 1,
-      "bestRank": "27",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-27",
-      "nomComplet": "ALI RACHEDI Fares",
-      "nom": "ALI RACHEDI",
-      "prenom": "Fares",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "7981643",
-      "telephone": "0558386525",
-      "email": "alirachedifares@gmail.com",
-      "dateNaissance": "1993-03-05",
-      "nbTournois": 1,
-      "bestRank": "23",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-29",
-      "nomComplet": "TOUIL Achref",
-      "nom": "TOUIL",
-      "prenom": "Achref",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "7981961",
-      "telephone": "0776112018",
-      "email": "achreftll46@gmail.com",
-      "dateNaissance": "2010-03-16",
-      "nbTournois": 1,
-      "bestRank": "2",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-35",
-      "nomComplet": "ATOUI Nadir",
-      "nom": "ATOUI",
-      "prenom": "Nadir",
-      "club": "Amel",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "5",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-36",
-      "nomComplet": "MEDJI Yakoub",
-      "nom": "MEDJI",
-      "prenom": "Yakoub",
-      "club": "HAMRA ANNABA",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "6",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-37",
-      "nomComplet": "ZEGHIDA Mohamed",
-      "nom": "ZEGHIDA",
-      "prenom": "Mohamed",
-      "club": "HAMRA ANNABA",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "10",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-38",
-      "nomComplet": "DJAWAD Salah",
-      "nom": "DJAWAD",
-      "prenom": "Salah",
-      "club": "HAMRA ANNABA ",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "11",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-39",
-      "nomComplet": "AALDINI Hakim",
-      "nom": "AALDINI",
-      "prenom": "Hakim",
-      "club": "HAMRA ANNABA ",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "12",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-42",
-      "nomComplet": "CHEDDADI Abdelaziz",
-      "nom": "CHEDDADI",
-      "prenom": "Abdelaziz",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "16",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-43",
-      "nomComplet": "BOULEMTAFES Amir",
-      "nom": "BOULEMTAFES",
-      "prenom": "Amir",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "17",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-44",
-      "nomComplet": "DEROUICHE Islem",
-      "nom": "DEROUICHE",
-      "prenom": "Islem",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "18",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-45",
-      "nomComplet": "BOUZIANE Badreddine",
-      "nom": "BOUZIANE",
-      "prenom": "Badreddine",
-      "club": "Tebessa",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "19",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-46",
-      "nomComplet": "GUERCHI Ilyes",
-      "nom": "GUERCHI",
-      "prenom": "Ilyes",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "20",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-47",
-      "nomComplet": "BERRAHOU Abdeaziz",
-      "nom": "BERRAHOU",
-      "prenom": "Abdeaziz",
-      "club": "Hamra Annaba ",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "21",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-48",
-      "nomComplet": "BOUAZINA Hani",
-      "nom": "BOUAZINA",
-      "prenom": "Hani",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "22",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-49",
-      "nomComplet": "GUENFOUDI Abdelkrim",
-      "nom": "GUENFOUDI",
-      "prenom": "Abdelkrim",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "24",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-50",
-      "nomComplet": "KHADRAOUI Louai",
-      "nom": "KHADRAOUI",
-      "prenom": "Louai",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "25",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-51",
-      "nomComplet": "JAHEL Ayoub",
-      "nom": "JAHEL",
-      "prenom": "Ayoub",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "26",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-52",
-      "nomComplet": "YAHIAOUI Sohaib",
-      "nom": "YAHIAOUI",
-      "prenom": "Sohaib",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": "27",
-      "sexe": "M",
       "tournoisParticipes": []
     },
     {
       "id": "cdr-player-2",
-      "nomComplet": "KEDJOUH Ismail",
       "nom": "KEDJOUH",
       "prenom": "Ismail",
-      "club": "Indépendant",
-      "elo": 0,
-      "fideId": "7924895",
+      "nomComplet": "KEDJOUH Ismail",
+      "sexe": "M",
+      "dateNaissance": "1995-05-09",
       "telephone": "0540712319",
       "email": "loukkedj@yahoo.com",
-      "dateNaissance": "1995-05-09",
+      "club": "Indépendant",
+      "fideId": "7924895",
+      "elo": 0,
       "nbTournois": 0,
       "bestRank": null,
-      "sexe": "M",
       "tournoisParticipes": []
     },
     {
       "id": "cdr-player-5",
-      "nomComplet": "BENNECIB Mohammed khalil",
       "nom": "BENNECIB",
       "prenom": "Mohammed khalil",
-      "club": "Hamra annaba",
-      "elo": 0,
-      "fideId": "",
+      "nomComplet": "BENNECIB Mohammed khalil",
+      "sexe": "M",
+      "dateNaissance": "2002-10-10",
       "telephone": "0540032634",
       "email": "",
-      "dateNaissance": "2002-10-10",
+      "club": "Hamra annaba",
+      "fideId": "",
+      "elo": 0,
       "nbTournois": 0,
       "bestRank": null,
-      "sexe": "M",
       "tournoisParticipes": []
     },
     {
       "id": "cdr-player-30",
-      "nomComplet": "NECHE Lokman",
       "nom": "NECHE",
       "prenom": "Lokman",
-      "club": "Indépendant",
-      "elo": 0,
-      "fideId": "",
+      "nomComplet": "NECHE Lokman",
+      "sexe": "M",
+      "dateNaissance": "2007-08-16",
       "telephone": "0775715742",
       "email": "lokmanneche8@gmail.com",
-      "dateNaissance": "2007-08-16",
+      "club": "Indépendant",
+      "fideId": "",
+      "elo": 0,
       "nbTournois": 0,
       "bestRank": null,
-      "sexe": "M",
       "tournoisParticipes": []
     },
     {
       "id": "cdr-player-34",
-      "nomComplet": "BENGHIDA Hamza",
       "nom": "BENGHIDA",
       "prenom": "Hamza",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "7981600",
+      "nomComplet": "BENGHIDA Hamza",
+      "sexe": "M",
+      "dateNaissance": "1988-08-12",
       "telephone": "0551056785",
       "email": "thealgerino23@gmail.com",
-      "dateNaissance": "1988-08-12",
+      "club": "Hamra Annaba",
+      "fideId": "7981600",
+      "elo": 0,
       "nbTournois": 0,
       "bestRank": null,
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-54",
-      "nomComplet": "TESTEURAPI_9995 Robot",
-      "nom": "TESTEURAPI_9995",
-      "prenom": "Robot",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "999995",
-      "telephone": "0555000000",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": null,
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-55",
-      "nomComplet": "JOUEUR Participant",
-      "nom": "JOUEUR",
-      "prenom": "Participant",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": null,
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-56",
-      "nomComplet": "TESTEURAPI_5805 Robot",
-      "nom": "TESTEURAPI_5805",
-      "prenom": "Robot",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "995805",
-      "telephone": "0555580599",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": null,
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-57",
-      "nomComplet": "TESTEURAPI_2752 Robot",
-      "nom": "TESTEURAPI_2752",
-      "prenom": "Robot",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "992752",
-      "telephone": "0555275299",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": null,
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-58",
-      "nomComplet": "TESTEURAPI_7403 Robot",
-      "nom": "TESTEURAPI_7403",
-      "prenom": "Robot",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "997403",
-      "telephone": "0555740399",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": null,
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-59",
-      "nomComplet": "TESTEURAPI_2279 Robot",
-      "nom": "TESTEURAPI_2279",
-      "prenom": "Robot",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "992279",
-      "telephone": "0555227999",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 1,
-      "bestRank": null,
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-8",
-      "nomComplet": "MENASSEL Skander",
-      "nom": "MENASSEL",
-      "prenom": "Skander",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "1998-01-01",
-      "nbTournois": 2,
-      "bestRank": "13",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-10",
-      "nomComplet": "OUERHANI Badreddine",
-      "nom": "OUERHANI",
-      "prenom": "Badreddine",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "1988-01-01",
-      "nbTournois": 2,
-      "bestRank": "7",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-12",
-      "nomComplet": "AYAD Zoheir",
-      "nom": "AYAD",
-      "prenom": "Zoheir",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "0662535291",
-      "email": "",
-      "dateNaissance": "1978-08-31",
-      "nbTournois": 2,
-      "bestRank": "3",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-17",
-      "nomComplet": "DJAWAD Mohammed",
-      "nom": "DJAWAD",
-      "prenom": "Mohammed",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "7981783",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "1954-01-01",
-      "nbTournois": 2,
-      "bestRank": "14",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-18",
-      "nomComplet": "BENTBOULA Kheir Eddine",
-      "nom": "BENTBOULA",
-      "prenom": "Kheir Eddine",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "1960-01-01",
-      "nbTournois": 2,
-      "bestRank": "9",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-21",
-      "nomComplet": "RAIS Khalil",
-      "nom": "RAIS",
-      "prenom": "Khalil",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "0542057710",
-      "email": "maksrais37@gmail.com",
-      "dateNaissance": "2007-08-26",
-      "nbTournois": 2,
-      "bestRank": "11",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-28",
-      "nomComplet": "ACHACHE Abd erahim",
-      "nom": "ACHACHE",
-      "prenom": "Abd erahim",
-      "club": "AUCA",
-      "elo": 0,
-      "fideId": "7981627",
-      "telephone": "0793178153",
-      "email": "oumao965@gmail.com",
-      "dateNaissance": "2010-01-26",
-      "nbTournois": 2,
-      "bestRank": "9",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-31",
-      "nomComplet": "GOUASMIA Ishak",
-      "nom": "GOUASMIA",
-      "prenom": "Ishak",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "7981813",
-      "telephone": "0549174194",
-      "email": "gouasmia.ishak@gmail.com",
-      "dateNaissance": "2002-07-22",
-      "nbTournois": 2,
-      "bestRank": "15",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-41",
-      "nomComplet": "HADJ AZZAM Nasreddine",
-      "nom": "HADJ AZZAM",
-      "prenom": "Nasreddine",
-      "club": "Hamra Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "",
-      "nbTournois": 2,
-      "bestRank": "10",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-1",
-      "nomComplet": "BENCHIRF Iyed mouslim",
-      "nom": "BENCHIRF",
-      "prenom": "Iyed mouslim",
-      "club": "Chess club annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "0540856599",
-      "email": "iyedpipox@gmail.com",
-      "dateNaissance": "2010-01-11",
-      "nbTournois": 1,
-      "bestRank": "12",
-      "sexe": "M",
-      "tournoisParticipes": []
-    },
-    {
-      "id": "cdr-player-3",
-      "nomComplet": "CHERIFI Nacer eddine",
-      "nom": "CHERIFI",
-      "prenom": "Nacer eddine",
-      "club": "Annaba",
-      "elo": 0,
-      "fideId": "",
-      "telephone": "",
-      "email": "",
-      "dateNaissance": "2000-01-05",
-      "nbTournois": 1,
-      "bestRank": "4",
-      "sexe": "M",
       "tournoisParticipes": []
     }
   ]

@@ -36,7 +36,7 @@ export async function POST(
       const ok = togglePlayerCheckIn(tournament.id, registrationId);
       const updated = getTournamentBySlug(tournament.id)?.registeredPlayers?.find(p => p.id === registrationId);
       if (updated) {
-        updateRegistrationInSupabase(registrationId, { isCheckedIn: updated.isCheckedIn }).catch(() => {});
+        await updateRegistrationInSupabase(registrationId, { isCheckedIn: updated.isCheckedIn });
       }
       return NextResponse.json({ success: ok });
     }
@@ -45,7 +45,7 @@ export async function POST(
       const ok = togglePlayerPaid(tournament.id, registrationId);
       const updated = getTournamentBySlug(tournament.id)?.registeredPlayers?.find(p => p.id === registrationId);
       if (updated) {
-        updateRegistrationInSupabase(registrationId, { isPaid: updated.isPaid }).catch(() => {});
+        await updateRegistrationInSupabase(registrationId, { isPaid: updated.isPaid });
       }
       return NextResponse.json({ success: ok });
     }
@@ -54,18 +54,18 @@ export async function POST(
       const ok = promoteWaitlistPlayer(tournament.id, registrationId);
       const updated = getTournamentBySlug(tournament.id)?.registeredPlayers?.find(p => p.id === registrationId);
       if (updated) {
-        updateRegistrationInSupabase(registrationId, { 
+        await updateRegistrationInSupabase(registrationId, { 
           status: 'confirmed', 
           dossardNumber: updated.dossardNumber, 
           waitlistRank: null 
-        }).catch(() => {});
+        });
       }
       return NextResponse.json({ success: ok });
     }
 
     if (action === 'remove') {
       const ok = removeRegistration(tournament.id, registrationId);
-      deleteRegistrationFromSupabase(registrationId).catch(() => {});
+      await deleteRegistrationFromSupabase(registrationId);
       return NextResponse.json({ success: ok });
     }
 
@@ -74,7 +74,7 @@ export async function POST(
       if (podium) tournament.podium = podium;
       if (standings) tournament.standings = standings;
       saveTournament(tournament);
-      syncTournamentToSupabase(tournament).catch(() => {});
+      await syncTournamentToSupabase(tournament);
       return NextResponse.json({ success: true, tournament });
     }
 

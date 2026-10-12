@@ -437,10 +437,12 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">
+                <label htmlFor="nom" className="text-xs font-semibold text-slate-300">
                   Nom
                 </label>
                 <input
+                  id="nom"
+                  name="nom"
                   ref={nomInputRef}
                   type="text"
                   placeholder="ex: BENLAID"
@@ -451,10 +453,12 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">
+                <label htmlFor="prenom" className="text-xs font-semibold text-slate-300">
                   Prénom
                 </label>
                 <input
+                  id="prenom"
+                  name="prenom"
                   type="text"
                   placeholder="ex: Lakhdar"
                   value={formData.prenom}
@@ -466,10 +470,12 @@ export default function TournamentDetailClient({ slug, initialTournament }: Prop
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-300">
+                <label htmlFor="telephone" className="text-xs font-semibold text-slate-300">
                   Numéro de Téléphone
                 </label>
                 <input
+                  id="telephone"
+                  name="telephone"
                   type="tel"
                   placeholder="ex: 0551056785"
                   value={formData.telephone}

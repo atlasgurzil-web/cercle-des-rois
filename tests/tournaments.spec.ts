@@ -63,6 +63,21 @@ test.describe('Tournois & Inscriptions (US-2 à US-7)', () => {
 
     // Attendre le retour de confirmation
     await expect(page.getByText(/Inscription confirmée|Dossard|Liste d'attente/i).first()).toBeVisible({ timeout: 10000 });
+
+    // Nettoyage automatique post-test pour garder la base saine et vierge
+    const authRes = await page.request.post('/api/auth', { data: { pin: 'Hamra1944' } });
+    const authData = await authRes.json();
+    const tourneyRes = await page.request.get(`/api/tournaments/${activeSlug}`, {
+      headers: { Authorization: `Bearer ${authData.token}` }
+    });
+    const tourneyData = await tourneyRes.json();
+    const testReg = tourneyData.registeredPlayers?.find((p: any) => p.nom.toUpperCase() === testNom.toUpperCase());
+    if (testReg) {
+      await page.request.post(`/api/tournaments/${activeSlug}/checkin`, {
+        headers: { Authorization: `Bearer ${authData.token}` },
+        data: { action: 'remove', registrationId: testReg.id }
+      });
+    }
   });
 
   test('Vérification de la confidentialité des données (US-5)', async ({ page }) => {

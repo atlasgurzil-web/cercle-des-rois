@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { registerPlayerToTournament } from '@/lib/storage';
 import { validateRegistrationInput } from '@/lib/validation';
-import { syncRegistrationToSupabase } from '@/lib/supabase-service';
+import { syncRegistrationToSupabase, syncPlayerToSupabase } from '@/lib/supabase-service';
 
 export async function POST(
   request: Request,
@@ -38,8 +38,29 @@ export async function POST(
     }
 
     if (result.registration) {
-      // Background sync to Supabase if configured
-      syncRegistrationToSupabase(params.id, result.registration).catch(() => {});
+      // Synchronous, guaranteed write to Supabase
+      const syncResult = await syncRegistrationToSupabase(params.id, result.registration);
+      if (!syncResult.success) {
+        console.error('[CRITICAL] Inscription enregistrée localement mais échec de synchronisation Supabase:', syncResult.error);
+      }
+
+      // Synchronize player to directory in Supabase
+      await syncPlayerToSupabase({
+        id: `cdr-player-${Date.now()}`,
+        nom: result.registration.nom,
+        prenom: result.registration.prenom || '',
+        nomComplet: `${result.registration.nom} ${result.registration.prenom || ''}`.trim(),
+        club: result.registration.club || 'Indépendant',
+        elo: result.registration.eloFide || 0,
+        fideId: result.registration.fideId || '',
+        telephone: result.registration.telephone || '',
+        email: result.registration.email || '',
+        dateNaissance: result.registration.dateNaissance || '',
+        nbTournois: 1,
+        bestRank: null,
+        sexe: 'M',
+        tournoisParticipes: []
+      });
     }
 
     return NextResponse.json(result, { status: 201 });

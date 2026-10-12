@@ -1,13 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
 import { Calendar, MapPin, Clock, Users, Flame, ChevronRight, Trophy, Sparkles, CheckCircle2 } from 'lucide-react';
-import { getUpcomingTournaments, getArchivedTournaments } from '@/lib/storage';
+import { getUpcomingTournamentsAsync, getArchivedTournamentsAsync } from '@/lib/storage';
 
 export const dynamic = 'force-dynamic';
 
-export default function TournamentsListPage() {
-  const upcoming = getUpcomingTournaments();
-  const archives = getArchivedTournaments();
+export default async function TournamentsListPage() {
+  const upcoming = await getUpcomingTournamentsAsync();
+  const archives = await getArchivedTournamentsAsync();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 space-y-16">

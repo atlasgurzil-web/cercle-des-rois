@@ -190,11 +190,11 @@ export async function fetchPlayersFromSupabase(): Promise<DirectoryPlayer[] | nu
 
 // ---------------- WRITE / MUTATION OPERATIONS ----------------
 
-export async function syncRegistrationToSupabase(tournamentIdOrSlug: string, reg: PlayerRegistration) {
-  if (!isSupabaseConfigured()) return;
+export async function syncRegistrationToSupabase(tournamentIdOrSlug: string, reg: PlayerRegistration): Promise<{ success: boolean; error?: string }> {
+  if (!isSupabaseConfigured()) return { success: true };
   try {
     const client = getSupabaseServerClient();
-    if (!client) return;
+    if (!client) return { success: false, error: 'Client Supabase non initialisé' };
 
     let targetTournamentId = tournamentIdOrSlug;
     if (!targetTournamentId.startsWith('cdr-')) {
@@ -208,7 +208,7 @@ export async function syncRegistrationToSupabase(tournamentIdOrSlug: string, reg
       }
     }
 
-    await client.from('registrations').upsert({
+    const { error } = await client.from('registrations').upsert({
       id: reg.id,
       tournament_id: targetTournamentId,
       nom: reg.nom,
@@ -227,8 +227,15 @@ export async function syncRegistrationToSupabase(tournamentIdOrSlug: string, reg
       notes: reg.notes || '',
       registered_at: reg.registeredAt || new Date().toISOString()
     });
-  } catch (err) {
-    console.warn('[Supabase Sync Warning] Could not sync registration:', err);
+
+    if (error) {
+      console.error('[Supabase Sync Registration Error]:', error);
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: any) {
+    console.error('[Supabase Sync Registration Fatal]:', err);
+    return { success: false, error: err?.message || 'Erreur inconnue' };
   }
 }
 
@@ -241,11 +248,11 @@ export async function updateRegistrationInSupabase(
     dossardNumber?: number;
     waitlistRank?: number | null;
   }
-) {
-  if (!isSupabaseConfigured()) return;
+): Promise<{ success: boolean; error?: string }> {
+  if (!isSupabaseConfigured()) return { success: true };
   try {
     const client = getSupabaseServerClient();
-    if (!client) return;
+    if (!client) return { success: false, error: 'Client Supabase non initialisé' };
 
     const payload: Record<string, unknown> = {};
     if (typeof updates.isCheckedIn === 'boolean') payload.is_checked_in = updates.isCheckedIn;
@@ -254,31 +261,43 @@ export async function updateRegistrationInSupabase(
     if (typeof updates.dossardNumber === 'number') payload.dossard_number = updates.dossardNumber;
     if (updates.waitlistRank !== undefined) payload.waitlist_rank = updates.waitlistRank;
 
-    await client.from('registrations').update(payload).eq('id', registrationId);
-  } catch (err) {
-    console.warn('[Supabase Update Registration Warning]:', err);
+    const { error } = await client.from('registrations').update(payload).eq('id', registrationId);
+    if (error) {
+      console.error('[Supabase Update Registration Error]:', error);
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: any) {
+    console.error('[Supabase Update Registration Fatal]:', err);
+    return { success: false, error: err?.message || 'Erreur inconnue' };
   }
 }
 
-export async function deleteRegistrationFromSupabase(registrationId: string) {
-  if (!isSupabaseConfigured()) return;
+export async function deleteRegistrationFromSupabase(registrationId: string): Promise<{ success: boolean; error?: string }> {
+  if (!isSupabaseConfigured()) return { success: true };
   try {
     const client = getSupabaseServerClient();
-    if (!client) return;
+    if (!client) return { success: false, error: 'Client Supabase non initialisé' };
 
-    await client.from('registrations').delete().eq('id', registrationId);
-  } catch (err) {
-    console.warn('[Supabase Delete Registration Warning]:', err);
+    const { error } = await client.from('registrations').delete().eq('id', registrationId);
+    if (error) {
+      console.error('[Supabase Delete Registration Error]:', error);
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: any) {
+    console.error('[Supabase Delete Registration Fatal]:', err);
+    return { success: false, error: err?.message || 'Erreur inconnue' };
   }
 }
 
-export async function syncTournamentToSupabase(tournament: Tournament) {
-  if (!isSupabaseConfigured()) return;
+export async function syncTournamentToSupabase(tournament: Tournament): Promise<{ success: boolean; error?: string }> {
+  if (!isSupabaseConfigured()) return { success: true };
   try {
     const client = getSupabaseServerClient();
-    if (!client) return;
+    if (!client) return { success: false, error: 'Client Supabase non initialisé' };
 
-    await client.from('tournaments').upsert({
+    const { error } = await client.from('tournaments').upsert({
       id: tournament.id,
       edition: tournament.edition,
       title: tournament.title,
@@ -298,30 +317,42 @@ export async function syncTournamentToSupabase(tournament: Tournament) {
       prizes: tournament.prizes || '',
       chess_results_url: tournament.chessResultsUrl || ''
     });
-  } catch (err) {
-    console.warn('[Supabase Sync Warning] Could not sync tournament:', err);
+    if (error) {
+      console.error('[Supabase Sync Tournament Error]:', error);
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: any) {
+    console.error('[Supabase Sync Tournament Fatal]:', err);
+    return { success: false, error: err?.message || 'Erreur inconnue' };
   }
 }
 
-export async function deleteTournamentFromSupabase(tournamentId: string) {
-  if (!isSupabaseConfigured()) return;
+export async function deleteTournamentFromSupabase(tournamentId: string): Promise<{ success: boolean; error?: string }> {
+  if (!isSupabaseConfigured()) return { success: true };
   try {
     const client = getSupabaseServerClient();
-    if (!client) return;
+    if (!client) return { success: false, error: 'Client Supabase non initialisé' };
 
-    await client.from('tournaments').delete().eq('id', tournamentId);
-  } catch (err) {
-    console.warn('[Supabase Delete Tournament Warning]:', err);
+    const { error } = await client.from('tournaments').delete().eq('id', tournamentId);
+    if (error) {
+      console.error('[Supabase Delete Tournament Error]:', error);
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: any) {
+    console.error('[Supabase Delete Tournament Fatal]:', err);
+    return { success: false, error: err?.message || 'Erreur inconnue' };
   }
 }
 
-export async function syncPlayerToSupabase(player: DirectoryPlayer) {
-  if (!isSupabaseConfigured()) return;
+export async function syncPlayerToSupabase(player: DirectoryPlayer): Promise<{ success: boolean; error?: string }> {
+  if (!isSupabaseConfigured()) return { success: true };
   try {
     const client = getSupabaseServerClient();
-    if (!client) return;
+    if (!client) return { success: false, error: 'Client Supabase non initialisé' };
 
-    await client.from('players').upsert({
+    const { error } = await client.from('players').upsert({
       id: player.id,
       nom_complet: player.nomComplet,
       nom: player.nom,
@@ -335,19 +366,31 @@ export async function syncPlayerToSupabase(player: DirectoryPlayer) {
       tournois_joues: player.nbTournois || 0,
       meilleur_classement: player.bestRank ? String(player.bestRank) : ''
     });
-  } catch (err) {
-    console.warn('[Supabase Sync Warning] Could not sync player:', err);
+    if (error) {
+      console.error('[Supabase Sync Player Error]:', error);
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: any) {
+    console.error('[Supabase Sync Player Fatal]:', err);
+    return { success: false, error: err?.message || 'Erreur inconnue' };
   }
 }
 
-export async function deletePlayerFromSupabase(playerId: string) {
-  if (!isSupabaseConfigured()) return;
+export async function deletePlayerFromSupabase(playerId: string): Promise<{ success: boolean; error?: string }> {
+  if (!isSupabaseConfigured()) return { success: true };
   try {
     const client = getSupabaseServerClient();
-    if (!client) return;
+    if (!client) return { success: false, error: 'Client Supabase non initialisé' };
 
-    await client.from('players').delete().eq('id', playerId);
-  } catch (err) {
-    console.warn('[Supabase Delete Player Warning]:', err);
+    const { error } = await client.from('players').delete().eq('id', playerId);
+    if (error) {
+      console.error('[Supabase Delete Player Error]:', error);
+      return { success: false, error: error.message };
+    }
+    return { success: true };
+  } catch (err: any) {
+    console.error('[Supabase Delete Player Fatal]:', err);
+    return { success: false, error: err?.message || 'Erreur inconnue' };
   }
 }

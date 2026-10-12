@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: "Le Cercle des Rois",
     images: [
       {
-        url: "/logo.png",
+        url: "/og-image.jpg",
         width: 800,
         height: 800,
         alt: "Logo Le Cercle des Rois - Annaba",
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/favicon.png",
+    apple: "/icon-192.png",
   },
 };
 

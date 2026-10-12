@@ -75,5 +75,15 @@ test.describe('API Endpoints (Intégrité Backend & Sécurité)', () => {
     expect(data.success).toBe(true);
     expect(data).toHaveProperty('registration');
     expect(data.registration.nom.toUpperCase()).toBe(`TESTEURAPI_${randomId}`);
+
+    // Nettoyage automatique post-test pour garantir zéro résidu en base
+    if (data.registration?.id) {
+      const authRes = await request.post('/api/auth', { data: { pin: 'Hamra1944' } });
+      const authData = await authRes.json();
+      await request.post('/api/tournaments/le-cercle-des-rois-4/checkin', {
+        headers: { Authorization: `Bearer ${authData.token}` },
+        data: { action: 'remove', registrationId: data.registration.id }
+      });
+    }
   });
 });
