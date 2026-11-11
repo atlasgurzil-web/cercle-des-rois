@@ -1,0 +1,11 @@
+# Le Cercle des Rois — Tournois d'Échecs Indépendants à Annaba
+> Plateforme officielle du Cercle des Rois à Annaba. Organisation de tournois d'échecs fermés et ouverts, classements Elo, appariements au système suisse et promotion des talents échiquéens en Algérie.
+
+## Sections
+- [Plateforme Officielle](https://cercle-des-rois.vercel.app/): Résultats des rondes en direct, appariements, classements et calendrier des éditions du tournoi.
+- Tournois: Compétitions homologuées et indépendantes, cadence classique, rapide et blitz.
+- Annuaire des Joueurs: Fiches profils, historiques de performances et variations de points.
+
+## Informations
+- Ville: Annaba, Algérie
+- Discipline: Échecs (FIDE & National)
